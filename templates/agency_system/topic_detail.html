@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>{{ topic.name }}</h1>
+  <hr>
+  {% if topic.newspapers.all %}
+    {% for newspaper in topic.newspapers.all %}
+      <p><strong>Newspaper: </strong>{{ newspaper.title }}</p>
+
+      {% if newspaper.publishers.all %}
+        <p><strong>Publishers:</strong></p>
+          {% for publisher in newspaper.publishers.all %}
+            <hr>
+            <p class="text-muted"> ID: {{ publisher.id }} </p>
+            <li>{{ publisher.first_name }} {{ publisher.last_name }}</li>
+          {% endfor %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    <p>There are no newspapers on this topic.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Newspapers</h1>
+  <hr>
+  <ul>
+    {% for newspaper in newspaper_list %}
+      <li>
+        <p><a href="#">{{ newspaper.title }}</a></p>
+      </li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

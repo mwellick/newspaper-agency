@@ -15,11 +15,24 @@
   <div class="row">
     <div class="col-sm-3">
       {% block sidebar %}
-        {% include "includes/sidebar.html" %}
+        <ul>
+          <li>
+            <a href="{% url 'agency_system:index' %}">Home</a>
+          </li>
+          <li>
+            <a href="{% url 'agency_system:topic-list' %}">All topics</a>
+          </li>
+          <li>
+            <a href="{% url 'agency_system:redactor-list' %}">All redactors</a>
+          </li>
+          <li>
+            <a href="{% url "agency_system:newspaper-list" %}">All newspapers</a>
+          </li>
+        </ul>
       {% endblock %}
     </div>
 
-    <div class="col-sm-9"><h1>Welcome</h1>
+    <div class="col-sm-9">
       {% block content %}
 
       {% endblock %}

@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>{{ newspaper.title }}</h2>
+  <hr>
+  <p><strong>Topic:</strong> {{ newspaper.topic }}</p>
+  <hr>
+  {% for publisher in newspaper.publishers.all %}
+
+    <p><strong>Author:</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
+    <p><strong>Username:</strong> {{ publisher.username }}</p>
+    <p><strong>Email:</strong> {{ publisher.email }}</p>
+  {% endfor %}
+  <p><strong>Published date:</strong> {{ newspaper.published_date }}</p>
+
+  <hr>
+  <div class="col-sm-3">
+    <p>{{ newspaper.content }}</p>
+
+  </div>
+{% endblock %}
