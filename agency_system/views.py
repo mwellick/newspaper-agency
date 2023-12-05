@@ -1,9 +1,12 @@
+from django.views import generic
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Topic, Redactor, Newspaper
-from django.views import generic
 
 
+@login_required
 def index(request: HttpRequest) -> HttpResponse:
     num_topics = Topic.objects.count()
     num_redactors = Redactor.objects.count()
@@ -16,26 +19,26 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "agency_system/index.html", context=context)
 
 
-class TopicListView(generic.ListView):
+class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
 
 
-class TopicDetailView(generic.DetailView):
+class TopicDetailView(LoginRequiredMixin, generic.DetailView):
     model = Topic
 
 
-class RedactorListView(generic.ListView):
+class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
 
 
-class RedactorDetailView(generic.DetailView):
+class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Redactor
 
 
-class NewspaperListView(generic.ListView):
+class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
     queryset = Newspaper.objects.select_related("topic")
 
 
-class NewspaperDetailView(generic.DetailView):
+class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
     model = Newspaper
