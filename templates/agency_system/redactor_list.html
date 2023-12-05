@@ -7,7 +7,7 @@
     <ul>
       {% for redactor in redactor_list %}
         <li>
-          <p><a href="#">{{ redactor.username }}: {{ redactor.first_name }} {{ redactor.last_name }}</a></p>
+          <p><a href={% url "agency_system:redactor-detail" pk=redactor.id %}>{{ redactor.username }}: {{ redactor.first_name }} {{ redactor.last_name }}</a></p>
         </li>
       {% endfor %}
     </ul>

@@ -16,6 +16,19 @@
     <div class="col-sm-3">
       {% block sidebar %}
         <ul>
+          {% if user.is_authenticated %}
+            <li>
+              User: {{ user.username }}
+            <li>
+              <a href="{% url 'logout' %}">Logout</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{% url 'login' %}">Login</a>
+            </li>
+
+          {% endif %}
+          <br>
           <li>
             <a href="{% url 'agency_system:index' %}">Home</a>
           </li>
