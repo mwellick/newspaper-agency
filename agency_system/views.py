@@ -34,6 +34,7 @@ class RedactorDetailView(generic.DetailView):
 
 class NewspaperListView(generic.ListView):
     model = Newspaper
+    queryset = Newspaper.objects.select_related("topic")
 
 
 class NewspaperDetailView(generic.DetailView):
