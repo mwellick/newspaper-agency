@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ object|yesno:"Edit the ,Add a" }} Newspaper</h1>
+  {% include "includes/agency_system_form.html" %}
+{% endblock %}
