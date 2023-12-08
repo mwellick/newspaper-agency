@@ -4,6 +4,9 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+
+from .forms import RedactorCreationForm
 from .models import Topic, Redactor, Newspaper
 
 
@@ -18,6 +21,10 @@ def index(request: HttpRequest) -> HttpResponse:
         "num_newspapers": num_newspapers
     }
     return render(request, "agency_system/index.html", context=context)
+
+
+class RegistrationSuccessView(TemplateView):
+    template_name = 'registration/success_registration.html'
 
 
 class TopicListView(LoginRequiredMixin, generic.ListView):
@@ -56,11 +63,11 @@ class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Redactor
 
 
-class RedactorCreateView(LoginRequiredMixin, generic.CreateView):
+class RedactorCreateView(generic.CreateView):
     model = Redactor
-    fields = ("username", "first_name", "last_name", "years_of_experience",)
-    success_url = reverse_lazy("agency_system:redactor-list")
-    template_name = "agency_system/redactor_form.html"
+    form_class = RedactorCreationForm
+    template_name = "registration/register.html"
+    success_url = reverse_lazy("agency_system:success")
 
 
 class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):

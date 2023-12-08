@@ -9,6 +9,10 @@
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Login">
-    <input type="hidden" name="next" value="{{ next }}" />
+    <br>
+    <p>Don't have an account? <a href="{% url 'agency_system:redactor-create' %}">Register</a></p>
+    <input type="hidden" name="next" value="{{ next }}"/>
+
   </form>
+
 {% endblock %}

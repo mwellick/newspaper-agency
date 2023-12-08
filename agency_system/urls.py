@@ -1,6 +1,7 @@
 from django.urls import path
-from agency_system.views import index
-from .views import (TopicListView,
+from .views import (index,
+                    RegistrationSuccessView,
+                    TopicListView,
                     TopicDetailView,
                     TopicCreateView,
                     TopicUpdateView,
@@ -17,6 +18,7 @@ from .views import (TopicListView,
 
 urlpatterns = [
     path("", index, name="index"),
+    path("success/", RegistrationSuccessView.as_view(), name="success"),
     path("topics/", TopicListView.as_view(), name="topic-list"),
     path("topics/<int:pk>/", TopicDetailView.as_view(), name="topic-detail"),
     path("topics/create/", TopicCreateView.as_view(), name="topic-create"),
