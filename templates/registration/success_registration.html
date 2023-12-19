@@ -1,2 +1,19 @@
-<h1>{{ username }}You have successfully registered!</h1>
-<p><a href="{% url 'login' %}">Click here</a> to log into Your account</p>
+{% extends 'base.html' %}
+{% block title %}
+<title>Registration</title>
+{% endblock %}
+{% block sidebar %}
+{% endblock %}
+{% block content %}
+  <section class="vh-100 bg-image"
+           style="background-image: url('https://img.freepik.com/free-photo/top-view-newspaper-pieces-assortment_23-2149318830.jpg?w=1800&t=st=1702986083~exp=1702986683~hmac=7e04c19388cfec0ff8481e62fbff7d2674684bd41d4557511ef11d170d426f59');">
+    <div class="mask d-flex align-items-center vh-100 gradient-custom-3 text-center justify-content-center">
+      <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading">Well done!</h4>
+        <p>You have successfully created Your account!</p>
+        <hr>
+        <p class="mb-0"><a href="{% url 'login' %}">Click here</a> to log into Your account.</p>
+      </div>
+    </div>
+  </section>
+{% endblock %}

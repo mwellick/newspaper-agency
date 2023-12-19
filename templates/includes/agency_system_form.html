@@ -1,6 +1,6 @@
 {% load crispy_forms_filters %}
 <section class="vh-100  bg-image"
-         style="background-image: url('https://mdbcdn.b-cdn.net/img/Photos/new-templates/search-box/img4.webp');">
+         style="background-image: url('https://img.freepik.com/free-photo/top-view-newspaper-pieces-assortment_23-2149318830.jpg?w=1800&t=st=1702986083~exp=1702986683~hmac=7e04c19388cfec0ff8481e62fbff7d2674684bd41d4557511ef11d170d426f59');">
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
       <div class="row d-flex justify-content-center align-items-center h-100">
@@ -8,39 +8,16 @@
           <div class="card mx-auto my-5" style="border-radius: 15px;">
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-              <form>
-
-                <div class="form-outline mb-4">
-                  <input type="text" id="form3Example1cg" class="form-control form-control-lg"/>
-                  <label class="form-label" for="form3Example1cg">Your Name</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg"/>
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg"/>
-                  <label class="form-label" for="form3Example4cg">Password</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cdg" class="form-control form-control-lg"/>
-                  <label class="form-label" for="form3Example4cdg">Repeat your password</label>
-                </div>
-
-
+              <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
                 <div class="d-flex justify-content-center">
-                  <button type="button"
-                          class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Register
+                  <button type="submit"
+                          class="btn btn-success btn-block btn-lg gradient-custom-4 ">Register
                   </button>
                 </div>
-
-                <p class="text-center text-muted mt-5 mb-0">Have already an account? <a href="{% url 'login' %}"
-                                                                                        class="fw-bold text-body"><u>Login
-                  here</u></a></p>
-
+                <br>
+                <p>Have already an account? <a href="{% url 'login' %}">Login here </a></p>
               </form>
 
             </div>
