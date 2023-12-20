@@ -24,3 +24,12 @@ body, html {
     align-items: center;
     height: 100%;
 }
+
+.card {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form-text{
+    color: white !important;
+}
