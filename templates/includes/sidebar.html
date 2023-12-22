@@ -1,32 +1,35 @@
-<div class="col-sm-3">
-  {% block sidebar %}
-    <ul>
-      {% if user.is_authenticated %}
-        <li>
-          User: {{ user.username }}
-        </li>
-        <li>
-          <a href="{% url 'logout' %}">Logout</a>
-        </li>
-      {% else %}
-        <li>
-          <a href="{% url 'login' %}">Login</a>
-        </li>
-
-      {% endif %}
-      <br>
-      <li>
-        <a href="{% url 'agency_system:index' %}">Home</a>
-      </li>
-      <li>
-        <a href="{% url 'agency_system:topic-list' %}">All topics</a>
-      </li>
-      <li>
-        <a href="{% url 'agency_system:redactor-list' %}">All redactors</a>
-      </li>
-      <li>
-        <a href="{% url "agency_system:newspaper-list" %}">All newspapers</a>
-      </li>
-    </ul>
-  {% endblock %}
-</div>
+{#<div class="col-sm-3 navbar-collapse mx-auto text-center">#}
+{#  <div class="container position-sticky z-index-sticky top-0">#}
+{#    <div class="row">#}
+{#      <div class="col-12">#}
+{#        <nav#}
+{#            class="navbar navbar-expand-lg  blur border-radius-xl mt-4 top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-0">#}
+{#          <div class="container-fluid px-0 d-flex">#}
+{#            <a class="navbar-brand font-weight-bolder" rel="tooltip">#}
+{#              Good News#}
+{#            </a>#}
+{#            <br>#}
+{#              <a href="{% url 'agency_system:index' %}">Home</a>#}
+{#              <a href="{% url 'agency_system:topic-list' %}">All topics</a>#}
+{#              <a href="{% url 'agency_system:redactor-list' %}">All redactors</a>#}
+{#              <a href="{% url "agency_system:newspaper-list" %}">All newspapers</a>#}
+{##}
+{#              {% if user.is_authenticated %}#}
+{##}
+{#                User: {{ user.username }}#}
+{##}
+{##}
+{#                <a href="{% url 'logout' %}">Logout</a>#}
+{##}
+{#              {% else %}#}
+{##}
+{#                <a href="{% url 'login' %}">Login</a>#}
+{##}
+{##}
+{#              {% endif %}#}
+{#            </div>#}
+{#        </nav>#}
+{#      </div>#}
+{#    </div>#}
+{#  </div>#}
+{#</div>#}

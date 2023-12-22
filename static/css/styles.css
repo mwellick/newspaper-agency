@@ -30,6 +30,16 @@ body, html {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.form-text{
+.form-text {
     color: white !important;
+}
+
+.nav-bar {
+    line-height: 80px;
+    font-size: 1.2rem;
+}
+
+.btn-logout a {
+    color: white;
+    text-decoration: none;
 }
