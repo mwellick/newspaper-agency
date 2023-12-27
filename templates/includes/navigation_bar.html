@@ -1,0 +1,25 @@
+<header>
+  <nav class="navbar navbar-expand-md  fixed-top  nav-bar">
+    <div class="navbar-brand logo"><strong>GOOD</strong><strong> NEWS</strong></div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+      </ul>
+      <form class="form-inline mt-2 mt-md-0">
+        {% if user.is_authenticated %}
+          <button class="btn btn-outline-success my-2 my-sm-0 btn-logout" type="submit"><a class="btn-logout" href="{% url 'logout' %}">Logout</a>
+          </button>
+        {% else %}
+          <button class="btn btn-outline-success my-2 my-sm-0 btn-login" type="submit"><a class="btn-login" href="{% url 'login' %}">Login</a>
+          </button>
+        {% endif %}
+      </form>
+    </div>
+  </nav>
+</header>

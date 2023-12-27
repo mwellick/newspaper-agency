@@ -37,9 +37,34 @@ body, html {
 .nav-bar {
     line-height: 80px;
     font-size: 1.2rem;
+    background-color: black;
+}
+
+.btn-login a {
+    color: white;
+    text-decoration: none;
 }
 
 .btn-logout a {
     color: white;
     text-decoration: none;
 }
+
+.logo {
+    color: goldenrod;
+}
+
+
+.logo strong:last-child {
+    color: transparent;
+    -webkit-text-stroke: 1px goldenrod;
+    text-stroke: 1px goldenrod;
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+}
+
+
+

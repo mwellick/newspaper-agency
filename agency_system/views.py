@@ -10,7 +10,6 @@ from .forms import RedactorCreationForm
 from .models import Topic, Redactor, Newspaper
 
 
-@login_required
 def index(request: HttpRequest) -> HttpResponse:
     num_topics = Topic.objects.count()
     num_redactors = Redactor.objects.count()
