@@ -3,6 +3,8 @@ body, html {
     height: 100%;
     margin: 0;
     padding: 0;
+    background-color: black;
+    scroll-behavior: smooth;
 }
 
 .vh-100 {
@@ -66,3 +68,60 @@ body, html {
     text-decoration: none;
 }
 
+.text-gradient {
+    color: goldenrod !important;
+}
+
+.featurette-heading {
+    color: goldenrod;
+}
+
+.lead {
+    color: goldenrod;
+}
+
+
+.mt-3 {
+    color: white;
+}
+
+.text-sm {
+    color: white;
+}
+
+.text-muted {
+    color: white;
+}
+
+.line {
+    background: goldenrod;
+    height: 10px;
+    margin-top: 20px;
+    border: none;
+}
+
+.btn {
+    background-color: goldenrod;
+    color: white;
+    font-size: 23px;
+    border: none;
+}
+
+.nav-link {
+    font-size: 22px;
+    font-family: featurette;
+    text-align: center;
+    margin-top: 2px;
+}
+
+.btn-login, .btn-logout {
+    font-size: 16px;
+}
+
+.lead {
+    color: white;
+}
+
+.footer {
+    color: white;
+}
