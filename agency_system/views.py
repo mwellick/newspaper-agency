@@ -12,22 +12,18 @@ from .models import Topic, Redactor, Newspaper
 
 def index(request: HttpRequest) -> HttpResponse:
     num_topics = Topic.objects.count()
+    latest_news_list = Newspaper.objects.order_by("-published_date")[:3]
     num_redactors = Redactor.objects.count()
     num_newspapers = Newspaper.objects.count()
     context = {
         "num_topics": num_topics,
         "num_redactors": num_redactors,
-        "num_newspapers": num_newspapers
-    }
-    return render(request, "agency_system/index.html", context=context)
-
-
-def latest_news(request):
-    latest_news_list = Newspaper.objects.order_by("-published_date")[:3]
-    context = {
+        "num_newspapers": num_newspapers,
         "latest_news_list": latest_news_list
     }
     return render(request, "agency_system/index.html", context=context)
+
+
 
 
 class RegistrationSuccessView(TemplateView):

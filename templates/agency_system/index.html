@@ -133,62 +133,65 @@
         <span class="news">NEWS</span>
       </h1>
     </div>
-
     <hr class="featurette-divider">
+    {% for news in latest_news_list %}
+      {% if forloop.counter == 1 %}
+        <div class="container marketing">
+          <hr class="featurette-divider">
 
-
-    <div class="container marketing">
-      <hr class="featurette-divider">
-      {% for news in latest_news_list %}
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">{{ newspaper.title }}
-              <span
-                style="color:white;">Lorem ipsum dolor sit amet.
-              </span>
-            </h2>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, officia?</p>
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">{{ news.title }}
+                <span style="color:white;">Lorem ipsum dolor sit amet.</span>
+              </h2>
+              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, officia?</p>
+            </div>
+            <div class="col-md-5">
+              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
+                   alt="Generic placeholder image">
+            </div>
           </div>
-          <div class="col-md-5">
-            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
-                 alt="Generic placeholder image">
+          {% elif forloop.counter == 2 %}
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <h2 class="featurette-heading">{{ news.title }}<span style="color:white;">See for yourself.</span>
+              </h2>
+              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
+            </div>
+            <div class="col-md-5 order-md-1">
+              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
+                   alt="Generic placeholder image">
+            </div>
           </div>
-        </div>
-      {% endfor %}
+          {% elif forloop.counter == 3 %}
 
-      <hr class="featurette-divider">
+          <hr class="featurette-divider">
 
-      <div class="row featurette">
-        <div class="col-md-7 order-md-2">
-          <h2 class="featurette-heading">Oh yeah, it's that good. <span style="color:white;">See for yourself.</span>
-          </h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
-            semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-            commodo.</p>
-        </div>
-        <div class="col-md-5 order-md-1">
-          <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
-               alt="Generic placeholder image">
-        </div>
-      </div>
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">{{ news.title }}<span style="color:white;">Checkmate.</span></h2>
+              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
+                euismod
+                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
+                commodo.</p>
+            </div>
+            <div class="col-md-5">
+              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
+                   alt="Generic placeholder image">
+            </div>
+          </div>
 
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">And lastly, this one. <span style="color:white;">Checkmate.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
-            semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-            commodo.</p>
+          <hr class="featurette-divider">
         </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
-               alt="Generic placeholder image">
-        </div>
-      </div>
+      {% endif %}
+    {% endfor %}
 
-      <hr class="featurette-divider">
-    </div>
 
     <div class="about_us">
       <h1 class="featurette-heading">
@@ -196,6 +199,7 @@
         <span class="us">US</span>
       </h1>
     </div>
+
     <hr class="line">
 
     <!-- FOOTER -->
