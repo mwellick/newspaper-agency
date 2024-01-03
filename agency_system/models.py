@@ -28,5 +28,8 @@ class Newspaper(models.Model):
         settings.AUTH_USER_MODEL, related_name="published_newspapers"
     )
 
+    class Meta:
+        ordering = ["-published_date"]
+
     def __str__(self):
         return f"{self.title}"

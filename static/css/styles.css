@@ -125,3 +125,30 @@ body, html {
 .footer {
     color: white;
 }
+
+.news-content {
+    color: white;
+}
+
+
+.latest_news, .about_us{
+    color: goldenrod;
+    text-align: center;
+    padding-top: 2%;
+}
+
+.featurette-heading {
+    font-size: 33px;
+}
+
+.latest, .about {
+    color: goldenrod;
+}
+
+.news, .us{
+    color: transparent;
+    -webkit-text-stroke: 1px goldenrod;
+    text-stroke: 1px goldenrod;
+}
+
+

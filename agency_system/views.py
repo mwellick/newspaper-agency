@@ -22,6 +22,14 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "agency_system/index.html", context=context)
 
 
+def latest_news(request):
+    latest_news_list = Newspaper.objects.order_by("-published_date")[:3]
+    context = {
+        "latest_news_list": latest_news_list
+    }
+    return render(request, "agency_system/index.html", context=context)
+
+
 class RegistrationSuccessView(TemplateView):
     template_name = 'registration/success_registration.html'
 

@@ -86,6 +86,7 @@
       </a>
     </div>
 
+
     <section class="pt-3 pb-4" id="count-stats">
       <div class="container">
         <div class="row">
@@ -97,7 +98,8 @@
                   <h1 class="text-gradient"><span>{{ num_topics }}</span></h1>
                   <h5 class="mt-3 featurette-heading">Topics</h5>
                   <p class="text-sm font-weight-normal"></p>
-                  <p><a class="btn btn-lg btn-primary" href="#" role="button">Add a new topic</a></p>
+                  <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-list' %}" role="button">Add a
+                    new topic</a></p>
                 </div>
               </div>
               <div class="col-md-4 position-relative">
@@ -105,7 +107,8 @@
                   <h1 class="text-gradient"><span>{{ num_redactors }}</span></h1>
                   <h5 class="mt-3 featurette-heading">Redactors</h5>
                   <p class="text-sm font-weight-normal"></p>
-                  <p><a class="btn btn-lg btn-primary " href="#" role="button">See all redactors</a></p>
+                  <p><a class="btn btn-lg btn-primary " href="{% url 'agency_system:redactor-list' %}" role="button">See
+                    all redactors</a></p>
                 </div>
               </div>
               <div class="col-md-4">
@@ -113,7 +116,8 @@
                   <h1 class="text-gradient"><span>{{ num_newspapers }}</span></h1>
                   <h5 class="mt-3 featurette-heading">News</h5>
                   <p class="text-sm font-weight-normal"></p>
-                  <p><a class="btn btn-lg btn-primary " href="#" role="button">Add news</a></p>
+                  <p><a class="btn btn-lg btn-primary " href="{% url 'agency_system:newspaper-list' %}" role="button">Add
+                    news</a></p>
                 </div>
               </div>
             </div>
@@ -122,21 +126,35 @@
         </div>
       </div>
     </section>
+
+    <div class="latest_news">
+      <h1 class="featurette-heading">
+        <span class="latest">LATEST</span>
+        <span class="news">NEWS</span>
+      </h1>
+    </div>
+
+    <hr class="featurette-divider">
+
+
     <div class="container marketing">
       <hr class="featurette-divider">
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">First featurette heading. <span
-              style="color:white;">It'll blow your mind.</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod
-            semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-            commodo.</p>
+      {% for news in latest_news_list %}
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">{{ newspaper.title }}
+              <span
+                style="color:white;">Lorem ipsum dolor sit amet.
+              </span>
+            </h2>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, officia?</p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
+                 alt="Generic placeholder image">
+          </div>
         </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
-               alt="Generic placeholder image">
-        </div>
-      </div>
+      {% endfor %}
 
       <hr class="featurette-divider">
 
@@ -170,10 +188,14 @@
       </div>
 
       <hr class="featurette-divider">
+    </div>
 
-      <!-- /END THE FEATURETTES -->
-
-    </div><!-- /.container -->
+    <div class="about_us">
+      <h1 class="featurette-heading">
+        <span class="about">ABOUT</span>
+        <span class="us">US</span>
+      </h1>
+    </div>
     <hr class="line">
 
     <!-- FOOTER -->

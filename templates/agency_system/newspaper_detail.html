@@ -1,18 +1,22 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
-  <h2>{{ newspaper.title }}</h2>
   <hr>
-  <p><strong>Topic:</strong> {{ newspaper.topic }}</p>
-  <hr>
-  {% for publisher in newspaper.publishers.all %}
-    <p><strong>By</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
-  {% endfor %}
-  <p><strong>Published date:</strong> {{ newspaper.published_date }}</p>
+  <div style="color: white">
+    <h2>{{ newspaper.title }}</h2>
+    <hr>
+    <p><strong>Topic:</strong> {{ newspaper.topic }}</p>
+    <hr>
+    {% for publisher in newspaper.publishers.all %}
+      <p><strong>By</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
+    {% endfor %}
+    <p><strong>Published date:</strong> {{ newspaper.published_date }}</p>
 
-  <hr>
-  <div class="col-sm-3">
-    <p>{{ newspaper.content }}</p>
+    <hr>
+    <div>
+      <p>{{ newspaper.content }}</p>
 
+    </div>
   </div>
 {% endblock %}
