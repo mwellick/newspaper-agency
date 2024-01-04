@@ -7,6 +7,11 @@ body, html {
     scroll-behavior: smooth;
 }
 
+body {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
 .vh-100 {
     height: 100vh;
     margin: 0;
@@ -131,7 +136,7 @@ body, html {
 }
 
 
-.latest_news, .about_us{
+.latest_news, .about_us {
     color: goldenrod;
     text-align: center;
     padding-top: 2%;
@@ -145,7 +150,7 @@ body, html {
     color: goldenrod;
 }
 
-.news, .us{
+.news, .us {
     color: transparent;
     -webkit-text-stroke: 1px goldenrod;
     text-stroke: 1px goldenrod;
