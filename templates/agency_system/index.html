@@ -85,9 +85,13 @@
         <span class="sr-only">Next</span>
       </a>
     </div>
+    <div class="content" id="content">
+      <h1 class="featurette-heading">
+        <span class="latest">CONTENT</span>
+      </h1>
+    </div>
 
-
-    <section class="pt-3 pb-4" id="count-stats">
+    <section class="pt-3 pb-4">
       <div class="container">
         <div class="row">
           <div class="col-lg-9 mx-auto py-3">
@@ -127,13 +131,13 @@
       </div>
     </section>
 
-    <div class="latest_news">
+
+    <div class="latest_news" id="latest_news">
       <h1 class="featurette-heading">
         <span class="latest">LATEST</span>
         <span class="news">NEWS</span>
       </h1>
     </div>
-    <hr class="featurette-divider">
     {% for news in latest_news_list %}
       {% if forloop.counter == 1 %}
         <div class="container marketing">
@@ -193,7 +197,7 @@
     {% endfor %}
 
 
-    <div class="about_us">
+    <div class="about_us" id="about_us">
       <h1 class="featurette-heading">
         <span class="about">ABOUT</span>
         <span class="us">US</span>
@@ -214,7 +218,7 @@
           inspiration. We are committed to provide a platform exclusively dedicated to the brighter side of life.</p>
       </div>
       <div class="featurette text-left">
-        <h2 class="featurette-heading">Your Platform, Your Articles</h2>
+        <h2 class="featurette-heading">Your Platform, Your News</h2>
         <p class="lead">What makes Good News unique is its inclusivity. Whether you're an experienced journalist or a
           first-time writer, Good News welcomes you to share your positive articles with the world. Our user-friendly
           platform ensures that the process is straightforward and accessible to all.</p>
@@ -274,16 +278,26 @@
         </div>
       </div>
     </div>
-      <hr class="featurette-divider">
+    <hr class="featurette-divider">
+    {% if not user.is_authenticated %}
+      <div class="text-center">
+        <button type="submit" class="btn btn-success btn-lg gradient-custom-4"
+                style="width: 200px; border-radius: 15px;">
+          <a href="{% url 'agency_system:redactor-create' %}" style="color: white; text-decoration: none;">Create a Good News
+            account</a>
+        </button>
+      </div>
+    {% endif %}
+    <hr class="featurette-divider">
 
-      <hr class="line">
+    <hr class="line">
 
-      <!-- FOOTER -->
-      <footer class="container">
-        <p class="float-right"><a href="#">Back to top</a></p>
-        <p class="footer">&copy; 2023-2024 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
-        </p>
-      </footer>
+    <!-- FOOTER -->
+    <footer class="container">
+      <p class="float-right"><a href="#myCarousel">Back to top</a></p>
+      <p class="footer">&copy; 2023-2024 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a>
+      </p>
+    </footer>
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

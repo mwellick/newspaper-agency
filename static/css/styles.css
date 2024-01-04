@@ -136,7 +136,7 @@ body {
 }
 
 
-.latest_news, .about_us {
+.content,.latest_news, .about_us {
     color: goldenrod;
     text-align: center;
     padding-top: 2%;
@@ -146,9 +146,9 @@ body {
     font-size: 33px;
 }
 
-.latest, .about {
-    color: goldenrod;
-}
+/*.latest, .about {*/
+/*    color: goldenrod;*/
+/*}*/
 
 .news, .us {
     color: transparent;
@@ -156,4 +156,11 @@ body {
     text-stroke: 1px goldenrod;
 }
 
+.btn-register{
+    background-color: goldenrod;
+    color: white;
+    font-size: 23px;
+    border: none;
+    text-decoration: none;
+}
 
