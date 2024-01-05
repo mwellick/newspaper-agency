@@ -24,6 +24,7 @@ body {
 
 .container-fluid {
     width: 100%;
+    min-height: calc(80vh);
 
 }
 
@@ -130,10 +131,12 @@ body {
 .lead {
     color: white;
 }
-#footer{
+
+#footer {
     padding-bottom: 20px;
     padding-top: 20px;
     justify-content: center;
+    bottom: 0;
 }
 
 .footer_text {
@@ -145,7 +148,7 @@ body {
 }
 
 
-.all_content, .latest_news, .about_us {
+.popular_topics, .all_content, .latest_news, .about_us {
     color: goldenrod;
     text-align: center;
     padding-top: 2%;
@@ -155,11 +158,11 @@ body {
     font-size: 33px;
 }
 
-.all,.latest, .about {
+.popular, .all, .latest, .about {
     color: goldenrod;
 }
 
-.content, .news, .us {
+.topics, .content, .news, .us {
     color: transparent;
     -webkit-text-stroke: 1px goldenrod;
     text-stroke: 1px goldenrod;
@@ -171,5 +174,23 @@ body {
     font-size: 23px;
     border: none;
     text-decoration: none;
+}
+
+.card {
+    background-color: goldenrod;
+    border-radius: 50px;
+    overflow: hidden;
+    font-size: 2.0rem;
+}
+
+.card-body {
+    text-align: center;
+}
+
+.card a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 20px;
 }
 
