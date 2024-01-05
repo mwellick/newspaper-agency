@@ -10,6 +10,7 @@ body, html {
 body {
     overflow-x: hidden;
     scroll-behavior: smooth;
+    padding-top: 70px;
 }
 
 .vh-100 {
@@ -23,6 +24,7 @@ body {
 
 .container-fluid {
     width: 100%;
+
 }
 
 .row {
@@ -103,6 +105,8 @@ body {
     height: 10px;
     margin-top: 20px;
     border: none;
+    width: 100%;
+    padding: 0;
 }
 
 .btn {
@@ -126,8 +130,13 @@ body {
 .lead {
     color: white;
 }
+#footer{
+    padding-bottom: 20px;
+    padding-top: 20px;
+    justify-content: center;
+}
 
-.footer {
+.footer_text {
     color: white;
 }
 
@@ -136,7 +145,7 @@ body {
 }
 
 
-.content,.latest_news, .about_us {
+.all_content, .latest_news, .about_us {
     color: goldenrod;
     text-align: center;
     padding-top: 2%;
@@ -146,17 +155,17 @@ body {
     font-size: 33px;
 }
 
-/*.latest, .about {*/
-/*    color: goldenrod;*/
-/*}*/
+.all,.latest, .about {
+    color: goldenrod;
+}
 
-.news, .us {
+.content, .news, .us {
     color: transparent;
     -webkit-text-stroke: 1px goldenrod;
     text-stroke: 1px goldenrod;
 }
 
-.btn-register{
+.btn-register {
     background-color: goldenrod;
     color: white;
     font-size: 23px;
