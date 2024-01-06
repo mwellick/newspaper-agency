@@ -24,7 +24,7 @@ body {
 
 .container-fluid {
     width: 100%;
-    min-height: calc(80vh);
+    min-height: calc(90vh);
 
 }
 
@@ -176,21 +176,48 @@ body {
     text-decoration: none;
 }
 
-.card {
+.card-content {
     background-color: goldenrod;
     border-radius: 50px;
     overflow: hidden;
     font-size: 2.0rem;
+    margin-top: 70px;
 }
 
-.card-body {
+.card-content-body {
     text-align: center;
+    padding: 20px;
 }
 
-.card a {
+.card-content a {
     text-decoration: none;
     color: white;
     display: block;
     padding: 20px;
 }
 
+.topic-btn {
+    border-radius: 20px;
+    background-color: forestgreen;
+}
+
+.custom-container {
+    max-width: 400px;
+    background-color: goldenrod;
+    padding: 30px;
+    border-radius: 100px;
+    font-family: faturette;
+    font-size: 1.3rem;
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom-container h2 {
+    color: white;
+}
+
+.custom-btn {
+    border-radius: 50px;
+    text-align: center;
+}

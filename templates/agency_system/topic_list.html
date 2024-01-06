@@ -4,15 +4,15 @@
   <div class="container-fluid mt-5">
     <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
       <h1 style="color: white">Topics</h1>
-      <a href="" class="btn btn-primary">Create topic</a>
+      <a href="{% url 'agency_system:topic-create' %}" class="btn btn-primary topic-btn">Add a new topic</a>
     </div>
     <br>
     <div class="row">
       {% if topic_list %}
         {% for topic in  topic_list %}
           <div class="col-md-5 mb-5">
-            <div class="card">
-              <div class="card-body">
+            <div class="card-content">
+              <div class="card-content-body">
                 <a href={% url 'agency_system:topic-detail' pk=topic.id %}>{{ topic.name }}</a>
               </div>
             </div>

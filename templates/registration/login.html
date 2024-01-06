@@ -21,8 +21,8 @@
                 <form action="{% url 'login' %}" method="post">
                   {% csrf_token %}
                   {{ form|crispy }}
-                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4">Login
-                    </button>
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4">Login
+                  </button>
                   <br>
                   <p>Don't have an account? <a href="{% url 'agency_system:redactor-create' %}">Register</a></p>
                   <input type="hidden" name="next" value="{{ next }}"/>
@@ -33,5 +33,7 @@
         </div>
       </div>
     </div>
+    {% block footer %}
+    {% endblock %}
   </section>
 {% endblock %}
