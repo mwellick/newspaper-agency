@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from ckeditor.fields import RichTextField
 
 
 class Topic(models.Model):
@@ -19,7 +20,7 @@ class Redactor(AbstractUser):
 
 class Newspaper(models.Model):
     title = models.CharField(max_length=255)
-    content = models.TextField()
+    content = RichTextField(blank=True, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
     topic = models.ForeignKey(
         Topic, on_delete=models.CASCADE, related_name="newspapers"

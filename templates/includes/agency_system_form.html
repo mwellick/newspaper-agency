@@ -11,7 +11,8 @@
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
               <form method="post">
                 {% csrf_token %}
-                  {{ form|crispy }}
+                {{ form.media }}
+                {{ form|crispy }}
                 <div class="d-flex justify-content-center">
                   <button type="submit"
                           class="btn btn-success btn-block btn-lg gradient-custom-4 ">Register

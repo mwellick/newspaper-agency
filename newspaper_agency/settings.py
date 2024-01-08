@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "agency_system",
     "crispy_forms",
     "crispy_bootstrap4",
+    "ckeditor",
 ]
 
 MIDDLEWARE = [

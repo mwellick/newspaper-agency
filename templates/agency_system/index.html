@@ -155,11 +155,8 @@
             <div class="col-md-7" style="margin-bottom: 300px">
               <h2 class="featurette-heading">{{ news.title }}
               </h2>
-              {% autoescape on %}
                 <p class="lead">{{ news.content|safe|truncatewords:55 }}
-                  <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
-                </p>
-              {% endautoescape %}
+                  <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a></p>
             </div>
             <div class="col-md-5">
               <img class="featurette-image img-thumbnail mx-auto" src={% static 'images/latest_news_img(1).jpeg' %}>
@@ -173,7 +170,7 @@
             <div class="col-md-7 order-md-2" style="margin-bottom: 50px">
               <h2 class="featurette-heading">{{ news.title }}
               </h2>
-              <p class="lead ">{{ news.content|truncatewords:55 }}
+              <p class="lead ">{{ news.content|safe|truncatewords:55 }}
                 <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
               </p>
             </div>
@@ -186,7 +183,7 @@
           <div class="row featurette">
             <div class="col-md-7 order-md-2" style="margin-bottom: 225px">
               <h2 class="featurette-heading">{{ news.title }}</h2>
-              <p class="lead">{{ news.content|truncatewords:55 }}
+              <p class="lead">{{ news.content|safe|truncatewords:55 }}
                 <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
               </p>
             </div>

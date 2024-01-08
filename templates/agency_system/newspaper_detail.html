@@ -15,8 +15,9 @@
 
     <hr>
     <div>
-      <p>{{ newspaper.content }}</p>
-
+      {% autoescape off %}
+        <p>{{ newspaper.content|safe }}</p>
+      {% endautoescape %}
     </div>
   </div>
 {% endblock %}
