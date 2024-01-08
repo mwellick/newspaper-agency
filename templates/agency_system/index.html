@@ -31,7 +31,7 @@
           </div>
         </div>
         <div class="carousel-item">
-          <img src="{% static 'images/sport_carousel2_img.jpg' %}" alt="Sport">
+          <img src="{% static 'images/sport_carousel_img.jpg' %}" alt="Sport">
           <div class="container">
             <div class="carousel-caption text-left">
               <h1>Sport</h1>
@@ -152,15 +152,17 @@
           <hr class="featurette-divider">
 
           <div class="row featurette">
-            <div class="col-md-7">
+            <div class="col-md-7" style="margin-bottom: 300px">
               <h2 class="featurette-heading">{{ news.title }}
-                <span style="color:white;">Lorem ipsum dolor sit amet.</span>
               </h2>
-              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, officia?</p>
+              {% autoescape on %}
+                <p class="lead">{{ news.content|safe|truncatewords:55 }}
+                  <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+                </p>
+              {% endautoescape %}
             </div>
             <div class="col-md-5">
-              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
-                   alt="Generic placeholder image">
+              <img class="featurette-image img-thumbnail mx-auto" src={% static 'images/latest_news_img(1).jpeg' %}>
             </div>
           </div>
           {% elif forloop.counter == 2 %}
@@ -168,34 +170,28 @@
           <hr class="featurette-divider">
 
           <div class="row featurette">
-            <div class="col-md-7 order-md-2">
-              <h2 class="featurette-heading">{{ news.title }}<span style="color:white;">See for yourself.</span>
+            <div class="col-md-7 order-md-2" style="margin-bottom: 50px">
+              <h2 class="featurette-heading">{{ news.title }}
               </h2>
-              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                euismod
-                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-                commodo.</p>
+              <p class="lead ">{{ news.content|truncatewords:55 }}
+                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+              </p>
             </div>
-            <div class="col-md-5 order-md-1">
-              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
-                   alt="Generic placeholder image">
-            </div>
+            <img class="img-thumbnail" src={% static 'images/latest_news_img.jpg' %}>
           </div>
           {% elif forloop.counter == 3 %}
 
           <hr class="featurette-divider">
 
           <div class="row featurette">
-            <div class="col-md-7">
-              <h2 class="featurette-heading">{{ news.title }}<span style="color:white;">Checkmate.</span></h2>
-              <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis
-                euismod
-                semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus
-                commodo.</p>
+            <div class="col-md-7 order-md-2" style="margin-bottom: 225px">
+              <h2 class="featurette-heading">{{ news.title }}</h2>
+              <p class="lead">{{ news.content|truncatewords:55 }}
+                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+              </p>
             </div>
             <div class="col-md-5">
-              <img class="featurette-image img-fluid mx-auto" data-src="holder.js/500x500/auto"
-                   alt="Generic placeholder image">
+              <img class="img-thumbnail" src="{% static 'images/latest_news_img(2).jpg' %}">
             </div>
           </div>
 
