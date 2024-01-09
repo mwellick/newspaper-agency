@@ -11,6 +11,12 @@ from .models import Topic, Redactor, Newspaper
 
 
 def index(request: HttpRequest) -> HttpResponse:
+    nature_topics = Topic.objects.filter(name="Nature")
+    sport_topics = Topic.objects.filter(name="Sport")
+    travel_topics = Topic.objects.filter(name="Travel")
+    video_games_topics = Topic.objects.filter(name="Video Games")
+    business_topics = Topic.objects.filter(name="Business")
+    movies_topics = Topic.objects.filter(name="Movies")
     num_topics = Topic.objects.count()
     latest_news_list = Newspaper.objects.order_by("-published_date")[:3]
     num_redactors = Redactor.objects.count()
@@ -19,11 +25,16 @@ def index(request: HttpRequest) -> HttpResponse:
         "num_topics": num_topics,
         "num_redactors": num_redactors,
         "num_newspapers": num_newspapers,
-        "latest_news_list": latest_news_list
+        "latest_news_list": latest_news_list,
+        "nature_topics": nature_topics,
+        "sport_topics": sport_topics,
+        "travel_topics": travel_topics,
+        "video_games_topics": video_games_topics,
+        "business_topics": business_topics,
+        "movies_topics": movies_topics,
+
     }
     return render(request, "agency_system/index.html", context=context)
-
-
 
 
 class RegistrationSuccessView(TemplateView):
