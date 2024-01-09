@@ -1,14 +1,29 @@
 {% extends "base.html" %}
-{% load static %}
-{% block content %}
-  <h1>Newspapers</h1>
-  <hr>
-  <ul>
-    {% for newspaper in newspaper_list %}
-      <li>
-        <p><a href={% url "agency_system:newspaper-detail" pk=newspaper.id %}>{{ newspaper.title }}</a></p>
-      </li>
-    {% endfor %}
-  </ul>
 
+{% block content %}
+  <div class="container-fluid mt-5" style="padding-top: 2%">
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
+      <h1 style="color: white">News</h1>
+      <a href="{% url 'agency_system:newspaper-create' %}" class="btn btn-primary topic-btn">Add News</a>
+    </div>
+    <br>
+    <div class="row">
+      {% if newspaper_list %}
+        {% for article in  newspaper_list %}
+          <div class="col-md-5 mb-5">
+            <div class="card-content">
+              <div class="card-content-body">
+                <a href={% url 'agency_system:newspaper-detail' pk=article.id %}>{{ article.title }}</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p>There are no news in Good News agency</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}

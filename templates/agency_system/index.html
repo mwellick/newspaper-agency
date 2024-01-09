@@ -152,7 +152,7 @@
           <hr class="featurette-divider">
 
           <div class="row featurette">
-            <div class="col-md-7" style="margin-bottom: 300px">
+            <div class="col-md-7" style="margin-bottom: 240px">
               <h2 class="featurette-heading">{{ news.title }}
               </h2>
                 <p class="lead">{{ news.content|safe|truncatewords:55 }}
@@ -181,7 +181,7 @@
           <hr class="featurette-divider">
 
           <div class="row featurette">
-            <div class="col-md-7 order-md-2" style="margin-bottom: 225px">
+            <div class="col-md-7 order-md-2" style="margin-bottom: 140px">
               <h2 class="featurette-heading">{{ news.title }}</h2>
               <p class="lead">{{ news.content|safe|truncatewords:55 }}
                 <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>

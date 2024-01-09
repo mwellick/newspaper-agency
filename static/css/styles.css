@@ -10,7 +10,6 @@ body, html {
 body {
     overflow-x: hidden;
     scroll-behavior: smooth;
-    padding-top: 70px;
 }
 
 .vh-100 {
@@ -20,6 +19,12 @@ body {
     background-size: cover;
     background-position: center;
     width: 100%;
+}
+
+.bg-image {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
 }
 
 .container-fluid {
@@ -34,9 +39,10 @@ body {
     align-items: center;
     height: 100%;
 }
-p{
+
+p {
     color: white;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
 .card {
@@ -49,9 +55,26 @@ p{
 }
 
 .nav-bar {
-    line-height: 43px;
-    font-size: 1.2rem;
+    line-height: 60px;
     background-color: black;
+}
+
+.navbar-brand {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.8rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+
+.nav-link {
+    font-size: 1.8rem;
+    font-family: featurette;
+    text-align: center;
+    margin-top: 2px;
+    color: white;
 }
 
 .btn-login a {
@@ -75,10 +98,6 @@ p{
     text-stroke: 1px goldenrod;
 }
 
-.nav-link {
-    color: white;
-    text-decoration: none;
-}
 
 .text-gradient {
     color: goldenrod !important;
@@ -121,12 +140,6 @@ p{
     border: none;
 }
 
-.nav-link {
-    font-size: 22px;
-    font-family: featurette;
-    text-align: center;
-    margin-top: 2px;
-}
 
 .btn-login, .btn-logout {
     font-size: 16px;
@@ -207,14 +220,14 @@ p{
 
 .custom-container {
     max-width: 400px;
-    background-color: goldenrod;
+    background-color: transparent;
     padding: 30px;
     border-radius: 100px;
     font-family: faturette;
     font-size: 1.3rem;
-    margin-top: 200px;
     display: flex;
     flex-direction: column;
+    margin-top: 80px;
 }
 
 .custom-container h2 {
@@ -222,13 +235,26 @@ p{
 }
 
 .custom-btn {
-    border-radius: 50px;
+    border-radius: 15px;
     text-align: center;
+    padding: 10px 20px;
+    font-size: 20px
+}
+
+.newspaper-box {
+    font-size: 1.6rem;
+    color: white;
+    max-width: 100%; /* Встановіть бажану максимальну ширину */
+    text-align: center;
+    padding: 20px; /* Додає відступи вокруг тексту */
 }
 
 
-/*.stretched-img {*/
-/*    width: 1500px;*/
-/*    height: 2100px;*/
-/*    object-fit: cover;*/
-/*}*/
+/* Обмеження рядка */
+.newspaper-box p {
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+    text-align: justify;
+}

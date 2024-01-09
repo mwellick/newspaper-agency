@@ -2,22 +2,26 @@
 {% load static %}
 
 {% block content %}
-  <hr>
-  <div style="color: white">
-    <h2>{{ newspaper.title }}</h2>
+  <div style="padding-top: 5%">
     <hr>
-    <p><strong>Topic:</strong> {{ newspaper.topic }}</p>
-    <hr>
-    {% for publisher in newspaper.publishers.all %}
-      <p><strong>By</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
-    {% endfor %}
-    <p><strong>Published date:</strong> {{ newspaper.published_date }}</p>
+    <div class="newspaper-box" style="color: white">
+      <h2 style="color: goldenrod">{{ newspaper.title }}</h2>
+      <hr>
+      <p><strong style="color: goldenrod">Topic:
+      </strong> {{ newspaper.topic }}</p>
+      {% for publisher in newspaper.publishers.all %}
+        <p><strong style="color: goldenrod">By:
+        </strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
+      {% endfor %}
+      <p><strong style="color: goldenrod">Published date:
+      </strong> {{ newspaper.published_date }}</p>
 
-    <hr>
-    <div>
-      {% autoescape off %}
+      <hr>
+      <div>
         <p>{{ newspaper.content|safe }}</p>
-      {% endautoescape %}
+      </div>
     </div>
   </div>
+{% endblock %}
+{% block footer %}
 {% endblock %}
