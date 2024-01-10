@@ -259,3 +259,7 @@ p {
     /*white-space: nowrap;*/
     text-align: justify;
 }
+
+.news_content{
+    margin-left: 575px;
+}
