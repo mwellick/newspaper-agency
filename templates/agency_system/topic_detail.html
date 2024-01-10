@@ -2,7 +2,10 @@
 
 {% block content %}
   <div class="container-fluid mt-5" style="padding-top: 3%">
-    <h1 style="color: white">{{ topic.name }}</h1>
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
+      <h1 style="color: white">{{ topic.name }}</h1>
+      <a href="{% url 'agency_system:topic-delete' pk=topic.id %}" class="btn btn-danger btn_confirm">Delete this topic</a>
+    </div>
     <br>
     {% if topic.newspapers.all %}
       {% for newspaper in topic.newspapers.all %}

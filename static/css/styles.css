@@ -245,9 +245,9 @@ p {
 .newspaper-box {
     font-size: 1.6rem;
     color: white;
-    max-width: 100%; /* Встановіть бажану максимальну ширину */
+    max-width: 100%;
     text-align: center;
-    padding: 20px; /* Додає відступи вокруг тексту */
+    padding: 20px;
 }
 
 
@@ -256,10 +256,13 @@ p {
     max-width: 70%;
     overflow: hidden;
     text-overflow: ellipsis;
-    /*white-space: nowrap;*/
     text-align: justify;
 }
 
 .news_content{
     margin-left: 575px;
+}
+.btn_confirm{
+    border-radius: 20px;
+    width: 200px;
 }
