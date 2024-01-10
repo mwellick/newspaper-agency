@@ -199,11 +199,12 @@ p {
     overflow: hidden;
     font-size: 2.0rem;
     margin-top: 70px;
+    height: 200px;
 }
 
 .card-content-body {
     text-align: center;
-    padding: 20px;
+    padding: 10px;
 }
 
 .card-content a {
@@ -250,7 +251,7 @@ p {
 }
 
 
-/* Обмеження рядка */
+
 .newspaper-box p {
     max-width: 70%;
     overflow: hidden;

@@ -11,7 +11,7 @@
       {% if topic_list %}
         {% for topic in  topic_list %}
           <div class="col-md-5 mb-5">
-            <div class="card-content">
+            <div class="card-content" style="height: 150px;padding-top: 20px">
               <div class="card-content-body">
                 <a href={% url 'agency_system:topic-detail' pk=topic.id %}>{{ topic.name }}</a>
               </div>
