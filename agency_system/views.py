@@ -2,11 +2,10 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from .forms import RedactorCreationForm
+from .forms import RedactorCreationForm, RedactorEditForm
 from .models import Topic, Redactor, Newspaper
 
 
@@ -86,9 +85,9 @@ class RedactorCreateView(generic.CreateView):
 
 class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
-    fields = ("username", "first_name", "last_name", "years_of_experience",)
-    success_url = reverse_lazy("agency_system:redactor-list")
-    template_name = "agency_system/redactor_form.html"
+    form_class = RedactorEditForm
+    success_url = reverse_lazy("agency_system:redactor-detail")
+    template_name = "registration/edit_profile.html"
 
 
 class NewspaperListView(LoginRequiredMixin, generic.ListView):

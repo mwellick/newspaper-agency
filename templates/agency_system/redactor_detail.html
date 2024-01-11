@@ -1,17 +1,37 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block content %}
-  <div class="container-fluid mt-5" style="padding-top: 2%">
-    <h1>{{ redactor.first_name }} {{ redactor.last_name }}</h1>
-    <hr>
-    <h4>Personal information</h4>
-    <div class="ml-3">
-      <p><strong>Username:</strong> {{ redactor.username }}</p>
-      <p><strong>Email:</strong> {{ redactor.email }}</p>
-      <p><strong>Years of experience:</strong> {{ redactor.years_of_experience }}</p>
-      {% for newspaper in redactor.published_newspapers.all %}
-        <p><strong>Author of newspapers</strong>: {{ newspaper.title }}</p>
-      {% endfor %}
+  <div class="container text-center" style="padding-top: 5%">
+    <br>
+    <div class="newspaper-box text-center" style="color: white">
+      <h1 style="color: goldenrod">{{ redactor.first_name }} {{ redactor.last_name }}</h1>
+      <br>
+      <h3><strong>Personal information</strong></h3>
+      <br>
+      <p><strong style="color: goldenrod">Username:</strong> {{ redactor.username }}</p>
+      <p><strong style="color: goldenrod">Email:</strong> {{ redactor.email }}</p>
+      <p><strong style="color: goldenrod">Years of experience:</strong> {{ redactor.years_of_experience }}</p>
+      <p><strong style="color: goldenrod">Author of newspapers:</strong></p>
+      <ol style="color: goldenrod">
+        {% for newspaper in redactor.published_newspapers.all %}
+          <li>
+            <p style="font-size: 1.3rem">
+              <a href="{% url 'agency_system:newspaper-detail' pk=newspaper.id %}" style="color: white">
+                {{ newspaper.title }}
+              </a>
+            </p>
+          </li>
+        {% endfor %}
+      </ol>
+      <br>
+      <div class="d-flex justify-content-center">
+        {% if user.is_superuser %}
+          <a href="{% url 'agency_system:redactor-update' pk=redactor.id %}" class="btn btn-primary topic-btn text-center">Edit Profile</a>
+        {% else %}
+          <a href="{% url 'agency_system:redactor-update' pk=redactor.id %}" class="btn btn-primary topic-btn">Edit Profile</a>
+        {% endif %}
+      </div>
+      <br>
     </div>
   </div>
 {% endblock %}

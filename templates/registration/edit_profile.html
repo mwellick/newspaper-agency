@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+  <title>Edit Profile</title>
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+        <section class="vh-100  bg-image"
+               style="background-image: url('https://s3-us-west-1.amazonaws.com/faithnetworkuserfilestore/FAITHNETWORK_USERFILESTORE/FAITHNETWORK_USERFILESTORE/imagelibraries/ministries/95ce76eb-3371-4b95-aefd-876cd8baa69c/2022%20Sermons/Black%20Modern%20Minimalist%20Ripped%20Paper%20Aesthetic%20Album%20Cover-2.png');">
+        <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+          <div class="container h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+              <div class="card" style="border-radius: 25px;">
+                <div class="card-body">
+                  <h2 class="text-uppercase text-center mb-5">Edit Profile</h2>
+                  <form method="post">
+                    {% csrf_token %}
+                    {{ form.media }}
+                    {{ form|crispy }}
+                    <div class="d-flex justify-content-center">
+                      <button type="submit"
+                              class="btn btn-success btn-block btn-lg gradient-custom-4 ">Update Profile
+                      </button>
+                    </div>
+                    <br>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+{% endblock %}
+{% block footer %}
+{% endblock %}

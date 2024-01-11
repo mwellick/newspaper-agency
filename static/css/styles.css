@@ -27,11 +27,6 @@ body {
     background-position: center;
 }
 
-.container-fluid {
-    width: 100%;
-    min-height: calc(90vh);
-
-}
 
 .row {
     display: flex;
@@ -217,6 +212,7 @@ p {
 .topic-btn {
     border-radius: 20px;
     background-color: forestgreen;
+    text-align: center;
 }
 
 .custom-container {
@@ -259,9 +255,6 @@ p {
     text-align: justify;
 }
 
-.news_content{
-    margin-left: 575px;
-}
 .btn_confirm{
     border-radius: 20px;
     width: 200px;

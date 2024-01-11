@@ -4,27 +4,22 @@
   <div style="padding-top: 5%">
     <br>
     {% for publisher in newspaper.publishers.all %}
-      <div class="container newspaper-box text-center" style="color: white">
-        <h1 style="color: goldenrod">{{ newspaper.title }}
-        </h1>
+      <div class="container" style="color: white">
+        <h1 class="text-center" style="color: goldenrod">{{ newspaper.title }}</h1>
         <br>
-        <div class="news_content">
+        <div class="container">
           <p><strong style="color: goldenrod">Topic:</strong> {{ newspaper.topic }}</p>
-          <p><strong style="color: goldenrod">By:
-          </strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
-          <p><strong style="color: goldenrod">Published date:
-          </strong> {{ newspaper.published_date }}</p>
+          <p><strong style="color: goldenrod">By:</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
+          <p><strong style="color: goldenrod">Published date:</strong> {{ newspaper.published_date }}</p>
           <p>{{ newspaper.content|safe }}</p>
         </div>
-        {% if user.is_superuser %}
-          <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit
-            this
-            article</a>
-        {% elif user.id == publisher.id %}
-          <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit
-            this
-            article</a>
-        {% endif %}
+        <br>
+        <div class="text-center">
+          {% if user.is_superuser or user.id == publisher.id %}
+            <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit
+              this article</a>
+          {% endif %}
+        </div>
         <br>
       </div>
     {% endfor %}
