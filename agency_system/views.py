@@ -38,10 +38,6 @@ def index(request: HttpRequest) -> HttpResponse:
     return render(request, "agency_system/index.html", context=context)
 
 
-class RegistrationSuccessView(TemplateView):
-    template_name = 'registration/success_registration.html'
-
-
 class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
 
@@ -116,8 +112,16 @@ class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "agency_system/newspaper_update.html"
 
 
+class RegistrationSuccessView(TemplateView):
+    template_name = 'registration/success_registration.html'
+
+
+class PasswordChangedSuccessView(TemplateView):
+    template_name = "registration/success_changed_password.html"
+
+
 class PasswordsChangingView(PasswordChangeView):
     model = Redactor
     form_class = PasswordChangingForm
-    success_url = reverse_lazy("login")
+    success_url = reverse_lazy("agency_system:password-changed")
     template_name = "registration/change_password.html"

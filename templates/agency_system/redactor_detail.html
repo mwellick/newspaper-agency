@@ -22,12 +22,13 @@
       </p>
       <p><strong style="color: goldenrod">Years of experience:</strong> {{ redactor.years_of_experience }}</p>
       <p><strong style="color: goldenrod">Author of newspapers:</strong>
+
         {% if  redactor.published_newspapers.count == 0 and user.id == redactor.id %}
           You have not published any news yet.
         {% endif %}
         {% if user.id != redactor.id and  redactor.published_newspapers.count == 0 %}
           User has not published any news yet.
-        {% else %}
+        {% elif redactor.published_newspapers.count > 0 %}
           {{ redactor.published_newspapers.count }}
         {% endif %}
       </p>
