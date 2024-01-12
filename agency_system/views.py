@@ -1,3 +1,5 @@
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpRequest, HttpResponse
@@ -5,7 +7,7 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from .forms import RedactorCreationForm, RedactorEditForm
+from .forms import RedactorCreationForm, RedactorEditForm, PasswordChangingForm
 from .models import Topic, Redactor, Newspaper
 
 
@@ -86,13 +88,14 @@ class RedactorCreateView(generic.CreateView):
 class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
     form_class = RedactorEditForm
-    success_url = reverse_lazy("agency_system:redactor-detail")
     template_name = "registration/edit_profile.html"
+
+    def get_success_url(self):
+        return reverse_lazy("agency_system:redactor-detail", kwargs={"pk": self.object.pk})
 
 
 class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
-    queryset = Newspaper.objects.select_related("topic")
 
 
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
@@ -111,3 +114,10 @@ class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
     fields = "__all__"
     success_url = reverse_lazy("agency_system:newspaper-list")
     template_name = "agency_system/newspaper_update.html"
+
+
+class PasswordsChangingView(PasswordChangeView):
+    model = Redactor
+    form_class = PasswordChangingForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/change_password.html"

@@ -9,10 +9,30 @@
       <h3><strong>Personal information</strong></h3>
       <br>
       <p><strong style="color: goldenrod">Username:</strong> {{ redactor.username }}</p>
-      <p><strong style="color: goldenrod">Email:</strong> {{ redactor.email }}</p>
+      <p><strong style="color: goldenrod">Password:</strong> ********
+        {% if user.id == redactor.id %}
+          <a class="ml-3" style="font-size: 1.3rem" href="{% url 'agency_system:password-update' pk=redactor.id %}">Change
+            Password</a>
+        {% endif %}
+      </p>
+      <p><strong style="color: goldenrod">Email:</strong> {{ redactor.email }}
+        {% if not redactor.email %}
+          No information given
+        {% endif %}
+      </p>
       <p><strong style="color: goldenrod">Years of experience:</strong> {{ redactor.years_of_experience }}</p>
-      <p><strong style="color: goldenrod">Author of newspapers:</strong></p>
+      <p><strong style="color: goldenrod">Author of newspapers:</strong>
+        {% if  redactor.published_newspapers.count == 0 and user.id == redactor.id %}
+          You have not published any news yet.
+        {% endif %}
+        {% if user.id != redactor.id and  redactor.published_newspapers.count == 0 %}
+          User has not published any news yet.
+        {% else %}
+          {{ redactor.published_newspapers.count }}
+        {% endif %}
+      </p>
       <ol style="color: goldenrod">
+
         {% for newspaper in redactor.published_newspapers.all %}
           <li>
             <p style="font-size: 1.3rem">
@@ -26,9 +46,11 @@
       <br>
       <div class="d-flex justify-content-center">
         {% if user.is_superuser %}
-          <a href="{% url 'agency_system:redactor-update' pk=redactor.id %}" class="btn btn-primary topic-btn text-center">Edit Profile</a>
-        {% else %}
-          <a href="{% url 'agency_system:redactor-update' pk=redactor.id %}" class="btn btn-primary topic-btn">Edit Profile</a>
+          <a href="{% url 'agency_system:redactor-update' pk=redactor.id %}"
+             class="btn btn-primary topic-btn text-center">Edit Profile</a>
+        {% elif user.id == redactor.id %}
+          <a href="{% url 'agency_system:redactor-update' pk=redactor.id %}"
+             class="btn btn-primary topic-btn text-center">Edit Profile</a>
         {% endif %}
       </div>
       <br>

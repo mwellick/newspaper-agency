@@ -8,8 +8,8 @@
         <h1 class="text-center" style="color: goldenrod">{{ newspaper.title }}</h1>
         <br>
         <div class="container">
-          <p><strong style="color: goldenrod">Topic:</strong> {{ newspaper.topic }}</p>
           <p><strong style="color: goldenrod">By:</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
+          <p><strong style="color: goldenrod">Topic:</strong> {{ newspaper.topic }}</p>
           <p><strong style="color: goldenrod">Published date:</strong> {{ newspaper.published_date }}</p>
           <p>{{ newspaper.content|safe }}</p>
         </div>
