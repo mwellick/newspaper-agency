@@ -1,5 +1,8 @@
-from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
+from django.contrib.auth.forms import (UserCreationForm,
+                                       UserChangeForm,
+                                       PasswordChangeForm,
+                                       PasswordResetForm,
+                                       )
 
 from agency_system.models import Redactor
 
@@ -7,7 +10,7 @@ from agency_system.models import Redactor
 class RedactorCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Redactor
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "years_of_experience",)
+        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "years_of_experience",)
 
     def __init__(self, *args, **kwargs):
         super(RedactorCreationForm, self).__init__(*args, **kwargs)
@@ -18,7 +21,7 @@ class RedactorCreationForm(UserCreationForm):
 class RedactorEditForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = Redactor
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "years_of_experience",)
+        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "years_of_experience",)
 
     def __init__(self, *args, **kwargs):
         super(RedactorEditForm, self).__init__(*args, **kwargs)
@@ -27,7 +30,12 @@ class RedactorEditForm(UserChangeForm):
         self.fields["last_name"].required = True
 
 
-class PasswordChangingForm(PasswordChangeForm):
+class PasswordsChangingForm(PasswordChangeForm):
     class Meta(PasswordChangeForm):
         model = Redactor
         fields = UserCreationForm.Meta.fields + ("old_password", "new_password1", "new_password2",)
+
+
+class PasswordsResettingForm(PasswordResetForm):
+    class Meta(PasswordResetForm):
+        model = Redactor
