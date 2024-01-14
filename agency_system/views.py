@@ -78,7 +78,7 @@ class RedactorCreateView(generic.CreateView):
     model = Redactor
     form_class = RedactorCreationForm
     template_name = "registration/register.html"
-    success_url = reverse_lazy("agency_system:success")
+    success_url = reverse_lazy("agency_system:registration-success")
 
 
 class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -113,11 +113,11 @@ class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 
 class RegistrationSuccessView(TemplateView):
-    template_name = 'registration/success_registration.html'
+    template_name = 'registration/registration_success.html'
 
 
 class PasswordChangedSuccessView(TemplateView):
-    template_name = "registration/success_changed_password.html"
+    template_name = "registration/password_changed_success.html"
 
 
 class PasswordsChangingView(PasswordChangeView):
@@ -137,5 +137,9 @@ class PasswordsResettingView(PasswordResetView):
 class PasswordsResettingConfirmView(PasswordResetConfirmView):
     model = Redactor
     form_class = PasswordsResettingFormConfirm
-    success_url = ...
+    success_url = reverse_lazy("agency_system:password-reset-success")
     template_name = "registration/password_reset_confirm.html"
+
+
+class PasswordResetSuccess(TemplateView):
+    template_name = "registration/password_reset_success.html"

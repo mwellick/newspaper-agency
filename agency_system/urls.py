@@ -18,6 +18,7 @@ from .views import (index,
                     PasswordChangedSuccessView,
                     PasswordsResettingView,
                     PasswordsResettingConfirmView,
+                    PasswordResetSuccess,
                     )
 
 urlpatterns = [
@@ -35,11 +36,12 @@ urlpatterns = [
     path("newspapers/<int:pk>/", NewspaperDetailView.as_view(), name="newspaper-detail"),
     path("newspapers/create/", NewspaperCreateView.as_view(), name="newspaper-create"),
     path("newspapers/<int:pk>/update/", NewspaperUpdateView.as_view(), name="newspaper-update"),
-    path("success/", RegistrationSuccessView.as_view(), name="success"),
+    path("registration/success/", RegistrationSuccessView.as_view(), name="registration-success"),
     path("redactors/<int:pk>/password/", PasswordsChangingView.as_view(), name="password-update"),
     path("passwords/changed/", PasswordChangedSuccessView.as_view(), name="password-changed"),
     path("passwords/reset/", PasswordsResettingView.as_view(), name="password-reset"),
-    path("passwords/reset/<uidb64>/token/", PasswordsResettingConfirmView.as_view(), name="password-reset"),
+    path("passwords/reset/<uidb64>/token/", PasswordsResettingConfirmView.as_view(), name="password-reset-confirm"),
+    path("accounts/reset/done/", PasswordResetSuccess.as_view(), name="password-reset-success"),
 
 ]
 
