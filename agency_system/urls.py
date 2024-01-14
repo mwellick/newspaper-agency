@@ -17,6 +17,7 @@ from .views import (index,
                     PasswordsChangingView,
                     PasswordChangedSuccessView,
                     PasswordsResettingView,
+                    PasswordsResettingConfirmView,
                     )
 
 urlpatterns = [
@@ -38,7 +39,7 @@ urlpatterns = [
     path("redactors/<int:pk>/password/", PasswordsChangingView.as_view(), name="password-update"),
     path("passwords/changed/", PasswordChangedSuccessView.as_view(), name="password-changed"),
     path("passwords/reset/", PasswordsResettingView.as_view(), name="password-reset"),
-
+    path("passwords/reset/<uidb64>/token/", PasswordsResettingConfirmView.as_view(), name="password-reset"),
 
 ]
 

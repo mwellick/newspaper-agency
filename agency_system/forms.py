@@ -2,6 +2,7 @@ from django.contrib.auth.forms import (UserCreationForm,
                                        UserChangeForm,
                                        PasswordChangeForm,
                                        PasswordResetForm,
+                                       SetPasswordForm,
                                        )
 
 from agency_system.models import Redactor
@@ -39,3 +40,9 @@ class PasswordsChangingForm(PasswordChangeForm):
 class PasswordsResettingForm(PasswordResetForm):
     class Meta(PasswordResetForm):
         model = Redactor
+
+
+class PasswordsResettingFormConfirm(SetPasswordForm):
+    class Meta(SetPasswordForm):
+        model = Redactor
+        fields = UserCreationForm.Meta.fields + ("email", "new_password", "new_password2",)

@@ -1,4 +1,4 @@
-from django.contrib.auth.views import PasswordChangeView, PasswordResetView
+from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
 from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpRequest, HttpResponse
@@ -6,7 +6,8 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from .forms import RedactorCreationForm, RedactorEditForm, PasswordsChangingForm, PasswordsResettingForm
+from .forms import RedactorCreationForm, RedactorEditForm, PasswordsChangingForm, PasswordsResettingForm, \
+    PasswordsResettingFormConfirm
 from .models import Topic, Redactor, Newspaper
 
 
@@ -123,7 +124,7 @@ class PasswordsChangingView(PasswordChangeView):
     model = Redactor
     form_class = PasswordsChangingForm
     success_url = reverse_lazy("agency_system:password-changed")
-    template_name = "registration/change_password.html"
+    template_name = "registration/password_change.html"
 
 
 class PasswordsResettingView(PasswordResetView):
@@ -131,3 +132,10 @@ class PasswordsResettingView(PasswordResetView):
     form_class = PasswordsResettingForm
     success_url = reverse_lazy("agency_system:password-reset")
     template_name = "registration/password_reset_form.html"
+
+
+class PasswordsResettingConfirmView(PasswordResetConfirmView):
+    model = Redactor
+    form_class = PasswordsResettingFormConfirm
+    success_url = ...
+    template_name = "registration/password_reset_confirm.html"

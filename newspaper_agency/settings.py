@@ -27,7 +27,6 @@ DEBUG = True
 if DEBUG:
     EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-EMAIL_FILE_PATH = BASE_DIR / "emails"
 
 ALLOWED_HOSTS = []
 
