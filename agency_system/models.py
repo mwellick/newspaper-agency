@@ -22,6 +22,7 @@ class Newspaper(models.Model):
     title = models.CharField(max_length=255)
     content = RichTextField(blank=True, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
+    news_images = models.ImageField(null=True, blank=True, upload_to="news_images/")
     topic = models.ForeignKey(
         Topic, on_delete=models.CASCADE, related_name="newspapers"
     )
