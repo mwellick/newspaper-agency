@@ -94,7 +94,8 @@
               <div class="carousel-caption text-left">
                 <h1>Movies</h1>
                 <br>
-                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}" role="button">Learn more</a></p>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
+                      role="button">Learn more</a></p>
               </div>
             </div>
           {% endfor %}
@@ -157,62 +158,77 @@
     </section>
 
 
+    <style>
+        .featurette-image {
+            max-width: 900px;
+            max-height: 500px;
+        }
+    </style>
+
     <div class="latest_news" id="latest_news">
       <h1 class="featurette-heading">
         <span class="latest">LATEST</span>
         <span class="news">NEWS</span>
       </h1>
     </div>
+
     {% for news in latest_news_list %}
       {% if forloop.counter == 1 %}
         <div class="container marketing">
-          <hr class="featurette-divider">
+        <hr class="featurette-divider">
 
-          <div class="row featurette">
-            <div class="col-md-7" style="margin-bottom: 300px">
-              <h2 class="featurette-heading">{{ news.title }}
-              </h2>
-              <p class="lead">{{ news.content|safe|truncatewords:55 }}
-                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a></p>
-            </div>
-            <div class="col-md-5">
-              <img class="featurette-image img-thumbnail mx-auto" src={% static 'images/latest_news_img(1).jpeg' %}>
-            </div>
+        <div class="row">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">{{ news.title }}</h2>
+            <p class="lead">{{ news.content|safe|truncatewords:55 }}
+              <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+            </p>
           </div>
-          {% elif forloop.counter == 2 %}
-
-          <hr class="featurette-divider">
-
-          <div class="row featurette">
-            <div class="col-md-7 order-md-2" style="margin-bottom: 50px">
-              <h2 class="featurette-heading">{{ news.title }}
-              </h2>
-              <p class="lead ">{{ news.content|safe|truncatewords:55 }}
-                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
-              </p>
-            </div>
-            <img class="img-thumbnail" src={% static 'images/latest_news_img.jpg' %}>
+          <div class="col-md-5">
+            {% if news.news_images %}
+              <img class="featurette-image img-thumbnail  img-fluid mx-auto"
+                   src={{ news.news_images.url }}>
+            {% endif %}
           </div>
-          {% elif forloop.counter == 3 %}
+        </div>
+      {% elif forloop.counter == 2 %}
 
-          <hr class="featurette-divider">
+        <hr class="featurette-divider">
 
-          <div class="row featurette">
-            <div class="col-md-7 order-md-2" style="margin-bottom: 200px">
-              <h2 class="featurette-heading">{{ news.title }}</h2>
-              <p class="lead">{{ news.content|safe|truncatewords:55 }}
-                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
-              </p>
-            </div>
-            <div class="col-md-5">
-              <img class="img-thumbnail" src="{% static 'images/latest_news_img(2).jpg' %}">
-            </div>
+        <div class="row featurette">
+          <div class="col-md-7 order-md-2">
+            <h2 class="featurette-heading">{{ news.title }}</h2>
+            <p class="lead ">{{ news.content|safe|truncatewords:55 }}
+              <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+            </p>
           </div>
+          {% if news.news_images %}
+            <img class="featurette-image  img-fluid img-thumbnail mx-auto"
+                 src={{ news.news_images.url }}>
+          {% endif %}
+        </div>
+      {% elif forloop.counter == 3 %}
 
-          <hr class="featurette-divider">
+        <hr class="featurette-divider">
+
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">{{ news.title }}</h2>
+            <p class="lead">{{ news.content|safe|truncatewords:55 }}
+              <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+            </p>
+          </div>
+          <div class="col-md-5">
+            {% if news.news_images %}
+              <img class="featurette-image  img-fluid img-thumbnail mx-auto"
+                   src={{ news.news_images.url }}>
+            {% endif %}
+          </div>
         </div>
       {% endif %}
     {% endfor %}
+
+
 
 
     <div class="about_us" id="about_us">

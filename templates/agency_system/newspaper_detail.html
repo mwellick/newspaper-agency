@@ -11,9 +11,14 @@
           <p><strong style="color: goldenrod">By:</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
           <p><strong style="color: goldenrod">Topic:</strong> {{ newspaper.topic }}</p>
           <p><strong style="color: goldenrod">Published date:</strong> {{ newspaper.published_date }}</p>
-          <p>{{ newspaper.content|safe }}</p>
+          {% if newspaper.news_images %}
+            <img class="news_image img-thumbnail"
+                 src="{{ newspaper.news_images.url }}">
+            <br>
+          {% endif %}
+          <br>
+          {{ newspaper.content|safe }}
         </div>
-        <br>
         <div class="text-center">
           {% if user.is_superuser or user.id == publisher.id %}
             <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit

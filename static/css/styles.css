@@ -102,6 +102,20 @@ p {
     color: goldenrod;
 }
 
+.featurette-image {
+    max-width: 800px;
+    max-height: 500px;
+    /*width: 100%;*/
+    height: auto;
+    object-fit: cover; /* Зберігає пропорції і обрізає зображення, якщо вони не підходять */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+  .featurette-content {
+    margin-left: 150px; /* Змініть це значення відповідно до ваших потреб */
+  }
+
 .lead {
     color: goldenrod;
 }
@@ -247,7 +261,6 @@ p {
 }
 
 
-
 .newspaper-box p {
     max-width: 70%;
     overflow: hidden;
@@ -255,7 +268,15 @@ p {
     text-align: justify;
 }
 
-.btn_confirm{
+.btn_confirm {
     border-radius: 20px;
     width: 200px;
+}
+
+.news_image {
+    max-width: 800px;
+    max-height: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

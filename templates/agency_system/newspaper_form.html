@@ -11,7 +11,7 @@
               <div class="card" style="border-radius: 25px;">
                 <div class="card-body">
                   <h2 class="text-uppercase text-center mb-5">Write your own news</h2>
-                  <form method="post">
+                  <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form.media }}
                     {{ form|crispy }}
