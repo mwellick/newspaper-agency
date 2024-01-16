@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib.auth.forms import (UserCreationForm,
                                        UserChangeForm,
                                        PasswordChangeForm,
@@ -5,7 +6,7 @@ from django.contrib.auth.forms import (UserCreationForm,
                                        SetPasswordForm,
                                        )
 
-from agency_system.models import Redactor
+from agency_system.models import Redactor, Comment
 
 
 class RedactorCreationForm(UserCreationForm):
@@ -46,3 +47,10 @@ class PasswordsResettingFormConfirm(SetPasswordForm):
     class Meta(SetPasswordForm):
         model = Redactor
         fields = UserCreationForm.Meta.fields + ("email", "new_password", "new_password2",)
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ["body"]
+

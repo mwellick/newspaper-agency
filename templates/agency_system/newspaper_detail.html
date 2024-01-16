@@ -28,24 +28,26 @@
           {% endif %}
         </div>
         <br>
-        <hr style="border-color: goldenrod">
         <br>
         <h2 style="color: white">Comments:</h2>
+        <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}"><strong>Add a comment</strong></a></h4>
         <br>
+        <hr style="border-color: goldenrod">
         {% if not newspaper.comments.all %}
           <br>
           <p>There is no comments yet...</p>
           <br>
         {% else %}
           {% for comment in newspaper.comments.all %}
-            <div class="comment">
-              <p>{{ comment.name }}
-                - {{ comment.date_added }}</p>
-              <p>{{ comment.body }}</p>
-            </div>
+            {% if user.is_authenticated %}
+              <p><a style="color: goldenrod"
+                    href="{% url 'agency_system:redactor-detail' pk=user.id %}">@{{ user.username }}</a>. {{ comment.date_added }}
+              </p>
+            {% endif %}
+            <p>{{ comment.body }}</p>
+            <hr style="border-color: goldenrod">
           {% endfor %}
         {% endif %}
-        <hr style="border-color: goldenrod">
       </div>
     {% endfor %}
   </div>

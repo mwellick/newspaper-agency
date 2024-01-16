@@ -10,7 +10,8 @@ from .forms import (RedactorCreationForm,
                     RedactorEditForm,
                     PasswordsChangingForm,
                     PasswordsResettingForm,
-                    PasswordsResettingFormConfirm
+                    PasswordsResettingFormConfirm,
+                    CommentForm
                     )
 from .models import Topic, Redactor, Newspaper, Comment
 
@@ -147,3 +148,16 @@ class PasswordsResettingConfirmView(PasswordResetConfirmView):
 
 class PasswordResetSuccess(TemplateView):
     template_name = "registration/password_reset_success.html"
+
+
+class AddCommentView(LoginRequiredMixin, generic.CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = "agency_system/comment_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy("agency_system:newspaper-detail", kwargs={'pk': self.kwargs["pk"]})
+
+    def form_valid(self, form):
+        form.instance.post_comment = Newspaper.objects.get(pk=self.kwargs["pk"])
+        return super().form_valid(form)

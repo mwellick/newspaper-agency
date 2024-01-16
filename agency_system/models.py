@@ -46,9 +46,8 @@ class Newspaper(models.Model):
 
 class Comment(models.Model):
     post_comment = models.ForeignKey(Newspaper, on_delete=models.CASCADE, related_name="comments")
-    name = models.CharField(max_length=255)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.post_comment.title} - {self.name}"
+        return f"{self.post_comment.title}"
