@@ -157,78 +157,69 @@
       </div>
     </section>
 
+      <div class="latest_news" id="latest_news">
+        <h1 class="featurette-heading">
+          <span class="latest">LATEST</span>
+          <span class="news">NEWS</span>
+        </h1>
+      </div>
 
-    <style>
-        .featurette-image {
-            max-width: 900px;
-            max-height: 500px;
-        }
-    </style>
+      {% for news in latest_news_list %}
+        {% if forloop.counter == 1 %}
+          <div class="container">
+            <hr class="featurette-divider">
 
-    <div class="latest_news" id="latest_news">
-      <h1 class="featurette-heading">
-        <span class="latest">LATEST</span>
-        <span class="news">NEWS</span>
-      </h1>
-    </div>
+            <div class="row">
+              <div class="col-md-7" style="margin-bottom: 10%">
+                <h2 class="featurette-heading">{{ news.title }}</h2>
+                <p class="lead">{{ news.content|safe|truncatewords:55 }}
+                  <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+                </p>
+              </div>
+              <div class="col-md-5 order-md-2">
+                {% if news.news_images %}
+                  <img class="featurette-image img-thumbnail  img-fluid mx-auto"
+                       src={{ news.news_images.url }}>
+                {% endif %}
+              </div>
+            </div>
+            {% elif forloop.counter == 2 %}
 
-    {% for news in latest_news_list %}
-      {% if forloop.counter == 1 %}
-        <div class="container marketing">
-        <hr class="featurette-divider">
+            <hr class="featurette-divider">
 
-        <div class="row">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">{{ news.title }}</h2>
-            <p class="lead">{{ news.content|safe|truncatewords:55 }}
-              <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
-            </p>
+            <div class="row featurette">
+              <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading">{{ news.title }}</h2>
+                <p class="lead ">{{ news.content|safe|truncatewords:55 }}
+                  <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+                </p>
+              </div>
+              {% if news.news_images %}
+                <img class="featurette-image  img-fluid img-thumbnail mx-auto"
+                     src={{ news.news_images.url }}>
+              {% endif %}
+            </div>
+            {% elif forloop.counter == 3 %}
+
+            <hr class="featurette-divider">
+
+            <div class="row featurette">
+              <div class="col-md-7">
+                <h2 class="featurette-heading">{{ news.title }}</h2>
+                <p class="lead">{{ news.content|safe|truncatewords:55 }}
+                  <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+                </p>
+              </div>
+              <div class="col-md-5">
+                {% if news.news_images %}
+                  <img class="featurette-image  img-fluid img-thumbnail mx-auto"
+                       src={{ news.news_images.url }}>
+                {% endif %}
+              </div>
+            </div>
           </div>
-          <div class="col-md-5">
-            {% if news.news_images %}
-              <img class="featurette-image img-thumbnail  img-fluid mx-auto"
-                   src={{ news.news_images.url }}>
-            {% endif %}
-          </div>
-        </div>
-      {% elif forloop.counter == 2 %}
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-          <div class="col-md-7 order-md-2">
-            <h2 class="featurette-heading">{{ news.title }}</h2>
-            <p class="lead ">{{ news.content|safe|truncatewords:55 }}
-              <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
-            </p>
-          </div>
-          {% if news.news_images %}
-            <img class="featurette-image  img-fluid img-thumbnail mx-auto"
-                 src={{ news.news_images.url }}>
-          {% endif %}
-        </div>
-      {% elif forloop.counter == 3 %}
-
-        <hr class="featurette-divider">
-
-        <div class="row featurette">
-          <div class="col-md-7">
-            <h2 class="featurette-heading">{{ news.title }}</h2>
-            <p class="lead">{{ news.content|safe|truncatewords:55 }}
-              <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
-            </p>
-          </div>
-          <div class="col-md-5">
-            {% if news.news_images %}
-              <img class="featurette-image  img-fluid img-thumbnail mx-auto"
-                   src={{ news.news_images.url }}>
-            {% endif %}
-          </div>
-        </div>
-      {% endif %}
-    {% endfor %}
-
-
+        {% endif %}
+      {% endfor %}
 
 
     <div class="about_us" id="about_us">
@@ -266,7 +257,8 @@
               community.</p>
           </li>
           <li class="lead" style="color: goldenrod"><strong>CHOOSE YOUR TOPIC</strong>
-            <p class="lead">After registration, you have the freedom to select or create topics that resonate with you.
+            <p class="lead">After registration, you have the freedom to select or create topics that resonate with
+              you.
               Whether it's uplifting human stories, environmental successes, or community initiatives, there's a
               category for every positive narrative.
             </p>
@@ -277,7 +269,8 @@
             </p>
           </li>
           <li class="lead" style="color: goldenrod"><strong>COMMUNITY INTERACTION</strong>
-            <p class="lead"> Connect with like-minded individuals who share your interests. Engage in discussions, offer
+            <p class="lead"> Connect with like-minded individuals who share your interests. Engage in discussions,
+              offer
               support, and celebrate the positive impact that articles can have on the community.
             </p>
           </li>
@@ -286,7 +279,8 @@
           <h2 class="featurette-heading">Why Choose Good News:</h2>
           <ul>
             <li class="lead" style="color: goldenrod"><strong>Positive Impact:</strong>
-              <p class="lead">Your articles can inspire and uplift others, contributing to a more optimistic world.</p>
+              <p class="lead">Your articles can inspire and uplift others, contributing to a more optimistic
+                world.</p>
             </li>
             <li class="lead" style="color: goldenrod"><strong>Inclusive Platform:</strong>
               <p class="lead"> Good News is for everyone, regardless of their writing experience. We believe everyone
@@ -299,13 +293,15 @@
                 News.</p>
             </li>
             <li class="lead" style="color: goldenrod"><strong>Community Support:</strong>
-              <p class="lead">Join a community of individuals who share your passion for spreading good news and making
+              <p class="lead">Join a community of individuals who share your passion for spreading good news and
+                making
                 the world a
                 better place through articles.</p>
             </li>
           </ul>
           <div class="featurette" style="text-align: center;">
-            <h2 class="featurette-heading" style="text-align: justify">At Good News, every article has the power to make
+            <h2 class="featurette-heading" style="text-align: justify">At Good News, every article has the power to
+              make
               a positive impact. Join us
               in creating a community that celebrates the uplifting side of life through the art of positive
               storytelling.</h2>
@@ -319,15 +315,14 @@
       <div class="text-center">
         <button type="submit" class="btn btn-success btn-lg gradient-custom-4"
                 style="width: 200px; border-radius: 15px;">
-          <a href="{% url 'agency_system:redactor-create' %}" style="color: white; text-decoration: none;">Create a Good
+          <a href="{% url 'agency_system:redactor-create' %}" style="color: white; text-decoration: none;">Create a
+            Good
             News
             account</a>
         </button>
       </div>
     {% endif %}
     <hr class="featurette-divider">
-
-
   </main>
 
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

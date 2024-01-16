@@ -37,7 +37,7 @@ body {
 
 p {
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
 }
 
 .card {
@@ -98,13 +98,14 @@ p {
     color: goldenrod !important;
 }
 
+
 .featurette-heading {
     color: goldenrod;
 }
 
 .featurette-image {
     max-width: 800px;
-    max-height: 500px;
+    max-height: 450px;
     /*width: 100%;*/
     height: auto;
     object-fit: cover; /* Зберігає пропорції і обрізає зображення, якщо вони не підходять */
@@ -112,9 +113,10 @@ p {
     margin-left: auto;
     margin-right: auto;
 }
-  .featurette-content {
+
+.featurette-content {
     margin-left: 150px; /* Змініть це значення відповідно до ваших потреб */
-  }
+}
 
 .lead {
     color: goldenrod;
@@ -275,7 +277,7 @@ p {
 
 .news_image {
     max-width: 800px;
-    max-height: 500px;
+    max-height: 450px;
     display: block;
     margin-left: auto;
     margin-right: auto;

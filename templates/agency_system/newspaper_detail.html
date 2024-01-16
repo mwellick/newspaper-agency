@@ -1,18 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
-  <div style="padding-top: 5%">
+  <div class="container mx-auto" style="padding-top: 5%">
     <br>
     {% for publisher in newspaper.publishers.all %}
       <div class="container" style="color: white">
         <h1 class="text-center" style="color: goldenrod">{{ newspaper.title }}</h1>
         <br>
         <div class="container">
-          <p><strong style="color: goldenrod">By:</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
-          <p><strong style="color: goldenrod">Topic:</strong> {{ newspaper.topic }}</p>
-          <p><strong style="color: goldenrod">Published date:</strong> {{ newspaper.published_date }}</p>
+          <p class="mb-2"><strong
+              style="color: goldenrod">By:</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
+          <p class="mb-2"><strong style="color: goldenrod">Topic:</strong> {{ newspaper.topic }}</p>
+          <p class="mb-2"><strong style="color: goldenrod">Published date:</strong> {{ newspaper.published_date }}</p>
           {% if newspaper.news_images %}
-            <img class="news_image img-thumbnail"
+            <img class="news_image img-thumbnail text-center"
                  src="{{ newspaper.news_images.url }}">
             <br>
           {% endif %}
@@ -20,15 +21,35 @@
           {{ newspaper.content|safe }}
         </div>
         <div class="text-center">
+          <br>
           {% if user.is_superuser or user.id == publisher.id %}
             <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit
               this article</a>
           {% endif %}
         </div>
         <br>
+        <hr style="border-color: goldenrod">
+        <br>
+        <h2 style="color: white">Comments:</h2>
+        <br>
+        {% if not newspaper.comments.all %}
+          <br>
+          <p>There is no comments yet...</p>
+          <br>
+        {% else %}
+          {% for comment in newspaper.comments.all %}
+            <div class="comment">
+              <p>{{ comment.name }}
+                - {{ comment.date_added }}</p>
+              <p>{{ comment.body }}</p>
+            </div>
+          {% endfor %}
+        {% endif %}
+        <hr style="border-color: goldenrod">
       </div>
     {% endfor %}
   </div>
 {% endblock %}
 {% block footer %}
 {% endblock %}
+

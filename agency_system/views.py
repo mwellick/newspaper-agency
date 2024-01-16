@@ -6,9 +6,13 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from .forms import RedactorCreationForm, RedactorEditForm, PasswordsChangingForm, PasswordsResettingForm, \
-    PasswordsResettingFormConfirm
-from .models import Topic, Redactor, Newspaper
+from .forms import (RedactorCreationForm,
+                    RedactorEditForm,
+                    PasswordsChangingForm,
+                    PasswordsResettingForm,
+                    PasswordsResettingFormConfirm
+                    )
+from .models import Topic, Redactor, Newspaper, Comment
 
 
 def index(request: HttpRequest) -> HttpResponse:
