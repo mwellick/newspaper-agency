@@ -46,8 +46,13 @@ class Newspaper(models.Model):
 
 class Comment(models.Model):
     post_comment = models.ForeignKey(Newspaper, on_delete=models.CASCADE, related_name="comments")
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments_author",
+                               null=True)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.post_comment.title}"
+
+    class Meta:
+        ordering = ["-date_added"]

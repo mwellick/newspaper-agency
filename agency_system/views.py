@@ -160,4 +160,5 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
 
     def form_valid(self, form):
         form.instance.post_comment = Newspaper.objects.get(pk=self.kwargs["pk"])
+        form.instance.author = self.request.user
         return super().form_valid(form)
