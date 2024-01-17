@@ -20,6 +20,7 @@ from .views import (index,
                     PasswordsResettingConfirmView,
                     PasswordResetSuccess,
                     AddCommentView,
+                    ReplyCommentView
                     )
 
 urlpatterns = [
@@ -44,6 +45,8 @@ urlpatterns = [
     path("passwords/reset/<uidb64>/token/", PasswordsResettingConfirmView.as_view(), name="password-reset-confirm"),
     path("accounts/reset/done/", PasswordResetSuccess.as_view(), name="password-reset-success"),
     path("newspapers/<int:pk>/comment/", AddCommentView.as_view(), name="comment-create"),
+    path("newspapers/<int:pk>/comments/<int:comment_id>/reply", ReplyCommentView.as_view(), name="reply-comment"
+                                                                                                 "-create")
 
 ]
 

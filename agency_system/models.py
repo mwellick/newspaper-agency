@@ -21,7 +21,7 @@ class Redactor(AbstractUser):
         ordering = ["first_name"]
 
     def __str__(self):
-        return f"{self.username}: {self.first_name} {self.last_name}"
+        return f"{self.username}"
 
 
 class Newspaper(models.Model):
@@ -52,7 +52,17 @@ class Comment(models.Model):
     date_added = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.post_comment.title}"
+        return f"{self.author} left a comment under {self.post_comment.title}: {self.body}"
 
     class Meta:
         ordering = ["-date_added"]
+
+
+class ReplyComment(models.Model):
+    comment_author = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="comment_replies")
+    reply_author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="author_replies")
+    reply_body = models.TextField()
+    reply_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.reply_author} replied on {self.comment_author.author} comment (comment id:{self.comment_author.id})"

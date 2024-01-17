@@ -6,7 +6,7 @@ from django.contrib.auth.forms import (UserCreationForm,
                                        SetPasswordForm,
                                        )
 
-from agency_system.models import Redactor, Comment
+from agency_system.models import Redactor, Comment,ReplyComment
 
 
 class RedactorCreationForm(UserCreationForm):
@@ -54,3 +54,8 @@ class CommentForm(forms.ModelForm):
         model = Comment
         fields = ["body"]
 
+
+class ReplyCommentForm(forms.ModelForm):
+    class Meta:
+        model = ReplyComment
+        fields = ["reply_body"]

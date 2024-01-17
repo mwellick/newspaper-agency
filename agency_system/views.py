@@ -2,7 +2,7 @@ from django.contrib.auth.views import PasswordChangeView, PasswordResetView, Pas
 from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
@@ -11,9 +11,10 @@ from .forms import (RedactorCreationForm,
                     PasswordsChangingForm,
                     PasswordsResettingForm,
                     PasswordsResettingFormConfirm,
-                    CommentForm
+                    CommentForm,
+                    ReplyCommentForm
                     )
-from .models import Topic, Redactor, Newspaper, Comment
+from .models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
 
 def index(request: HttpRequest) -> HttpResponse:
@@ -162,3 +163,29 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
         form.instance.post_comment = Newspaper.objects.get(pk=self.kwargs["pk"])
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
+    model = ReplyComment
+    form_class = ReplyCommentForm
+    template_name = "agency_system/comment_reply_form.html"
+
+    def get_success_url(self):
+        return reverse_lazy("agency_system:newspaper-detail", kwargs={'pk': self.kwargs["newspaper_id"]})
+
+    def get_authors_username(self):
+        comment_id = self.kwargs.get("comment_id")
+        comment = Comment.objects.get(id=comment_id)
+        return comment.author.username
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["authors_username"] = self.get_authors_username()
+        context["news_list"] = Newspaper.objects.all()
+        context["return_url"] = reverse_lazy("agency_system:newspaper-detail", kwargs={'pk': self.kwargs["pk"]})
+        return context
+
+    # def get_news_list(request: HttpRequest) -> HttpResponse:
+    #     new_list = Newspaper.objects.all()
+    #     context = {"news_list": new_list}
+    #     return render(request, "agency_system/comment_reply_form.html", context=context)
