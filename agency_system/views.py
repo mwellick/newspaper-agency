@@ -103,6 +103,12 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
     model = Newspaper
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        comments_number = Comment.objects.filter(post_comment=self.object).count()
+        context["comments_number"] = comments_number
+        return context
+
 
 class NewspaperCreateView(LoginRequiredMixin, generic.CreateView):
     model = Newspaper
@@ -164,6 +170,11 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["return_url"] = reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]})
+        return context
+
 
 class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
     model = ReplyComment
@@ -190,3 +201,22 @@ class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
         form.instance.comment_author = comment
         form.instance.reply_author = self.request.user
         return super().form_valid(form)
+
+
+class CommentAndRepliesView(LoginRequiredMixin, generic.DetailView):
+    model = Comment
+    template_name = "agency_system/comment_with_replies_detail.html"
+    success_url = ...
+
+    def get(self, request, *args, **kwargs):
+        comment_id = kwargs.get("pk")
+        comment = Comment.objects.get(pk=comment_id)
+        replies = comment.comment_replies.all()
+
+        context = {
+            "comment": comment,
+            "replies": replies,
+            "return_url": reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": comment.post_comment.id})
+        }
+
+        return render(request, self.template_name, context)

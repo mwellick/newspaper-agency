@@ -20,7 +20,8 @@ from .views import (index,
                     PasswordsResettingConfirmView,
                     PasswordResetSuccess,
                     AddCommentView,
-                    ReplyCommentView
+                    ReplyCommentView,
+                    CommentAndRepliesView,
                     )
 
 urlpatterns = [
@@ -46,7 +47,9 @@ urlpatterns = [
     path("accounts/reset/done/", PasswordResetSuccess.as_view(), name="password-reset-success"),
     path("newspapers/<int:pk>/comment/", AddCommentView.as_view(), name="comment-create"),
     path("newspapers/<int:pk>/comments/<int:comment_id>/reply", ReplyCommentView.as_view(), name="reply-comment"
-                                                                                                 "-create")
+                                                                                                 "-create"),
+    path('comments/<int:pk>/replies', CommentAndRepliesView.as_view(), name="comment-and-replies")
+
 
 ]
 

@@ -2,61 +2,70 @@
 {% load static %}
 {% block content %}
   <div class="container mx-auto" style="padding-top: 5%">
-    <br>
-    {% for publisher in newspaper.publishers.all %}
-      <div class="container" style="color: white">
-        <h1 class="text-center" style="color: goldenrod">{{ newspaper.title }}</h1>
-        <br>
-        <div class="container">
-          <p class="mb-2"><strong
-              style="color: goldenrod">By:</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
-          <p class="mb-2"><strong style="color: goldenrod">Topic:</strong> {{ newspaper.topic }}</p>
-          <p class="mb-2"><strong style="color: goldenrod">Published date:</strong> {{ newspaper.published_date }}</p>
-          {% if newspaper.news_images %}
-            <img class="news_image img-thumbnail text-center"
-                 src="{{ newspaper.news_images.url }}">
-            <br>
-          {% endif %}
+  <br>
+  {% for publisher in newspaper.publishers.all %}
+    <div class="container" style="color: white">
+      <h1 class="text-center" style="color: goldenrod">{{ newspaper.title }}</h1>
+      <br>
+      <div class="container">
+        <p class="mb-2"><strong
+            style="color: goldenrod">By:</strong> {{ publisher.first_name }} {{ publisher.last_name }}</p>
+        <p class="mb-2"><strong style="color: goldenrod">Topic:</strong> {{ newspaper.topic }}</p>
+        <p class="mb-2"><strong style="color: goldenrod">Published date:</strong> {{ newspaper.published_date }}</p>
+        {% if newspaper.news_images %}
+          <img class="news_image img-thumbnail text-center"
+               src="{{ newspaper.news_images.url }}">
           <br>
-          {{ newspaper.content|safe }}
-        </div>
-        <div class="text-center">
-          <br>
-          {% if user.is_superuser or user.id == publisher.id %}
-            <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit
-              this article</a>
-          {% endif %}
-        </div>
-        <br>
-        <br>
-        <h2 style="color: white">Comments:</h2>
-        <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}"><strong>Add a comment</strong></a></h4>
-        <br>
-        <hr style="border-color: goldenrod">
-        {% if not newspaper.comments.all %}
-          <br>
-          <p>There is no comments yet...</p>
-          <br>
-        {% else %}
-          {% for comment in newspaper.comments.all %}
-
-            <p><a style="color: goldenrod"
-                  href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}">@{{ comment.author.username }}</a>. {{ comment.date_added }}
-            </p>
-
-            <p>{{ comment.body }}</p>
-            {% if comment %}
-              <a class="btn btn-primary reply-btn"
-                 href="{% url 'agency_system:reply-comment-create' pk=newspaper.id comment_id=comment.id %}">Reply</a>
-            {% endif %}
-            <hr style="border-color: goldenrod">
-          {% endfor %}
         {% endif %}
-
-        <br><br>
+        <br>
+        {{ newspaper.content|safe }}
       </div>
-    {% endfor %}
+      <div class="text-center">
+        <br>
+        {% if user.is_superuser or user.id == publisher.id %}
+          <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit
+            this article</a>
+        {% endif %}
+      </div>
+      <br>
+      <br>
+      <h2 style="color: white">{{ comments_number }} Comment{{ comments_number|pluralize }}:</h2>
+      <br>
+      <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}"><strong>Add a comment</strong></a></h4>
+      <hr style="border-color: goldenrod">
+      {% if not newspaper.comments.all %}
+        <br>
+        <p>There is no comments yet...</p>
+        <br>
+      {% else %}
+        {% for comment in newspaper.comments.all %}
+          <p><a style="color: goldenrod"
+                href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}">@{{ comment.author.username }}</a> {{ comment.date_added }}
+          </p>
+
+          <p>{{ comment.body }}</p>
+          {% if comment %}
+            <a class="btn btn-primary reply-btn mr-2"
+               href="{% url 'agency_system:reply-comment-create' pk=newspaper.id comment_id=comment.id %}">Reply</a>
+            <a href="{% url 'agency_system:comment-and-replies' pk=comment.id %}">
+              {% if comment.comment_replies.count == 1 %}
+                <strong>{{ comment.comment_replies.count }} reply</strong>
+              {% else %}
+                <strong>{{ comment.comment_replies.count }} replies</strong></a>
+              {% endif %}
+          {% endif %}
+          <hr style="border-color: goldenrod">
+        {% endfor %}
+      {% endif %}
+
+      <br><br>
+    </div>
+  {% endfor %}
+  <div class="d-flex justify-content-center" style="font-size: 20px">
+    <a class="btn btn-primary pl-2" style="border-radius: 20px"
+       href="{% url 'agency_system:index' %}"> <- -Return to main page</a>
   </div>
+  <br><br>
 {% endblock %}
 {% block footer %}
 {% endblock %}

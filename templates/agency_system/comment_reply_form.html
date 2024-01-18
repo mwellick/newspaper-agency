@@ -12,26 +12,21 @@
             <div class="card-body">
               <h3 class="text-uppercase text-center mt-1">Reply on a <strong>@{{ authors_username }} </strong>comment
               </h3>
-                  <form method="post">
-                    {% csrf_token %}
-                    {{ form.media }}
-                    {{ form|crispy }}
-                    <div class="d-flex justify-content-center">
-                      <button type="submit"
-                              class="btn btn-success btn-block btn-lg gradient-custom-4 ">Reply
-                      </button>
-                    </div>
-                    <br>
-                    <p class="text-center">or</p>
-                    <div class="d-flex justify-content-center">
-
-                      <a class=" btn btn-primary"
-                         href="{{ return_url }}">Return</a>
-
-                    </div>
-
-                    <br>
-                  </form>
+              <form method="post">
+                {% csrf_token %}
+                {{ form.media }}
+                {{ form|crispy }}
+                <div class="d-flex justify-content-center">
+                  <button type="submit"
+                          class="btn btn-success btn-block btn-lg gradient-custom-4 ">Reply
+                  </button>
+                </div>
+                <br>
+                <div class="d-flex justify-content-center" style="font-size: 20px">
+                  <a class="btn btn-primary pl-2" style="border-radius: 20px"
+                     href="{{ return_url }}"> Cancel</a>
+                </div>
+              </form>
             </div>
           </div>
         </div>
