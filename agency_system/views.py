@@ -157,7 +157,7 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
     template_name = "agency_system/comment_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("agency_system:newspaper-detail", kwargs={'pk': self.kwargs["pk"]})
+        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]})
 
     def form_valid(self, form):
         form.instance.post_comment = Newspaper.objects.get(pk=self.kwargs["pk"])
@@ -171,7 +171,7 @@ class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
     template_name = "agency_system/comment_reply_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("agency_system:newspaper-detail", kwargs={'pk': self.kwargs["newspaper_id"]})
+        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]})
 
     def get_authors_username(self):
         comment_id = self.kwargs.get("comment_id")
@@ -182,10 +182,11 @@ class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
         context = super().get_context_data(**kwargs)
         context["authors_username"] = self.get_authors_username()
         context["news_list"] = Newspaper.objects.all()
-        context["return_url"] = reverse_lazy("agency_system:newspaper-detail", kwargs={'pk': self.kwargs["pk"]})
+        context["return_url"] = reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]})
         return context
 
-    # def get_news_list(request: HttpRequest) -> HttpResponse:
-    #     new_list = Newspaper.objects.all()
-    #     context = {"news_list": new_list}
-    #     return render(request, "agency_system/comment_reply_form.html", context=context)
+    def form_valid(self, form):
+        comment = Comment.objects.get(id=self.kwargs["comment_id"])
+        form.instance.comment_author = comment
+        form.instance.reply_author = self.request.user
+        return super().form_valid(form)

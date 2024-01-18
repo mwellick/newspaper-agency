@@ -47,7 +47,8 @@
             <p>{{ comment.body }}</p>
             {% if comment %}
               <a class="btn btn-primary reply-btn"
-                 href="{% url 'agency_system:reply-comment-create' pk=newspaper.id comment_id=comment.id %}">Reply</a>            {% endif %}
+                 href="{% url 'agency_system:reply-comment-create' pk=newspaper.id comment_id=comment.id %}">Reply</a>
+            {% endif %}
             <hr style="border-color: goldenrod">
           {% endfor %}
         {% endif %}
