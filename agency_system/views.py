@@ -176,6 +176,16 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
         return context
 
 
+class CommentDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Comment
+    template_name = "agency_system/comment_confirm_delete.html"
+
+    def get_success_url(self):
+        deleted_comment_id = self.kwargs["pk"]
+        newspaper_id = Comment.objects.get(id=deleted_comment_id).post_comment.id
+        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": newspaper_id})
+
+
 class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
     model = ReplyComment
     form_class = ReplyCommentForm
@@ -206,7 +216,6 @@ class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
 class CommentAndRepliesView(LoginRequiredMixin, generic.DetailView):
     model = Comment
     template_name = "agency_system/comment_with_replies_detail.html"
-    success_url = ...
 
     def get(self, request, *args, **kwargs):
         comment_id = kwargs.get("pk")
@@ -222,11 +231,12 @@ class CommentAndRepliesView(LoginRequiredMixin, generic.DetailView):
         return render(request, self.template_name, context)
 
 
-class CommentDeleteView(LoginRequiredMixin, generic.DeleteView):
-    model = Comment
-    template_name = "agency_system/comment_confirm_delete.html"
+class RepliesDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = ReplyComment
+    template_name = "agency_system/replies_confirm_delete.html"
 
     def get_success_url(self):
-        deleted_comment_id = self.kwargs["pk"]
-        newspaper_id = Comment.objects.get(id=deleted_comment_id).post_comment.id
-        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": newspaper_id})
+        deleted_reply_id = self.kwargs["pk"]
+        reply_comment = ReplyComment.objects.get(id=deleted_reply_id)
+        comment_id = reply_comment.comment_author.id
+        return reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": comment_id})

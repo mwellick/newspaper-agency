@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container-fluid mt-5 d-flex flex-column justify-content-center align-items-center vh-100">
+    <h1 style="color: white">Delete a reply</h1>
+    <p><strong>Are you sure you want to delete your reply?</strong></p>
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Yes, delete" class="btn btn-success btn_confirm"/>
+
+        <a href="{% url 'agency_system:newspaper-detail'  pk=replycomment.comment_author.post_comment.id %}" class="btn btn-primary btn_confirm">Go Back</a>
+    </form>
+  </div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

@@ -23,6 +23,7 @@ from .views import (index,
                     ReplyCommentView,
                     CommentAndRepliesView,
                     CommentDeleteView,
+                    RepliesDeleteView,
                     )
 
 urlpatterns = [
@@ -50,7 +51,9 @@ urlpatterns = [
     path("newspapers/<int:pk>/comments/<int:comment_id>/reply", ReplyCommentView.as_view(), name="reply-comment"
                                                                                                  "-create"),
     path('comments/<int:pk>/replies', CommentAndRepliesView.as_view(), name="comment-and-replies"),
-    path('comments/<int:pk>/replies/delete', CommentDeleteView.as_view(), name="comment-delete")
+    path('comments/<int:pk>/with/replies/delete', CommentDeleteView.as_view(), name="comment-delete"),
+    path('replies/<int:pk>/delete', RepliesDeleteView.as_view(), name="reply-delete"),
+
 
 ]
 
