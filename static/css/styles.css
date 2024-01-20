@@ -51,7 +51,7 @@ body {
     right: 100px;
 }
 
-.carousel-control-prev-icon{
+.carousel-control-prev-icon {
     color: white;
     margin-right: 4px;
 }
@@ -105,6 +105,7 @@ p {
     margin-top: 2px;
     color: white;
 }
+
 .btn {
     background-color: goldenrod;
     color: white;
@@ -190,7 +191,6 @@ p {
 }
 
 
-
 .lead {
     color: white;
 }
@@ -274,7 +274,6 @@ p {
 }
 
 
-
 .custom-container {
     max-width: 400px;
     background-color: transparent;
@@ -318,6 +317,7 @@ p {
     border-radius: 20px;
     width: 200px;
 }
+
 
 .news_image {
     max-width: 800px;

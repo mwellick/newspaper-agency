@@ -220,3 +220,13 @@ class CommentAndRepliesView(LoginRequiredMixin, generic.DetailView):
         }
 
         return render(request, self.template_name, context)
+
+
+class CommentDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Comment
+    template_name = "agency_system/comment_confirm_delete.html"
+
+    def get_success_url(self):
+        deleted_comment_id = self.kwargs["pk"]
+        newspaper_id = Comment.objects.get(id=deleted_comment_id).post_comment.id
+        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": newspaper_id})

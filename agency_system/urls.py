@@ -22,6 +22,7 @@ from .views import (index,
                     AddCommentView,
                     ReplyCommentView,
                     CommentAndRepliesView,
+                    CommentDeleteView,
                     )
 
 urlpatterns = [
@@ -48,8 +49,8 @@ urlpatterns = [
     path("newspapers/<int:pk>/comment/", AddCommentView.as_view(), name="comment-create"),
     path("newspapers/<int:pk>/comments/<int:comment_id>/reply", ReplyCommentView.as_view(), name="reply-comment"
                                                                                                  "-create"),
-    path('comments/<int:pk>/replies', CommentAndRepliesView.as_view(), name="comment-and-replies")
-
+    path('comments/<int:pk>/replies', CommentAndRepliesView.as_view(), name="comment-and-replies"),
+    path('comments/<int:pk>/replies/delete', CommentDeleteView.as_view(), name="comment-delete")
 
 ]
 
