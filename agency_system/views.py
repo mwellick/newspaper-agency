@@ -176,9 +176,19 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
         return context
 
 
+class CommentUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Comment
+    fields = [ "body"]
+    template_name = "agency_system/comment_update.html"
+
+    def get_success_url(self):
+        return reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": self.object.id})
+
+
 class CommentDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Comment
     template_name = "agency_system/comment_confirm_delete.html"
+    success_url = reverse_lazy("agency_system:newspaper-detail")
 
     def get_success_url(self):
         deleted_comment_id = self.kwargs["pk"]

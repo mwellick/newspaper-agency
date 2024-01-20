@@ -20,9 +20,10 @@ from .views import (index,
                     PasswordsResettingConfirmView,
                     PasswordResetSuccess,
                     AddCommentView,
+                    CommentUpdateView,
+                    CommentDeleteView,
                     ReplyCommentView,
                     CommentAndRepliesView,
-                    CommentDeleteView,
                     RepliesDeleteView,
                     )
 
@@ -53,7 +54,7 @@ urlpatterns = [
     path('comments/<int:pk>/replies', CommentAndRepliesView.as_view(), name="comment-and-replies"),
     path('comments/<int:pk>/with/replies/delete', CommentDeleteView.as_view(), name="comment-delete"),
     path('replies/<int:pk>/delete', RepliesDeleteView.as_view(), name="reply-delete"),
-
+    path('comments/<int:pk>/update', CommentUpdateView.as_view(), name="comment-update"),
 
 ]
 
