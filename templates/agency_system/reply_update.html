@@ -12,7 +12,7 @@
             <div class="row d-flex justify-content-center align-items-center h-100">
               <div class="card" style="border-radius: 25px; width: 700px">
                 <div class="card-body">
-                  <h2 class="text-uppercase text-center mb-5">Edit your comment</h2>
+                  <h2 class="text-uppercase text-center mb-5">Edit your reply</h2>
 
                   <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -38,7 +38,7 @@
     {% else %}
       <div class="container-fluid d-flex flex-column justify-content-center align-items-center vh-100">
         <p class="text-center" style="color: goldenrod;"><strong>You're not allowed to change other editors'
-          comments.</strong></p>
+          replies.</strong></p>
         <a href="{% url 'agency_system:newspaper-list' %}" class="btn btn-primary mt-2">Go Back</a>
       </div>
     {% endif %}}

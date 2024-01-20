@@ -32,18 +32,18 @@ class RedactorEditForm(UserChangeForm):
         self.fields["last_name"].required = True
 
 
-class PasswordsChangingForm(PasswordChangeForm):
+class PasswordChangingForm(PasswordChangeForm):
     class Meta(PasswordChangeForm):
         model = Redactor
         fields = UserCreationForm.Meta.fields + ("old_password", "new_password1", "new_password2",)
 
 
-class PasswordsResettingForm(PasswordResetForm):
+class PasswordResettingForm(PasswordResetForm):
     class Meta(PasswordResetForm):
         model = Redactor
 
 
-class PasswordsResettingFormConfirm(SetPasswordForm):
+class PasswordResettingFormConfirm(SetPasswordForm):
     class Meta(SetPasswordForm):
         model = Redactor
         fields = UserCreationForm.Meta.fields + ("email", "new_password", "new_password2",)

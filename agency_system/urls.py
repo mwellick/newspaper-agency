@@ -17,14 +17,15 @@ from .views import (index,
                     PasswordsChangingView,
                     PasswordChangedSuccessView,
                     PasswordsResettingView,
-                    PasswordsResettingConfirmView,
+                    PasswordResettingConfirmView,
                     PasswordResetSuccess,
                     AddCommentView,
                     CommentUpdateView,
                     CommentDeleteView,
                     ReplyCommentView,
                     CommentAndRepliesView,
-                    RepliesDeleteView,
+                    ReplyUpdateView,
+                    ReplyDeleteView,
                     )
 
 urlpatterns = [
@@ -46,15 +47,17 @@ urlpatterns = [
     path("redactors/<int:pk>/password/", PasswordsChangingView.as_view(), name="password-update"),
     path("passwords/changed/", PasswordChangedSuccessView.as_view(), name="password-changed"),
     path("passwords/reset/", PasswordsResettingView.as_view(), name="password-reset"),
-    path("passwords/reset/<uidb64>/token/", PasswordsResettingConfirmView.as_view(), name="password-reset-confirm"),
+    path("passwords/reset/<uidb64>/token/", PasswordResettingConfirmView.as_view(), name="password-reset-confirm"),
     path("accounts/reset/done/", PasswordResetSuccess.as_view(), name="password-reset-success"),
     path("newspapers/<int:pk>/comment/", AddCommentView.as_view(), name="comment-create"),
     path("newspapers/<int:pk>/comments/<int:comment_id>/reply", ReplyCommentView.as_view(), name="reply-comment"
                                                                                                  "-create"),
     path('comments/<int:pk>/replies', CommentAndRepliesView.as_view(), name="comment-and-replies"),
-    path('comments/<int:pk>/with/replies/delete', CommentDeleteView.as_view(), name="comment-delete"),
-    path('replies/<int:pk>/delete', RepliesDeleteView.as_view(), name="reply-delete"),
     path('comments/<int:pk>/update', CommentUpdateView.as_view(), name="comment-update"),
+    path('comments/<int:pk>/with/replies/delete', CommentDeleteView.as_view(), name="comment-delete"),
+    path('replies/<int:pk>/update', ReplyUpdateView.as_view(), name="reply-update"),
+    path('replies/<int:pk>/delete', ReplyDeleteView.as_view(), name="reply-delete"),
+
 
 ]
 

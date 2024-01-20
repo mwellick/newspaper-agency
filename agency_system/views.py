@@ -8,9 +8,9 @@ from django.views.generic import TemplateView
 
 from .forms import (RedactorCreationForm,
                     RedactorEditForm,
-                    PasswordsChangingForm,
-                    PasswordsResettingForm,
-                    PasswordsResettingFormConfirm,
+                    PasswordChangingForm,
+                    PasswordResettingForm,
+                    PasswordResettingFormConfirm,
                     CommentForm,
                     ReplyCommentForm
                     )
@@ -120,8 +120,13 @@ class NewspaperCreateView(LoginRequiredMixin, generic.CreateView):
 class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Newspaper
     fields = "__all__"
-    success_url = reverse_lazy("agency_system:newspaper-list")
     template_name = "agency_system/newspaper_update.html"
+
+    def get_success_url(self):
+        updated_news_id = self.kwargs["pk"]
+        edited_news = Newspaper.objects.get(id=updated_news_id)
+        news_id = edited_news.id
+        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk":news_id})
 
 
 class RegistrationSuccessView(TemplateView):
@@ -134,21 +139,21 @@ class PasswordChangedSuccessView(TemplateView):
 
 class PasswordsChangingView(PasswordChangeView):
     model = Redactor
-    form_class = PasswordsChangingForm
+    form_class = PasswordChangingForm
     success_url = reverse_lazy("agency_system:password-changed")
     template_name = "registration/password_change.html"
 
 
 class PasswordsResettingView(PasswordResetView):
     model = Redactor
-    form_class = PasswordsResettingForm
+    form_class = PasswordResettingForm
     success_url = reverse_lazy("agency_system:password-reset")
     template_name = "registration/password_reset_form.html"
 
 
-class PasswordsResettingConfirmView(PasswordResetConfirmView):
+class PasswordResettingConfirmView(PasswordResetConfirmView):
     model = Redactor
-    form_class = PasswordsResettingFormConfirm
+    form_class = PasswordResettingFormConfirm
     success_url = reverse_lazy("agency_system:password-reset-success")
     template_name = "registration/password_reset_confirm.html"
 
@@ -178,11 +183,16 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
 
 class CommentUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Comment
-    fields = [ "body"]
+    fields = ["body"]
     template_name = "agency_system/comment_update.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        context["return_url"] = reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": self.kwargs["pk"]})
+        return context
+
     def get_success_url(self):
-        return reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": self.object.id})
+        return reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": self.kwargs["pk"]})
 
 
 class CommentDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -241,9 +251,29 @@ class CommentAndRepliesView(LoginRequiredMixin, generic.DetailView):
         return render(request, self.template_name, context)
 
 
-class RepliesDeleteView(LoginRequiredMixin, generic.DeleteView):
+class ReplyUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = ReplyComment
-    template_name = "agency_system/replies_confirm_delete.html"
+    fields = ["reply_body"]
+    template_name = "agency_system/reply_update.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        updated_reply_id = self.kwargs["pk"]
+        reply_comment = ReplyComment.objects.get(id=updated_reply_id)
+        comment_id = reply_comment.comment_author.id
+        context["return_url"] = reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": comment_id})
+        return context
+
+    def get_success_url(self):
+        updated_reply_id = self.kwargs["pk"]
+        reply_comment = ReplyComment.objects.get(id=updated_reply_id)
+        comment_id = reply_comment.comment_author.id
+        return reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": comment_id})
+
+
+class ReplyDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = ReplyComment
+    template_name = "agency_system/reply_confirm_delete.html"
 
     def get_success_url(self):
         deleted_reply_id = self.kwargs["pk"]

@@ -60,6 +60,8 @@
         <p><a style="color: goldenrod"
               href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}">@{{ reply.reply_author }}</a> {{ reply.reply_date }}
           {% if user.id == user.is_superuser or user.id == reply.reply_author.id %}
+            <a class=" btn-primary" style="border-radius: 20px; padding: 5px 10px;"
+               href="{% url 'agency_system:reply-update' pk=reply.id %}">Edit this reply</a>
             <a class=" btn-danger" style="border-radius: 20px; padding: 5px 10px;"
                href="{% url 'agency_system:reply-delete' pk=reply.id %}">Delete
               this reply</a>
