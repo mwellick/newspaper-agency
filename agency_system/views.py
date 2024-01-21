@@ -74,6 +74,7 @@ class TopicDeleteView(LoginRequiredMixin, generic.DetailView):
 
 class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
+    paginate_by = 6
 
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
@@ -126,7 +127,7 @@ class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
         updated_news_id = self.kwargs["pk"]
         edited_news = Newspaper.objects.get(id=updated_news_id)
         news_id = edited_news.id
-        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk":news_id})
+        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": news_id})
 
 
 class RegistrationSuccessView(TemplateView):

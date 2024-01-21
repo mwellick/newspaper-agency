@@ -26,9 +26,13 @@
       {% block content %}
 
       {% endblock %}
+
     </div>
   </div>
 </div>
+{% block pagination %}
+  {% include 'includes/pagination.html' %}
+{% endblock %}
 
 {% block footer %}
   {% include 'includes/footer.html' %}
