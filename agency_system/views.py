@@ -46,6 +46,7 @@ def index(request: HttpRequest) -> HttpResponse:
 
 class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
+    paginate_by = 6
 
 
 class TopicDetailView(LoginRequiredMixin, generic.DetailView):
@@ -66,7 +67,7 @@ class TopicUpdateView(LoginRequiredMixin, generic.UpdateView):
     template_name = "agency_system/topic_form.html"
 
 
-class TopicDeleteView(LoginRequiredMixin, generic.DetailView):
+class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topic
     template_name = "agency_system/topic_confirm_delete.html"
     success_url = reverse_lazy("agency_system:topic-list")
@@ -99,6 +100,7 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
+    paginate_by = 4
 
 
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
