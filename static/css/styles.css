@@ -86,6 +86,8 @@ p {
 .nav-bar {
     line-height: 60px;
     background-color: black;
+    border-style: groove;
+    border-color: goldenrod;
 }
 
 .navbar-brand {
@@ -152,16 +154,15 @@ p {
 .featurette-image {
     max-width: 800px;
     max-height: 450px;
-    /*width: 100%;*/
     height: auto;
-    object-fit: cover; /* Зберігає пропорції і обрізає зображення, якщо вони не підходять */
+    object-fit: cover;
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
 .featurette-content {
-    margin-left: 150px; /* Змініть це значення відповідно до ваших потреб */
+    margin-left: 150px;
 }
 
 .lead {

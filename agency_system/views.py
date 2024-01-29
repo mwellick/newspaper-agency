@@ -263,6 +263,7 @@ class ReplyUpdateView(LoginRequiredMixin, generic.UpdateView):
         reply_comment = ReplyComment.objects.get(id=updated_reply_id)
         comment_id = reply_comment.comment_author.id
         context["return_url"] = reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": comment_id})
+        context["reply_author_id"] = reply_comment.reply_author.id if reply_comment.reply_author else None
         return context
 
     def get_success_url(self):
