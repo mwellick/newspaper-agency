@@ -61,13 +61,15 @@
         {% if user.is_superuser or user.id == publisher.id %}
           <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit
             this article</a>
+          <a href="{% url 'agency_system:newspaper-delete' pk=newspaper.id %}" class=" btn btn-danger delete-btn" style="border-radius: 20px">Delete this article</a>
         {% endif %}
       </div>
       <br>
       <br>
       <h2 style="color: white">{{ comments_number }} Comment{{ comments_number|pluralize }}:</h2>
       <br>
-      <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}" style="text-decoration: none;"><strong>Add a comment</strong></a></h4>
+      <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}" style="text-decoration: none;"><strong>Add a
+        comment</strong></a></h4>
       <hr style="border-color: goldenrod">
       {% if not newspaper.comments.all %}
         <br>

@@ -173,7 +173,7 @@
             <div class="col-md-7" style="margin-bottom: 10%">
               <h2 class="featurette-heading">{{ news.title }}</h2>
               <p class="lead">{{ news.content|safe|truncatewords:55 }}
-                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}" style="font-size: 1.3rem">read more</a>
               </p>
             </div>
             <div class="col-md-5 order-md-2">
@@ -191,7 +191,7 @@
             <div class="col-md-7 order-md-2">
               <h2 class="featurette-heading">{{ news.title }}</h2>
               <p class="lead ">{{ news.content|safe|truncatewords:55 }}
-                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}" style="font-size: 1.3rem">read more</a>
               </p>
             </div>
             {% if news.news_images %}
@@ -207,7 +207,7 @@
             <div class="col-md-7">
               <h2 class="featurette-heading">{{ news.title }}</h2>
               <p class="lead">{{ news.content|safe|truncatewords:55 }}
-                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}">read more</a>
+                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}" style="font-size: 1.3rem">read more</a>
               </p>
             </div>
             <div class="col-md-5">

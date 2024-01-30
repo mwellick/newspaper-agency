@@ -143,6 +143,12 @@ class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": news_id})
 
 
+class NewspaperDeleteView(generic.DeleteView):
+    model = Newspaper
+    template_name = "agency_system/newspaper_confirm delete.html"
+    success_url = reverse_lazy("agency_system:newspaper-list")
+
+
 class RegistrationSuccessView(TemplateView):
     template_name = 'registration/registration_success.html'
 

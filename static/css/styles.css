@@ -86,7 +86,7 @@ p {
 .nav-bar {
     line-height: 60px;
     background-color: black;
-    border-style:solid;
+    border-style: solid;
     border-color: goldenrod;
     border-width: 3px;
 }
@@ -275,6 +275,11 @@ p {
     margin-bottom: 7px;
 }
 
+.delete-btn {
+    border-radius: 20px;
+    background-color: crimson;
+    text-align: center;
+}
 
 .custom-container {
     max-width: 400px;
