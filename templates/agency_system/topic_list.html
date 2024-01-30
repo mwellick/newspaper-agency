@@ -37,26 +37,27 @@
 {% endblock %}
 {% block content %}
   <div class="container-fluid mt-5" style="padding-top: 2%">
-  <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
-    <h1 style="color: white">Topics</h1>
-    <a href="{% url 'agency_system:topic-create' %}" class="btn btn-primary topic-btn">Add a new topic</a>
-  </div>
-  <br>
-  <div class="row">
-    {% if topic_list %}
-      {% for topic in  topic_list %}
-        <div class="col-md-5 mb-5">
-          <div class="card-content" style="height: 150px;padding-top: 20px">
-            <div class="card-content-body">
-              <a href={% url 'agency_system:topic-detail' pk=topic.id %}>{{ topic.name }}</a>
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
+      <h1 style="color: white">Topics</h1>
+      <a href="{% url 'agency_system:topic-create' %}" class="btn btn-primary topic-btn">Add a new topic</a>
+    </div>
+    <br>
+    <div class="row">
+      {% if topic_list %}
+        {% for topic in  topic_list %}
+          <div class="col-md-5 mb-5">
+            <div class="card-content" style="height: 150px;padding-top: 20px">
+              <div class="card-content-body">
+                <a href={% url 'agency_system:topic-detail' pk=topic.id %}>{{ topic.name }}</a>
+              </div>
             </div>
           </div>
+        {% endfor %}
+      {% else %}
+        <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
+          <p class="text-center" style="color: goldenrod; font-size: 30px"><strong>There are no topics in Good News Agency.</strong></p>
         </div>
-      {% endfor %}
-    {% else %}
-      <div class="container-fluid d-flex flex-column justify-content-center align-items-center vh-100">
-      <p class="text-center" style="color: goldenrod;"><strong>There are no topics in Good News agency.</strong></p>
-    {% endif %}
+      {% endif %}
     </div>
   </div>
 {% endblock %}

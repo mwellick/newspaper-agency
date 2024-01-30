@@ -36,26 +36,28 @@
 {% endblock %}
 {% block content %}
   <div class="container-fluid mt-5" style="padding-top: 2%">
-  <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
-    <h1 style="color: white;text-align: center">News</h1>
-    <a href="{% url 'agency_system:newspaper-create' %}" class="btn btn-primary topic-btn">Add News</a>
-  </div>
-  <br>
-  <div class="row">
-    {% if newspaper_list %}
-      {% for article in  newspaper_list %}
-        <div class="col-md-5 mb-5">
-          <div class="card-content">
-            <div class="card-content-body">
-              <a href={% url 'agency_system:newspaper-detail' pk=article.id %}>{{ article.title }}</a>
+    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
+      <h1 style="color: white;text-align: center">News</h1>
+      <a href="{% url 'agency_system:newspaper-create' %}" class="btn btn-primary topic-btn">Add News</a>
+    </div>
+    <br>
+    <div class="row">
+      {% if newspaper_list %}
+        {% for article in  newspaper_list %}
+          <div class="col-md-5 mb-5">
+            <div class="card-content">
+              <div class="card-content-body">
+                <a href={% url 'agency_system:newspaper-detail' pk=article.id %}>{{ article.title }}</a>
+              </div>
             </div>
           </div>
+        {% endfor %}
+      {% else %}
+        <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
+          <p class="text-center" style="color: goldenrod; font-size: 30px"><strong>There are no news in Good News
+            Agency.</strong></p>
         </div>
-      {% endfor %}
-    {% else %}
-      <div class="container-fluid d-flex flex-column justify-content-center align-items-center vh-100">
-      <p class="text-center" style="color: goldenrod;"><strong>There are no news in Good News agency.</strong></p>
-    {% endif %}
+      {% endif %}
     </div>
   </div>
 {% endblock %}

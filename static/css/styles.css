@@ -86,8 +86,9 @@ p {
 .nav-bar {
     line-height: 60px;
     background-color: black;
-    border-style: groove;
+    border-style:solid;
     border-color: goldenrod;
+    border-width: 3px;
 }
 
 .navbar-brand {
