@@ -94,8 +94,19 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     form_class = RedactorEditForm
     template_name = "registration/edit_profile.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["return_url"] = reverse_lazy("agency_system:redactor-detail", kwargs={"pk": self.kwargs["pk"]})
+        return context
+
     def get_success_url(self):
         return reverse_lazy("agency_system:redactor-detail", kwargs={"pk": self.object.pk})
+
+
+class RedactorDeleteView(generic.DeleteView):
+    model = Redactor
+    template_name = "agency_system/redactor_confirm_delete.html"
+    success_url = reverse_lazy("login")
 
 
 class NewspaperListView(LoginRequiredMixin, generic.ListView):
@@ -145,6 +156,11 @@ class PasswordsChangingView(PasswordChangeView):
     form_class = PasswordChangingForm
     success_url = reverse_lazy("agency_system:password-changed")
     template_name = "registration/password_change.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["return_url"] = reverse_lazy("agency_system:redactor-detail", kwargs={"pk": self.kwargs["pk"]})
+        return context
 
 
 class PasswordsResettingView(PasswordResetView):

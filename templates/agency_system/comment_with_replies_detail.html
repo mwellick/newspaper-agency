@@ -35,10 +35,10 @@
       <h1 style="color: goldenrod">Comment:</h1>
       {% if  user.id == user.is_superuser or user.id == comment.author.id %}
         <a href="{% url 'agency_system:comment-update' pk=comment.id %}" class=" btn-primary"
-           style="border-radius: 20px; margin-bottom: 15px; padding: 10px 20px;margin-left: 500px">Edit a
+           style="border-radius: 20px; margin-bottom: 15px; padding: 10px 20px;margin-left: 500px;text-decoration: none;">Edit a
           comment</a>
         <a href="{% url 'agency_system:comment-delete' pk=comment.id %}" class=" btn-danger"
-           style="border-radius: 20px; margin-bottom: 15px; padding: 10px 20px;">Delete a
+           style="border-radius: 20px; margin-bottom: 15px; padding: 10px 20px; text-decoration: none;">Delete a
           comment</a>
       {% endif %}
     </div>
@@ -60,9 +60,9 @@
         <p><a style="color: goldenrod"
               href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}">@{{ reply.reply_author }}</a> {{ reply.reply_date }}
           {% if user.id == user.is_superuser or user.id == reply.reply_author.id %}
-            <a class=" btn-primary" style="border-radius: 20px; padding: 5px 10px;"
+            <a class=" btn-primary" style="border-radius: 20px; padding: 5px 10px;text-decoration: none;"
                href="{% url 'agency_system:reply-update' pk=reply.id %}">Edit this reply</a>
-            <a class=" btn-danger" style="border-radius: 20px; padding: 5px 10px;"
+            <a class=" btn-danger" style="border-radius: 20px; padding: 5px 10px;text-decoration: none;"
                href="{% url 'agency_system:reply-delete' pk=reply.id %}">Delete
               this reply</a>
           {% endif %}

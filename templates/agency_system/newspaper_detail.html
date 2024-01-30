@@ -13,6 +13,12 @@
           <li class="nav-item active justify-content-center">
             <a class="nav-link" href={% url 'agency_system:index' %}>Home</a>
           </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:newspaper-list' %}>All News</a>
+          </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:redactor-list' %}>All Redactors</a>
+          </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0">
           {% if user.is_authenticated %}
@@ -31,7 +37,7 @@
   </header>
 {% endblock %}
 {% block content %}
-  <div class="container mx-auto" style="padding-top: 5%">
+  <div class="container mx-auto" style="padding-top: 7%">
   <br>
   {% for publisher in newspaper.publishers.all %}
     <div class="container" style="color: white;">
@@ -61,7 +67,7 @@
       <br>
       <h2 style="color: white">{{ comments_number }} Comment{{ comments_number|pluralize }}:</h2>
       <br>
-      <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}"><strong>Add a comment</strong></a></h4>
+      <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}" style="text-decoration: none;"><strong>Add a comment</strong></a></h4>
       <hr style="border-color: goldenrod">
       {% if not newspaper.comments.all %}
         <br>
@@ -77,14 +83,15 @@
           {% if comment %}
             <a class="btn btn-primary reply-btn mr-2"
                href="{% url 'agency_system:reply-comment-create' pk=newspaper.id comment_id=comment.id %}">Reply</a>
-            <a href="{% url 'agency_system:comment-and-replies' pk=comment.id %}">
+            <a href="{% url 'agency_system:comment-and-replies' pk=comment.id %}" style="text-decoration: none;">
               {% if comment.comment_replies.count == 1 %}
                 <strong>{{ comment.comment_replies.count }} reply</strong>
               {% else %}
                 <strong>{{ comment.comment_replies.count }} replies</strong></a>
               {% endif %}
             {% if user.id == user.is_superuser or user.id == comment.author.id %}
-              <a class="ml-3" style="font-size: 16px"  href="{% url 'agency_system:comment-and-replies' pk=comment.id %}"><strong>Edit a comment</strong></a>
+              <a class="ml-3" style="font-size: 16px; text-decoration: none;"
+                 href="{% url 'agency_system:comment-and-replies' pk=comment.id %}"><strong>Edit a comment</strong></a>
             {% endif %}
           {% endif %}
           <hr style="border-color: goldenrod">

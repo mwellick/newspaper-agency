@@ -9,6 +9,7 @@ from .views import (index,
                     RedactorDetailView,
                     RedactorCreateView,
                     RedactorUpdateView,
+                    RedactorDeleteView,
                     NewspaperListView,
                     NewspaperDetailView,
                     NewspaperCreateView,
@@ -39,6 +40,7 @@ urlpatterns = [
     path("redactors/<int:pk>/", RedactorDetailView.as_view(), name="redactor-detail"),
     path("create_account/", RedactorCreateView.as_view(), name="redactor-create"),
     path("redactors/<int:pk>/edit_profile/", RedactorUpdateView.as_view(), name="redactor-update"),
+    path("redactors/<int:pk>/delete_profile/", RedactorDeleteView.as_view(), name="redactor-delete"),
     path("newspapers/", NewspaperListView.as_view(), name="newspaper-list"),
     path("newspapers/<int:pk>/", NewspaperDetailView.as_view(), name="newspaper-detail"),
     path("newspapers/create/", NewspaperCreateView.as_view(), name="newspaper-create"),
@@ -57,7 +59,6 @@ urlpatterns = [
     path('comments/<int:pk>/with/replies/delete', CommentDeleteView.as_view(), name="comment-delete"),
     path('replies/<int:pk>/update', ReplyUpdateView.as_view(), name="reply-update"),
     path('replies/<int:pk>/delete', ReplyDeleteView.as_view(), name="reply-delete"),
-
 
 ]
 

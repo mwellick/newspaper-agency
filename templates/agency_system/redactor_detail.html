@@ -2,39 +2,49 @@
 {% load static %}
 {% block navbar %}
   <header>
-  <nav class="navbar navbar-expand-md  fixed-top  nav-bar">
-    <div class="navbar-brand logo"><strong>GOOD</strong><strong> NEWS</strong></div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active justify-content-center" >
-          <a class="nav-link"  href={% url 'agency_system:index' %}>Home</a>
-        </li>
-      </ul>
-      <form class="form-inline mt-2 mt-md-0">
-        {% if user.is_authenticated %}
-          <a class="btn btn-outline-success my-2 my-sm-0 btn-logout" href="{% url 'logout' %}">
-            <i class="fa fa-sign-out me-1"></i> Logout
-          </a>
-        {% else %}
-          <a class="btn btn-outline-success my-2 my-sm-0 btn-login" href="{% url 'login' %}">
-            <i class="fa fa-sign-in me-1"></i> Login
-          </a>
-        {% endif %}
-      </form>
+    <nav class="navbar navbar-expand-md  fixed-top  nav-bar">
+      <div class="navbar-brand logo"><strong>GOOD</strong><strong> NEWS</strong></div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:index' %}>Home</a>
+          </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:redactor-list' %}>All Redactors</a>
+          </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+          {% if user.is_authenticated %}
+            <a class="btn btn-outline-success my-2 my-sm-0 btn-logout" href="{% url 'logout' %}">
+              <i class="fa fa-sign-out me-1"></i> Logout
+            </a>
+          {% else %}
+            <a class="btn btn-outline-success my-2 my-sm-0 btn-login" href="{% url 'login' %}">
+              <i class="fa fa-sign-in me-1"></i> Login
+            </a>
+          {% endif %}
+        </form>
 
-    </div>
-  </nav>
-</header>
+      </div>
+    </nav>
+  </header>
 {% endblock %}
 {% block content %}
   <div class="container text-center" style="padding-top: 5%">
     <br>
-    <div class="newspaper-box text-center" style="color: white">
-      <h1 style="color: goldenrod">{{ redactor.first_name }} {{ redactor.last_name }}</h1>
+    <div class="newspaper-box text-center " style="color: white">
+      <h1 style="color: goldenrod">{{ redactor.first_name }} {{ redactor.last_name }}
+      </h1>
+      {% if  user.id == user.is_superuser or user.id == redactor.id %}
+        <br>
+        <a href="{% url 'agency_system:redactor-delete' pk=redactor.id %}" class=" btn-danger"
+           style="border-radius: 20px; padding: 5px 10px; text-decoration: none;">Delete account</a>
+        <br>
+      {% endif %}
       <br>
       <h3><strong>Personal information</strong></h3>
       <br>
@@ -43,7 +53,7 @@
       <p><strong style="color: goldenrod">Username:</strong> {{ redactor.username }}</p>
       <p><strong style="color: goldenrod">Password:</strong> ********
         {% if user.id == redactor.id %}
-          <a class="ml-3" style="font-size: 1.3rem" href="{% url 'agency_system:password-update' pk=redactor.id %}">Change
+          <a class="ml-3" style="font-size: 1.3rem; text-decoration: none;" href="{% url 'agency_system:password-update' pk=redactor.id %}">Change
             Password</a>
         {% endif %}
       </p>
@@ -59,7 +69,7 @@
           You have not published any news yet.
         {% endif %}
         {% if user.id != redactor.id and  redactor.published_newspapers.count == 0 %}
-           This user has not published any news yet.
+          This user has not published any news yet.
         {% elif redactor.published_newspapers.count > 0 %}
           {{ redactor.published_newspapers.count }}
         {% endif %}
