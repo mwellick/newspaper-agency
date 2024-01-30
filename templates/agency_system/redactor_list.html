@@ -12,6 +12,12 @@
           <li class="nav-item active justify-content-center">
             <a class="nav-link" href={% url 'agency_system:index' %}>Home</a>
           </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:topic-list' %}>All Topics</a>
+          </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:newspaper-list' %}>All News</a>
+          </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0">
           {% if user.is_authenticated %}

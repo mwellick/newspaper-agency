@@ -1,55 +1,62 @@
 {% extends "base.html" %}
 {% block navbar %}
   <header>
-  <nav class="navbar navbar-expand-md  fixed-top  nav-bar">
-    <div class="navbar-brand logo"><strong>GOOD</strong><strong> NEWS</strong></div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
-            aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active justify-content-center" >
-          <a class="nav-link"  href={% url 'agency_system:index' %}>Home</a>
-        </li>
-      </ul>
-      <form class="form-inline mt-2 mt-md-0">
-        {% if user.is_authenticated %}
-          <a class="btn btn-outline-success my-2 my-sm-0 btn-logout" href="{% url 'logout' %}">
-            <i class="fa fa-sign-out me-1"></i> Logout
-          </a>
-        {% else %}
-          <a class="btn btn-outline-success my-2 my-sm-0 btn-login" href="{% url 'login' %}">
-            <i class="fa fa-sign-in me-1"></i> Login
-          </a>
-        {% endif %}
-      </form>
+    <nav class="navbar navbar-expand-md  fixed-top  nav-bar">
+      <div class="navbar-brand logo"><strong>GOOD</strong><strong> NEWS</strong></div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:index' %}>Home</a>
+          </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:redactor-list' %}>All Redactors</a>
+          </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:newspaper-list' %}>All News</a>
+          </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+          {% if user.is_authenticated %}
+            <a class="btn btn-outline-success my-2 my-sm-0 btn-logout" href="{% url 'logout' %}">
+              <i class="fa fa-sign-out me-1"></i> Logout
+            </a>
+          {% else %}
+            <a class="btn btn-outline-success my-2 my-sm-0 btn-login" href="{% url 'login' %}">
+              <i class="fa fa-sign-in me-1"></i> Login
+            </a>
+          {% endif %}
+        </form>
 
-    </div>
-  </nav>
-</header>
+      </div>
+    </nav>
+  </header>
 {% endblock %}
 {% block content %}
   <div class="container-fluid mt-5" style="padding-top: 2%">
-    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
-      <h1 style="color: white">Topics</h1>
-      <a href="{% url 'agency_system:topic-create' %}" class="btn btn-primary topic-btn">Add a new topic</a>
-    </div>
-    <br>
-    <div class="row">
-      {% if topic_list %}
-        {% for topic in  topic_list %}
-          <div class="col-md-5 mb-5">
-            <div class="card-content" style="height: 150px;padding-top: 20px">
-              <div class="card-content-body">
-                <a href={% url 'agency_system:topic-detail' pk=topic.id %}>{{ topic.name }}</a>
-              </div>
+  <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
+    <h1 style="color: white">Topics</h1>
+    <a href="{% url 'agency_system:topic-create' %}" class="btn btn-primary topic-btn">Add a new topic</a>
+  </div>
+  <br>
+  <div class="row">
+    {% if topic_list %}
+      {% for topic in  topic_list %}
+        <div class="col-md-5 mb-5">
+          <div class="card-content" style="height: 150px;padding-top: 20px">
+            <div class="card-content-body">
+              <a href={% url 'agency_system:topic-detail' pk=topic.id %}>{{ topic.name }}</a>
             </div>
           </div>
-        {% endfor %}
-      {% else %}
-        <p>There are no topics in Good News agency</p>
-      {% endif %}
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="container-fluid d-flex flex-column justify-content-center align-items-center vh-100">
+      <p class="text-center" style="color: goldenrod;"><strong>There are no topics in Good News agency.</strong></p>
+    {% endif %}
     </div>
   </div>
 {% endblock %}
