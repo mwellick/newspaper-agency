@@ -15,6 +15,9 @@ class Topic(models.Model):
 
 
 class Redactor(AbstractUser):
+    bio = models.TextField(null=True)
+    profile_images = models.ImageField(null=True, blank=True, upload_to="profile_images/",
+                                       verbose_name="Profile Image (600x400)")
     years_of_experience = models.PositiveIntegerField(default=0)
 
     class Meta:

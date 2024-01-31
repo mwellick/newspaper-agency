@@ -48,15 +48,25 @@
       <br>
       <h3><strong>Personal information</strong></h3>
       <br>
+      {% if redactor.profile_images %}
+          <img class="avatar_img img-thumbnail"  src="{{ redactor.profile_images.url }}">
+      {% endif %}
+      <br><br>
       <p><strong style="color: goldenrod">First name:</strong> {{ redactor.first_name }}</p>
       <p><strong style="color: goldenrod">Last name:</strong> {{ redactor.last_name }}</p>
       <p><strong style="color: goldenrod">Username:</strong> {{ redactor.username }}</p>
       <p><strong style="color: goldenrod">Password:</strong> ********
         {% if user.id == redactor.id %}
-          <a class="ml-3" style="font-size: 1.3rem; text-decoration: none;" href="{% url 'agency_system:password-update' pk=redactor.id %}">Change
+          <a class="ml-3" style="font-size: 1.3rem; text-decoration: none;"
+             href="{% url 'agency_system:password-update' pk=redactor.id %}">Change
             Password</a>
         {% endif %}
       </p>
+      {% if not redactor.bio %}
+        <p><strong style="color: goldenrod">Bio:</strong> No bio yet</p>
+      {% else %}
+        <p><strong style="color: goldenrod">Bio:</strong>{{ redactor.bio }}</p>
+      {% endif %}
       <p><strong style="color: goldenrod">Email:</strong> {{ redactor.email }}
         {% if not redactor.email %}
           No information given.

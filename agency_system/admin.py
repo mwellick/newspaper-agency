@@ -15,10 +15,10 @@ class NewspaperAdmin(admin.ModelAdmin):
 class RedactorAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("years_of_experience",)
     fieldsets = UserAdmin.fieldsets + (
-        ("Additional info", {"fields": ("years_of_experience",)}),
+        ("Additional info", {"fields": ("bio","profile_images","years_of_experience",)}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        ("Additional info", {"fields": ("first_name", "last_name", "years_of_experience",)}),
+        ("Additional info", {"fields": ("first_name", "last_name", "profile_images", "bio", "years_of_experience",)}),
     )
 
 

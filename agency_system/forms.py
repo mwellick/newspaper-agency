@@ -6,7 +6,7 @@ from django.contrib.auth.forms import (UserCreationForm,
                                        SetPasswordForm,
                                        )
 
-from agency_system.models import Redactor, Comment,ReplyComment
+from agency_system.models import Redactor, Comment, ReplyComment
 
 
 class RedactorCreationForm(UserCreationForm):
@@ -23,13 +23,15 @@ class RedactorCreationForm(UserCreationForm):
 class RedactorEditForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = Redactor
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "years_of_experience",)
+        fields = UserCreationForm.Meta.fields + (
+            "profile_images", "first_name", "last_name", "bio", "email", "years_of_experience",)
 
     def __init__(self, *args, **kwargs):
         super(RedactorEditForm, self).__init__(*args, **kwargs)
         self.fields.pop("password")
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
+        self.fields["bio"].required = False
 
 
 class PasswordChangingForm(PasswordChangeForm):
