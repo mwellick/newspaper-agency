@@ -67,6 +67,9 @@ class ReplyComment(models.Model):
     reply_body = models.TextField()
     reply_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ["-reply_date"]
+
     def __str__(self):
         return (f"{self.reply_author} replied on {self.comment_author.author} comment "
                 f"(comment reply id:{self.comment_author.id}|comment:{self.comment_author.post_comment.id})")

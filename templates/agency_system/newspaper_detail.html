@@ -78,18 +78,26 @@
         <br>
       {% else %}
         {% for comment in newspaper.comments.all %}
-          <p>
-            {% if comment.author.profile_images.url %}
-              <img class="comment_img img-thumbnail"
-                   src="{{ comment.author.profile_images.url }}">
-            {% endif %}
-            <a style="color: goldenrod"
-               href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}">@{{ comment.author.username }}</a> {{ comment.date_added }}
-          </p>
+          <div class="card mb-3">
+            <div class="row no-gutters">
+              <div class="col-md-2" style="max-width: 100px">
+                {% if comment.author.profile_images.url %}
+                  <img src="{{ comment.author.profile_images.url }}" class="card-img img-thumbnail" alt="...">
+                {% endif %}
+              </div>
+              <div class="col-md-10">
+                <div class="card-body" style="margin-right: 10%">
+                  <h5 class="card-title"><a href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}"
+                                            style="color: goldenrod">@{{ comment.author.username }}</a> {{ comment.date_added }}
+                  </h5>
+                  <p class="card-text">{{ comment.body }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-          <p>{{ comment.body }}</p>
           {% if comment %}
-            <a class="btn btn-primary reply-btn mr-2"
+            <a class="btn btn-primary reply-btn mr-2" style="margin-left: 20px"
                href="{% url 'agency_system:reply-comment-create' pk=newspaper.id comment_id=comment.id %}">Reply</a>
             <a href="{% url 'agency_system:comment-and-replies' pk=comment.id %}" style="text-decoration: none;">
               {% if comment.comment_replies.count == 1 %}
