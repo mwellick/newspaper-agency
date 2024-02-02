@@ -49,7 +49,11 @@
       <h3><strong>Personal information</strong></h3>
       <br>
       {% if redactor.profile_images %}
-          <img class="avatar_img img-thumbnail"  src="{{ redactor.profile_images.url }}">
+        <img class="avatar_img img-thumbnail" src="{{ redactor.profile_images.url }}">
+      {% else %}
+        {% with redactor.profile_images|default:"/media/default_image/blank-profile-picture.jpg/" as avatar_url %}
+          <img class="avatar_img img-thumbnail" src="{{ avatar_url }}">
+        {% endwith %}
       {% endif %}
       <br><br>
       <p><strong style="color: goldenrod">First name:</strong> {{ redactor.first_name }}</p>

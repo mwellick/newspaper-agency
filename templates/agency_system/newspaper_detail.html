@@ -81,8 +81,12 @@
           <div class="card mb-3">
             <div class="row no-gutters">
               <div class="col-md-2" style="max-width: 100px">
-                {% if comment.author.profile_images.url %}
+                {% if comment.author.profile_images.url and comment.author and comment.author.profile_images %}
                   <img src="{{ comment.author.profile_images.url }}" class="card-img img-thumbnail" alt="...">
+                {% else %}
+                  {% with redactor.profile_images|default:"/media/default_image/blank-profile-picture.jpg/" as avatar_url %}
+                    <img class="card-img img-thumbnail" src="{{ avatar_url }}">
+                  {% endwith %}
                 {% endif %}
               </div>
               <div class="col-md-10" style="margin-right: 55px">
