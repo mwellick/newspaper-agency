@@ -6,7 +6,7 @@
     <p><i>All newspapers with this topic will be also deleted!</i></p>
     <form action="" method="post">
       {% csrf_token %}
-      <input type="submit" value="Yes, delete" class="btn btn-success btn_confirm"/>
+      <input type="submit" value="Delete" class="btn btn-success btn_confirm"/>
       <a href="{% url 'agency_system:topic-detail' pk=topic.id %}" class="btn btn-primary btn_confirm">Go Back</a>
     </form>
   </div>

@@ -59,7 +59,7 @@
       <div class="text-center">
         <br>
         {% if user.is_superuser or user.id == publisher.id %}
-          <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-primary topic-btn">Edit
+          <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-success topic-btn">Edit
             this article</a>
           <a href="{% url 'agency_system:newspaper-delete' pk=newspaper.id %}" class=" btn btn-danger delete-btn"
              style="border-radius: 20px">Delete this article</a>
@@ -67,14 +67,14 @@
       </div>
       <br>
       <br>
-      <h2 style="color: white">{{ comments_number }} Comment{{ comments_number|pluralize }}:</h2>
+      <h2 style="color: goldenrod"><strong>{{ comments_number }} Comment{{ comments_number|pluralize }}:</strong></h2>
       <br>
       <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}" style="text-decoration: none;"><strong>Add a
         comment</strong></a></h4>
       <hr style="border-color: goldenrod">
       {% if not newspaper.comments.all %}
         <br>
-        <p>There is no comments yet...</p>
+        <p>There are no comments yet...</p>
         <br>
       {% else %}
         {% for comment in newspaper.comments.all %}
@@ -85,7 +85,7 @@
                   <img src="{{ comment.author.profile_images.url }}" class="card-img img-thumbnail" alt="...">
                 {% endif %}
               </div>
-              <div class="col-md-10">
+              <div class="col-md-10" style="margin-right: 55px">
                 <div class="card-body" style="margin-right: 10%">
                   <h5 class="card-title"><a href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}"
                                             style="color: goldenrod">@{{ comment.author.username }}</a> {{ comment.date_added }}

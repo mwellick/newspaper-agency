@@ -32,14 +32,13 @@
 {% block content %}
   <div class="container mx-auto" style="padding-top: 7%">
     <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
-      <h1 style="color: goldenrod">Comment:</h1>
+      <h1 style="color: goldenrod"><strong>Comment:</strong></h1>
       {% if  user.id == user.is_superuser or user.id == comment.author.id %}
         <a href="{% url 'agency_system:comment-update' pk=comment.id %}" class=" btn-primary"
-           style="border-radius: 20px; margin-bottom: 15px; padding: 10px 20px;margin-left: 500px;text-decoration: none;">Edit
-          a
+           style="border-radius: 20px;  padding: 5px 10px;margin-left: 500px;text-decoration: none;">Edit
           comment</a>
         <a href="{% url 'agency_system:comment-delete' pk=comment.id %}" class=" btn-danger"
-           style="border-radius: 20px; margin-bottom: 15px; padding: 10px 20px; text-decoration: none;">Delete a
+           style="border-radius: 20px;  padding: 5px 10px; text-decoration: none;">Delete
           comment</a>
       {% endif %}
     </div>
@@ -50,7 +49,7 @@
         <div class="col-md-2" style="max-width: 100px">
           <img src="{{ comment.author.profile_images.url }}" class="card-img img-thumbnail" alt="...">
         </div>
-        <div class="col-md-10">
+        <div class="col-md-10" style="margin-right: 55px">
           <div class="card-body" style="margin-right: 10%">
             <h5 class="card-title"><a href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}"
                                       style="color: goldenrod">@{{ comment.author.username }}</a> {{ comment.date_added }}
@@ -64,9 +63,9 @@
     <br>
     <div style="margin-left: 100px">
       {% if comment.comment_replies.count == 1 %}
-        <h3 style="color: goldenrod"> {{ comment.comment_replies.count }} Reply: </h3>
+        <h3 style="color: goldenrod"> {{ comment.comment_replies.count }} <strong>Reply:</strong> </h3>
       {% else %}
-        <h3 style="color: goldenrod"> {{ comment.comment_replies.count }} Replies: </h3>
+        <h3 style="color: goldenrod"> {{ comment.comment_replies.count }} <strong>Replies</strong> </h3>
       {% endif %}
       <hr style="border-color: goldenrod">
       {% for reply in replies %}
@@ -77,9 +76,9 @@
                 <img class="reply_img img-thumbnail" src="{{ reply.reply_author.profile_images.url }}">
               {% endif %}
             </div>
-            <div class="col-md-10">
+            <div class="col-md-10" style="margin-right: 55px">
               <div class="card-body" style="margin-right: 10%">
-                <h5 class="card-title"><a href="{% url 'agency_system:redactor-detail' pk=reply.reply_author.id %}"
+                <h5 class="card-title  justify-content-between"><a href="{% url 'agency_system:redactor-detail' pk=reply.reply_author.id %}"
                                           style="color: goldenrod">@{{ reply.reply_author.username }}</a> {{ reply.reply_date }}
                   {% if user.id == user.is_superuser or user.id == reply.reply_author.id %}
                     <a class=" btn-primary" style="border-radius: 20px; padding: 5px 10px;text-decoration: none;"

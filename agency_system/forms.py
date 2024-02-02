@@ -61,3 +61,10 @@ class ReplyCommentForm(forms.ModelForm):
     class Meta:
         model = ReplyComment
         fields = ["reply_body"]
+
+
+class TopicSearchForm(forms.Form):
+    title = forms.CharField(max_length=255, required=False,
+                            label="",
+                            widget=forms.TextInput(attrs={"placeholder": "Search by topic name"})
+                            )

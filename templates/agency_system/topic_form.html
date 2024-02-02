@@ -5,16 +5,23 @@
 {% block content %}
   <section class="bg-image d-flex justify-content-center align-items-center"
            style="background-image: url('https://s3-us-west-1.amazonaws.com/faithnetworkuserfilestore/FAITHNETWORK_USERFILESTORE/FAITHNETWORK_USERFILESTORE/imagelibraries/ministries/95ce76eb-3371-4b95-aefd-876cd8baa69c/2022%20Sermons/Black%20Modern%20Minimalist%20Ripped%20Paper%20Aesthetic%20Album%20Cover-2.png'); height: 100vh;">
-    <div class=" card mx-auto my-5 container mt-8 text-center custom-container " style="color: white; background-color: rgba(0, 0, 0, 0.5);">
-      <h2 >Add a new Topic</h2>
+    <div class=" card mx-auto my-5 container mt-8 text-center custom-container "
+         style="color: white; background-color: rgba(0, 0, 0, 0.5);">
+      <h2>Add a new Topic</h2>
       <form method="post" enctype="multipart/form-data" class="mt-8 mx-auto">
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-success custom-btn">Add</button>
       </form>
+      <br>
+      <div class="d-flex justify-content-center" style="font-size: 10px">
+        <a class="btn btn-primary pl-2" style="border-radius: 20px"
+           href="{% url 'agency_system:topic-list' %}"> Cancel</a>
+      </div>
     </div>
   </section>
 {% endblock %}
 {% block footer %}
 {% endblock %}
+
 

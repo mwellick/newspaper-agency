@@ -12,7 +12,7 @@ from .forms import (RedactorCreationForm,
                     PasswordResettingForm,
                     PasswordResettingFormConfirm,
                     CommentForm,
-                    ReplyCommentForm
+                    ReplyCommentForm, TopicSearchForm
                     )
 from .models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
@@ -47,6 +47,21 @@ def index(request: HttpRequest) -> HttpResponse:
 class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
     paginate_by = 6
+    queryset = Topic.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(TopicListView, self).get_context_data(**kwargs)
+        title = self.request.GET.get("title", "")
+        context["search_form"] = TopicSearchForm(
+            initial={"title": title}
+        )
+        return context
+
+    def get_queryset(self):
+        form = TopicSearchForm(self.request.GET)
+        if form.is_valid():
+            return self.queryset.filter(name__startswith=form.cleaned_data["title"])
+        return self.queryset
 
 
 class TopicDetailView(LoginRequiredMixin, generic.DetailView):
