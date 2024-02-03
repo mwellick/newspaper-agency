@@ -65,15 +65,22 @@
         <div class="col-md-5 mb-5">
           <div class="card-content" style="height: 150px;padding-top: 20px">
             <div class="card-content-body">
-              <a href={% url 'agency_system:topic-detail' pk=topic.id %}>{{ topic.name }}</a>
+              <a href="{% url 'agency_system:topic-detail' pk=topic.id %}">{{ topic.name }}</a>
             </div>
           </div>
         </div>
       {% endfor %}
+    {% elif search_form.title and search_form.title not in  topic_list %}
+      <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
+        <p class="text-center" style="color: goldenrod; font-size: 30px">
+          <strong>No topics found for your search</strong>
+        </p>
+      </div>
     {% else %}
       <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
-        <p class="text-center" style="color: goldenrod; font-size: 30px"><strong>There is no such topic in Good News
-          Agency.</strong></p>
+        <p class="text-center" style="color: goldenrod; font-size: 30px">
+          <strong>There are no topics in Good News Agency.</strong>
+        </p>
       </div>
     {% endif %}
   </div>

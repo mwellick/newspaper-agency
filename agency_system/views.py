@@ -61,7 +61,7 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
         form = TopicSearchForm(self.request.GET)
         if form.is_valid():
             return self.queryset.filter(name__startswith=form.cleaned_data["title"])
-        return self.queryset
+        return self.queryset.none()
 
 
 class TopicDetailView(LoginRequiredMixin, generic.DetailView):
