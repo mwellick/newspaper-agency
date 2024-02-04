@@ -12,7 +12,9 @@ from .forms import (RedactorCreationForm,
                     PasswordResettingForm,
                     PasswordResettingFormConfirm,
                     CommentForm,
-                    ReplyCommentForm, TopicSearchForm
+                    ReplyCommentForm,
+                    TopicSearchForm,
+                    RedactorSearchForm,
                     )
 from .models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
@@ -91,6 +93,21 @@ class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
 class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
     paginate_by = 6
+    queryset = Redactor.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(RedactorListView, self).get_context_data(**kwargs)
+        username = self.request.GET.get("username", "")
+        context["search_form"] = RedactorSearchForm(
+            initial={"username": username}
+        )
+        return context
+
+    def get_queryset(self):
+        form = RedactorSearchForm(self.request.GET)
+        if form.is_valid():
+            return self.queryset.filter(username__startswith=form.cleaned_data["username"])
+        return self.queryset
 
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
