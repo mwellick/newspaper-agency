@@ -2,7 +2,7 @@ from django.contrib.auth.views import PasswordChangeView, PasswordResetView, Pas
 from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpRequest, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
@@ -15,6 +15,7 @@ from .forms import (RedactorCreationForm,
                     ReplyCommentForm,
                     TopicSearchForm,
                     RedactorSearchForm,
+                    NewspaperSearchForm
                     )
 from .models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
@@ -53,16 +54,16 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TopicListView, self).get_context_data(**kwargs)
-        title = self.request.GET.get("title", "")
+        topic_name = self.request.GET.get("name", "")
         context["search_form"] = TopicSearchForm(
-            initial={"title": title}
+            initial={"name": topic_name}
         )
         return context
 
     def get_queryset(self):
         form = TopicSearchForm(self.request.GET)
         if form.is_valid():
-            return self.queryset.filter(name__startswith=form.cleaned_data["title"])
+            return self.queryset.filter(name__startswith=form.cleaned_data["name"])
         return self.queryset.none()
 
 
@@ -144,6 +145,21 @@ class RedactorDeleteView(generic.DeleteView):
 class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
     paginate_by = 4
+    queryset = Newspaper.objects.all()
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super(NewspaperListView, self).get_context_data(**kwargs)
+        news_title = self.request.GET.get("title", "")
+        context["search_form"] = NewspaperSearchForm(
+            initial={"title": news_title}
+        )
+        return context
+
+    def get_queryset(self):
+        form = NewspaperSearchForm(self.request.GET)
+        if form.is_valid():
+            return self.queryset.filter(title__icontains=form.cleaned_data["title"])
+        return self.queryset
 
 
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):

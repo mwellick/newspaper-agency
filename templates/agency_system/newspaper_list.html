@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_filters %}
 {% block navbar %}
   <header>
     <nav class="navbar navbar-expand-md  fixed-top  nav-bar">
@@ -36,11 +37,22 @@
 {% endblock %}
 {% block content %}
   <div class="container-fluid mt-5" style="padding-top: 2%">
-    <div class="d-flex justify-content-between align-items-center mt-3 mb-5">
-      <h1 style="color: white;text-align: center">News</h1>
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <h1 class="text-center" style="color: goldenrod; margin-right: 55px; font-size: 60px"><strong>News</strong>
+      </h1>
       <a href="{% url 'agency_system:newspaper-create' %}" class="btn btn-primary topic-btn">Add News</a>
     </div>
     <br>
+    <form method="get" action="" class="form-multiline justify-content-center"
+          style="max-height: 38px;max-width: 280px;">
+      <div class="input-group">
+        {{ search_form|crispy }}
+        <button id="search-button"
+                style="max-height: 38px; margin-left: 5px; background: transparent; color: goldenrod" type="submit">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </form>
     <div class="row">
       {% if newspaper_list %}
         {% for article in  newspaper_list %}
@@ -52,10 +64,17 @@
             </div>
           </div>
         {% endfor %}
+      {% elif search_form.title and search_form.title not in  newspaper_list %}
+        <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
+          <p class="text-center" style="color: goldenrod; font-size: 30px">
+            <strong>No news found for your search</strong>
+          </p>
+        </div>
       {% else %}
         <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
-          <p class="text-center" style="color: goldenrod; font-size: 30px"><strong>There are no news in Good News
-            Agency.</strong></p>
+          <p class="text-center" style="color: goldenrod; font-size: 30px">
+            <strong>There are no news in Good News Agency.</strong>
+          </p>
         </div>
       {% endif %}
     </div>

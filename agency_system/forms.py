@@ -64,10 +64,10 @@ class ReplyCommentForm(forms.ModelForm):
 
 
 class TopicSearchForm(forms.Form):
-    title = forms.CharField(max_length=30, required=False,
-                            label="",
-                            widget=forms.TextInput(attrs={"placeholder": "Search by topic name"})
-                            )
+    name = forms.CharField(max_length=30, required=False,
+                           label="",
+                           widget=forms.TextInput(attrs={"placeholder": "Search by topic name"})
+                           )
 
 
 class RedactorSearchForm(forms.Form):
@@ -75,3 +75,10 @@ class RedactorSearchForm(forms.Form):
                                required=False,
                                label="",
                                widget=forms.TextInput(attrs={"placeholder": "Search by username"}))
+
+
+class NewspaperSearchForm(forms.Form):
+    title = forms.CharField(max_length=64,
+                            required=False,
+                            label="",
+                            widget=forms.TextInput(attrs={"placeholder": "Search news by title"}))
