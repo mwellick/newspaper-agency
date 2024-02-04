@@ -63,10 +63,17 @@
             </div>
           </div>
         {% endfor %}
+      {% elif search_form.username and search_form.username not in  redactor_list %}
+        <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
+          <p class="text-center" style="color: goldenrod; font-size: 30px">
+            <strong>No users found for your search</strong>
+          </p>
+        </div>
       {% else %}
         <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
-          <p class="text-center" style="color: goldenrod; font-size: 30px"><strong>There are no redactors in Good News
-            Agency.</strong></p>
+          <p class="text-center" style="color: goldenrod; font-size: 30px">
+            <strong>There are no users in Good News Agency.</strong>
+          </p>
         </div>
       {% endif %}
     </div>

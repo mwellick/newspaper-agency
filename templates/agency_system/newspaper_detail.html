@@ -74,7 +74,7 @@
       <hr style="border-color: goldenrod">
       {% if not newspaper.comments.all %}
         <br>
-        <p>There are no comments yet...</p>
+        <p>No comments yet...</p>
         <br>
       {% else %}
         {% for comment in newspaper.comments.all %}
@@ -89,7 +89,7 @@
                   {% endwith %}
                 {% endif %}
               </div>
-              <div class="col-md-10" style="margin-right: 55px">
+              <div class="col-md-10" style="margin-right: 70px">
                 <div class="card-body" style="margin-right: 10%">
                   <h5 class="card-title"><a href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}"
                                             style="color: goldenrod">@{{ comment.author.username }}</a> {{ comment.date_added }}
