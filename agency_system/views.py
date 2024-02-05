@@ -50,7 +50,6 @@ def index(request: HttpRequest) -> HttpResponse:
 class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
     paginate_by = 6
-    queryset = Topic.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TopicListView, self).get_context_data(**kwargs)
@@ -61,10 +60,11 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
+        queryset = Topic.objects.all()
         form = TopicSearchForm(self.request.GET)
         if form.is_valid():
-            return self.queryset.filter(name__startswith=form.cleaned_data["name"])
-        return self.queryset.none()
+            return queryset.filter(name__startswith=form.cleaned_data["name"])
+        return queryset.none()
 
 
 class TopicDetailView(LoginRequiredMixin, generic.DetailView):
@@ -94,7 +94,6 @@ class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
 class RedactorListView(LoginRequiredMixin, generic.ListView):
     model = Redactor
     paginate_by = 6
-    queryset = Redactor.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(RedactorListView, self).get_context_data(**kwargs)
@@ -105,10 +104,11 @@ class RedactorListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
+        queryset = Redactor.objects.all()
         form = RedactorSearchForm(self.request.GET)
         if form.is_valid():
-            return self.queryset.filter(username__startswith=form.cleaned_data["username"])
-        return self.queryset
+            return queryset.filter(username__startswith=form.cleaned_data["username"])
+        return queryset
 
 
 class RedactorDetailView(LoginRequiredMixin, generic.DetailView):
@@ -145,7 +145,6 @@ class RedactorDeleteView(generic.DeleteView):
 class NewspaperListView(LoginRequiredMixin, generic.ListView):
     model = Newspaper
     paginate_by = 4
-    queryset = Newspaper.objects.all()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(NewspaperListView, self).get_context_data(**kwargs)
@@ -156,10 +155,11 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
         return context
 
     def get_queryset(self):
+        queryset = Newspaper.objects.all()
         form = NewspaperSearchForm(self.request.GET)
         if form.is_valid():
-            return self.queryset.filter(title__icontains=form.cleaned_data["title"])
-        return self.queryset
+            return queryset.filter(title__icontains=form.cleaned_data["title"])
+        return queryset
 
 
 class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
