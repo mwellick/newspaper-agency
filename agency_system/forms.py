@@ -1,3 +1,5 @@
+from string import ascii_letters
+
 from django import forms
 from django.contrib.auth.forms import (UserCreationForm,
                                        UserChangeForm,
@@ -19,6 +21,18 @@ class RedactorCreationForm(UserCreationForm):
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
 
+    def clean_first_name(self):
+        first_name = self.cleaned_data["first_name"]
+        if not first_name.isalpha():
+            raise forms.ValidationError("First name can contain only letters")
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data["last_name"]
+        if not last_name.isalpha():
+            raise forms.ValidationError("Last name can contain only letters")
+        return last_name
+
 
 class RedactorEditForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
@@ -32,6 +46,18 @@ class RedactorEditForm(UserChangeForm):
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
         self.fields["bio"].required = False
+
+    def clean_first_name(self):
+        first_name = self.cleaned_data["first_name"]
+        if not first_name.isalpha():
+            raise forms.ValidationError("First name can contain only letters")
+        return first_name
+
+    def clean_last_name(self):
+        last_name = self.cleaned_data["last_name"]
+        if not last_name.isalpha():
+            raise forms.ValidationError("Last name can contain only letters")
+        return last_name
 
 
 class PasswordChangingForm(PasswordChangeForm):
