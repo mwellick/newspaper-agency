@@ -13,9 +13,9 @@ class NewspaperAdmin(admin.ModelAdmin):
 
 @admin.register(Redactor)
 class RedactorAdmin(UserAdmin):
-    list_display = UserAdmin.list_display + ("years_of_experience",)
+    list_display = UserAdmin.list_display + ("years_of_experience", "profile_images")
     fieldsets = UserAdmin.fieldsets + (
-        ("Additional info", {"fields": ("bio","profile_images","years_of_experience",)}),
+        ("Additional info", {"fields": ("bio", "profile_images", "years_of_experience",)}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional info", {"fields": ("first_name", "last_name", "profile_images", "bio", "years_of_experience",)}),
