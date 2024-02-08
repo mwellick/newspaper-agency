@@ -50,6 +50,7 @@ def index(request: HttpRequest) -> HttpResponse:
 class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
     paginate_by = 6
+    context_object_name = "topic_list"
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TopicListView, self).get_context_data(**kwargs)
@@ -69,6 +70,7 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
 
 class TopicDetailView(LoginRequiredMixin, generic.DetailView):
     model = Topic
+    context_object_name = "topic"
 
 
 class TopicCreateView(LoginRequiredMixin, generic.CreateView):
@@ -89,6 +91,7 @@ class TopicDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Topic
     template_name = "agency_system/topic_confirm_delete.html"
     success_url = reverse_lazy("agency_system:topic-list")
+    context_object_name = "topic"
 
 
 class RedactorListView(LoginRequiredMixin, generic.ListView):
@@ -126,6 +129,7 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
     form_class = RedactorEditForm
     template_name = "registration/edit_profile.html"
+    context_object_name = "topic"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
