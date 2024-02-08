@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.urls import reverse
-from agency_system.models import Topic, Redactor, Newspaper
+from agency_system.models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
 # URLs for managing topics
 TOPIC_LIST_URL = reverse("agency_system:topic-list")
@@ -23,6 +23,12 @@ NEWSPAPER_DETAIL_URL = "agency_system:newspaper-detail"
 NEWSPAPER_CREATE_URL = reverse("agency_system:newspaper-create")
 NEWSPAPER_UPDATE_URL = "agency_system:newspaper-update"
 NEWSPAPER_DELETE_URL = "agency_system:newspaper-delete"
+
+# URLs for managing comments
+COMMENT_URL = "agency_system:newspaper-detail"
+COMMENT_CREATE_URL = "agency_system:comment-create"
+COMMENT_UPDATE_URL = "agency_system:comment-update"
+COMMENT_DELETE_URL = "agency_system:comment-delete"
 
 
 class PublicTopicTest(TestCase):
@@ -269,6 +275,7 @@ class PrivateNewspaperTest(TestCase):
             username="testuser",
             password="testpsw1",
         )
+        self.client.force_login(self.user)
         self.topic = Topic.objects.create(
             name="test_topic",
         )
@@ -277,7 +284,7 @@ class PrivateNewspaperTest(TestCase):
             topic=self.topic,
             content="qwerty",
         )
-        self.client.force_login(self.user)
+        self.newspaper.publishers.add(self.user)
 
     def test_newspaper_retrieve_list(self):
         res = self.client.get(NEWSPAPER_LIST_URL)
@@ -289,19 +296,19 @@ class PrivateNewspaperTest(TestCase):
     def test_newspaper_detail_access(self):
         res = self.client.get(reverse(NEWSPAPER_DETAIL_URL, kwargs={"pk": self.newspaper.id}))
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(self.user.id, self.newspaper.id)
+        self.assertTrue(self.newspaper.publishers.filter(id=self.user.id).exists())
         self.assertTemplateUsed(res, "agency_system/newspaper_detail.html")
 
     def test_newspaper_update_access(self):
         res = self.client.get(reverse(NEWSPAPER_UPDATE_URL, kwargs={"pk": self.newspaper.id}))
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(self.user.id, self.newspaper.id)
+        self.assertTrue(self.newspaper.publishers.filter(id=self.user.id).exists())
         self.assertTemplateUsed(res, "agency_system/newspaper_update.html")
 
     def test_newspaper_delete_access(self):
         res = self.client.get(reverse(NEWSPAPER_DELETE_URL, kwargs={"pk": self.newspaper.id}))
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(self.user.id, self.newspaper.id)
+        self.assertTrue(self.newspaper.publishers.filter(id=self.user.id).exists())
         self.assertTemplateUsed(res, "agency_system/newspaper_confirm_delete.html")
 
     def test_newspaper_search_form_by_title(self):
@@ -309,4 +316,86 @@ class PrivateNewspaperTest(TestCase):
         res = self.client.get(NEWSPAPER_LIST_URL, name=searched_name)
         self.assertEqual(res.status_code, 200)
         filtered_search = self.newspaper.__class__.objects.filter(title__icontains=searched_name)
-        self.assertEqual(list(filtered_search),list(res.context["newspaper_list"]))
+        self.assertEqual(list(filtered_search), list(res.context["newspaper_list"]))
+
+
+class PublicCommentTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+        self.topic = Topic.objects.create(
+            name="test_topic",
+        )
+        self.user = get_user_model().objects.create_user(
+            username="testuser",
+            password="testpsw1",
+        )
+        self.news = Newspaper.objects.create(
+            title="test_news",
+            topic=self.topic
+        )
+        self.comment = Comment.objects.create(
+            post_comment=self.news,
+            author=self.user
+        )
+
+    def test_login_required_create_comment(self):
+        url = COMMENT_CREATE_URL
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
+    def test_login_required_edit_comment(self):
+        url = reverse(COMMENT_UPDATE_URL, kwargs={"pk": self.comment.id})
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
+    def test_login_required_delete_comment(self):
+        url = reverse(COMMENT_DELETE_URL, kwargs={"pk": self.comment.id})
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
+
+class PrivateCommentTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+        self.user = get_user_model().objects.create_user(
+            username="testuser",
+            password="testpsw1"
+
+        )
+        self.client.force_login(self.user)
+        self.topic = Topic.objects.create(
+            name="test_topic"
+        )
+        self.news = Newspaper.objects.create(
+            title="test_news",
+            topic=self.topic
+        )
+        self.news.publishers.add(self.user)
+        self.comment = Comment.objects.create(
+            post_comment=self.news,
+            author=self.user,
+            body="qwerty",
+        )
+
+    def test_comment_update_access(self):
+        res = self.client.get(reverse(COMMENT_UPDATE_URL, kwargs={"pk": self.comment.id}))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(self.comment.author, self.user)
+        form_data = {
+            "body": "qwerty123"
+        }
+        res = self.client.post(reverse(COMMENT_UPDATE_URL, kwargs={"pk": self.comment.id}), form_data)
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(reverse(COMMENT_UPDATE_URL, kwargs={"pk": self.comment.id}),
+                         f"/comments/{self.user.id}/update")
+
+    def test_comment_delete_access(self):
+        res = self.client.get(reverse(COMMENT_DELETE_URL, kwargs={"pk": self.comment.id}))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(self.comment.author, self.user)
+        self.assertTemplateUsed(res, "agency_system/comment_confirm_delete.html")
+        res = self.client.post(reverse(COMMENT_DELETE_URL, kwargs={"pk": self.comment.id}))
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(reverse(NEWSPAPER_DETAIL_URL, kwargs={"pk": self.news.id}), f"/newspapers/{self.news.id}/")
+
+
