@@ -38,32 +38,35 @@
       <h1 class="text-center" style="color: goldenrod; margin-right: 55px; font-size: 60px">
         <strong>{{ topic.name }}</strong>
       </h1>
-      {% if  user.id == user.is_superuser %}
-        <a href="{% url 'agency_system:topic-delete' pk=topic.id %}" class="btn btn-danger delete-btn ml-auto"
-           style="text-decoration: none;">Delete topic</a>
-        </div>
-      {% endif %}
-  </div>
-  <br>
-  <div class="row">
-    {% if topic.newspapers.all %}
-      {% for newspaper in  topic.newspapers.all %}
-        <div class="col-md-5 mb-5">
-          <div class="card-content" style="height: 150px; padding-top:5px;">
-            <div class="card-content-body">
-              <p style="font-size: 2.0rem"><a
-                  href="{% url 'agency_system:newspaper-detail' pk=newspaper.id %}">{{ newspaper.title }}</a></p>
+      <div class="ml-auto">
+        {% if user.id == user.is_superuser %}
+          <a href="{% url 'agency_system:topic-update' pk=topic.id %}" class="btn btn-primary primary-btn mr-3"
+             style="text-decoration: none;border-radius: 20px;">Edit topic</a>
+          <a href="{% url 'agency_system:topic-delete' pk=topic.id %}" class="btn btn-danger delete-btn"
+             style="text-decoration: none;">Delete topic</a>
+        {% endif %}
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      {% if topic.newspapers.all %}
+        {% for newspaper in  topic.newspapers.all %}
+          <div class="col-md-5 mb-5">
+            <div class="card-content" style="height: 150px; padding-top:5px;">
+              <div class="card-content-body">
+                <p style="font-size: 2.0rem"><a
+                    href="{% url 'agency_system:newspaper-detail' pk=newspaper.id %}">{{ newspaper.title }}</a></p>
+              </div>
             </div>
           </div>
+        {% endfor %}
+      {% else %}
+        <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
+          <p class="text-center" style="color: goldenrod; font-size: 30px"><strong>There are no news with this
+            topic.</strong></p>
         </div>
-      {% endfor %}
-    {% else %}
-      <div class="container-fluid d-flex flex-column justify-content-center" style="margin-top: 200px;">
-        <p class="text-center" style="color: goldenrod; font-size: 30px"><strong>There are no news with this
-          topic.</strong></p>
-      </div>
-    {% endif %}
-  </div>
+      {% endif %}
+    </div>
   </div>
 {% endblock %}
 {% block footer %}
