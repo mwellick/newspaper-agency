@@ -30,6 +30,12 @@ COMMENT_CREATE_URL = "agency_system:comment-create"
 COMMENT_UPDATE_URL = "agency_system:comment-update"
 COMMENT_DELETE_URL = "agency_system:comment-delete"
 
+# URLs for managing replies for comments
+COMMENT_AND_REPLIES_DETAIL = "agency_system:comment-and-replies"
+REPLY_COMMENT_CREATE_URL = "agency_system:reply-comment-create"
+REPLY_COMMENT_UPDATE_URL = "agency_system:reply-update"
+REPLY_COMMENT_DELETE_URL = "agency_system:reply-delete"
+
 
 class PublicTopicTest(TestCase):
     def setUp(self) -> None:
@@ -299,6 +305,11 @@ class PrivateNewspaperTest(TestCase):
         self.assertTrue(self.newspaper.publishers.filter(id=self.user.id).exists())
         self.assertTemplateUsed(res, "agency_system/newspaper_detail.html")
 
+    def test_newspaper_create_access(self):
+        res = self.client.get(NEWSPAPER_CREATE_URL)
+        self.assertEqual(res.status_code,200)
+        self.assertTemplateUsed(res,"agency_system/newspaper_form.html")
+
     def test_newspaper_update_access(self):
         res = self.client.get(reverse(NEWSPAPER_UPDATE_URL, kwargs={"pk": self.newspaper.id}))
         self.assertEqual(res.status_code, 200)
@@ -319,7 +330,7 @@ class PrivateNewspaperTest(TestCase):
         self.assertEqual(list(filtered_search), list(res.context["newspaper_list"]))
 
 
-class PublicCommentTest(TestCase):
+class PublicCommentAndRepliesTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.topic = Topic.objects.create(
@@ -343,6 +354,11 @@ class PublicCommentTest(TestCase):
         res = self.client.get(url)
         self.assertNotEqual(res.status_code, 200)
 
+    def test_comment_and_replies_detail(self):
+        url = COMMENT_AND_REPLIES_DETAIL
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
     def test_login_required_edit_comment(self):
         url = reverse(COMMENT_UPDATE_URL, kwargs={"pk": self.comment.id})
         res = self.client.get(url)
@@ -354,7 +370,7 @@ class PublicCommentTest(TestCase):
         self.assertNotEqual(res.status_code, 200)
 
 
-class PrivateCommentTest(TestCase):
+class PrivateCommentAndReplyTest(TestCase):
     def setUp(self) -> None:
         self.client = Client()
         self.user = get_user_model().objects.create_user(
@@ -375,6 +391,11 @@ class PrivateCommentTest(TestCase):
             post_comment=self.news,
             author=self.user,
             body="qwerty",
+        )
+        self.reply_comment = ReplyComment.objects.create(
+            comment_author=self.comment,
+            reply_author=self.comment.author,
+            reply_body="qwertyuiop",
         )
 
     def test_comment_update_access(self):
@@ -398,4 +419,45 @@ class PrivateCommentTest(TestCase):
         self.assertEqual(res.status_code, 302)
         self.assertEqual(reverse(NEWSPAPER_DETAIL_URL, kwargs={"pk": self.news.id}), f"/newspapers/{self.news.id}/")
 
+    def test_reply_comment_access(self):
+        res = self.client.get(reverse(REPLY_COMMENT_CREATE_URL,
+                                      kwargs={
+                                          "pk": self.news.id,
+                                          "comment_id": self.reply_comment.comment_author.id
+                                      }))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(self.reply_comment.reply_author, self.user)
+        self.assertTemplateUsed(res, "agency_system/comment_reply_form.html")
+        form_data = {
+            "reply_body": "qwerty!"
+        }
+        res = self.client.post(reverse(REPLY_COMMENT_CREATE_URL,
+                                       kwargs={
+                                           "pk": self.news.id,
+                                           "comment_id": self.reply_comment.comment_author.id
+                                       }), form_data)
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(reverse(NEWSPAPER_DETAIL_URL, kwargs={"pk": self.news.id}), f"/newspapers/{self.news.id}/")
 
+    def test_reply_comment_update_access(self):
+        res = self.client.get(reverse(REPLY_COMMENT_UPDATE_URL, kwargs={"pk": self.reply_comment.id}))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(self.reply_comment.reply_author, self.user)
+        self.assertTemplateUsed(res, "agency_system/reply_update.html")
+        fields = {
+            "reply_body": "qwerty12345"
+        }
+        res = self.client.post(reverse(REPLY_COMMENT_UPDATE_URL, kwargs={"pk": self.reply_comment.id}), fields)
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(reverse(COMMENT_AND_REPLIES_DETAIL, kwargs={"pk": self.comment.id}),
+                         f"/comments/{self.comment.id}/replies")
+
+    def test_reply_comment_delete_access(self):
+        res = self.client.get((reverse(REPLY_COMMENT_DELETE_URL, kwargs={"pk": self.reply_comment.id})))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(self.reply_comment.reply_author, self.user)
+        self.assertTemplateUsed(res, "agency_system/reply_confirm_delete.html")
+        res = self.client.post((reverse(REPLY_COMMENT_DELETE_URL, kwargs={"pk": self.reply_comment.id})))
+        self.assertEqual(res.status_code, 302)
+        self.assertEqual(reverse(COMMENT_AND_REPLIES_DETAIL, kwargs={"pk": self.comment.id}),
+                         f"/comments/{self.comment.id}/replies")
