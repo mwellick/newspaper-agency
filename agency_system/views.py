@@ -129,7 +129,7 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
     form_class = RedactorEditForm
     template_name = "registration/edit_profile.html"
-    context_object_name = "topic"
+    context_object_name = "redactor"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
