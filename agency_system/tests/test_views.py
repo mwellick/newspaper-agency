@@ -1,7 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase, Client
 from django.urls import reverse
-from agency_system.models import Topic, Redactor
+from agency_system.models import Topic, Redactor, Newspaper
 
 # URLs for managing topics
 TOPIC_LIST_URL = reverse("agency_system:topic-list")
@@ -16,6 +16,13 @@ REDACTOR_DETAIL_URL = "agency_system:redactor-detail"
 REDACTOR_CREATE_URL = reverse("agency_system:redactor-create")
 REDACTOR_UPDATE_URL = "agency_system:redactor-update"
 REDACTOR_DELETE_URL = "agency_system:redactor-delete"
+
+# URLs for managing newspapers
+NEWSPAPER_LIST_URL = reverse("agency_system:newspaper-list")
+NEWSPAPER_DETAIL_URL = "agency_system:newspaper-detail"
+NEWSPAPER_CREATE_URL = reverse("agency_system:newspaper-create")
+NEWSPAPER_UPDATE_URL = "agency_system:newspaper-update"
+NEWSPAPER_DELETE_URL = "agency_system:newspaper-delete"
 
 
 class PublicTopicTest(TestCase):
@@ -65,42 +72,42 @@ class PrivateTopicTest(TestCase):
     def test_retrieve_topic_list(self):
         res = self.client.get(TOPIC_LIST_URL)
         topics = self.topic.__class__.objects.all()
-        self.assertEquals(res.status_code, 200)
-        self.assertEquals(list(topics), list(res.context["topic_list"]))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(list(topics), list(res.context["topic_list"]))
         self.assertTemplateUsed(res, "agency_system/topic_list.html")
 
     def test_topic_detail_access(self):
         res = self.client.get(reverse(TOPIC_DETAIL_URL, kwargs={"pk": self.topic.id}))
         topics = self.topic.__class__.objects.get(pk=self.topic.id)
-        self.assertEquals(res.status_code, 200)
-        self.assertEquals(topics, res.context["topic"])
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(topics, res.context["topic"])
         self.assertTemplateUsed(res, "agency_system/topic_detail.html")
 
     def test_topic_create_access(self):
         res = self.client.get(TOPIC_CREATE_URL)
-        self.assertEquals(res.status_code, 200)
+        self.assertEqual(res.status_code, 200)
         self.assertTemplateUsed(res, "agency_system/topic_form.html")
 
     def test_topic_update_access(self):  # only for superuser usage test
         res = self.client.get(reverse(TOPIC_UPDATE_URL, kwargs={"pk": self.topic.id}))
         topics = self.topic.__class__.objects.get(pk=self.topic.id)
-        self.assertEquals(res.status_code, 200)
-        self.assertEquals(topics, res.context["topic"])
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(topics, res.context["topic"])
         self.assertTemplateUsed(res, "agency_system/topic_form.html")
 
     def test_topic_delete_access(self):  # only for superuser usage test
         res = self.client.get(reverse(TOPIC_DELETE_URL, kwargs={"pk": self.topic.id}))
         topics = self.topic.__class__.objects.get(pk=self.topic.id)
-        self.assertEquals(res.status_code, 200)
-        self.assertEquals(topics, res.context["topic"])
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(topics, res.context["topic"])
         self.assertTemplateUsed(res, "agency_system/topic_confirm_delete.html")
 
     def test_topic_search_form_by_name(self):
         searched_name = "test_topic"
         res = self.client.get(TOPIC_LIST_URL, name=searched_name)
-        self.assertEquals(res.status_code, 200)
+        self.assertEqual(res.status_code, 200)
         filtered_search = self.topic.__class__.objects.filter(name__startswith=searched_name)
-        self.assertEquals(list(filtered_search), list(res.context["topic_list"]))
+        self.assertEqual(list(filtered_search), list(res.context["topic_list"]))
 
 
 class PublicRedactorTest(TestCase):
@@ -215,4 +222,84 @@ class PrivateRedactorTest(TestCase):
         self.assertEqual(res.status_code, 200)
         filtered_search = self.user.__class__.objects.filter(username__startswith=searched_name)
         self.assertEqual(list(filtered_search), list(res.context["redactor_list"]))
-        self.assertEquals(res.status_code, 200)
+        self.assertEqual(res.status_code, 200)
+
+
+class PublicNewspaperTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+        self.topic = Topic.objects.create(
+            name="test_topic"
+        )
+        self.newspaper = Newspaper.objects.create(
+            title="test_news",
+            topic=self.topic,
+        )
+
+    def test_login_required_newspaper_list(self):
+        url = NEWSPAPER_LIST_URL
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
+    def test_login_required_newspaper_detail(self):
+        url = reverse(NEWSPAPER_DETAIL_URL, kwargs={"pk": self.newspaper.id})
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
+    def test_login_required_newspaper_create(self):
+        url = NEWSPAPER_CREATE_URL
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
+    def test_login_required_newspaper_update(self):
+        url = reverse(NEWSPAPER_UPDATE_URL, kwargs={"pk": self.newspaper.id})
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
+    def test_login_required_newspaper_delete(self):
+        url = reverse(NEWSPAPER_DELETE_URL, kwargs={"pk": self.newspaper.id})
+        res = self.client.get(url)
+        self.assertNotEqual(res.status_code, 200)
+
+
+class PrivateNewspaperTest(TestCase):
+    def setUp(self) -> None:
+        self.client = Client()
+        self.user = get_user_model().objects.create_user(
+            username="testuser",
+            password="testpsw1",
+        )
+        self.topic = Topic.objects.create(
+            name="test_topic",
+        )
+        self.newspaper = Newspaper.objects.create(
+            title="test_news",
+            topic=self.topic,
+            content="qwerty",
+        )
+        self.client.force_login(self.user)
+
+    def test_newspaper_retrieve_list(self):
+        res = self.client.get(NEWSPAPER_LIST_URL)
+        news_list = Newspaper.objects.all()
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(list(news_list), list(res.context["newspaper_list"]))
+        self.assertTemplateUsed(res, "agency_system/newspaper_list.html")
+
+    def test_newspaper_detail_access(self):
+        res = self.client.get(reverse(NEWSPAPER_DETAIL_URL, kwargs={"pk": self.newspaper.id}))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(self.user.id, self.newspaper.id)
+        self.assertTemplateUsed(res, "agency_system/newspaper_detail.html")
+
+    def test_newspaper_update_access(self):
+        res = self.client.get(reverse(NEWSPAPER_UPDATE_URL, kwargs={"pk": self.newspaper.id}))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(self.user.id, self.newspaper.id)
+        self.assertTemplateUsed(res, "agency_system/newspaper_update.html")
+
+    def test_newspaper_delete_access(self):
+        res = self.client.get(reverse(NEWSPAPER_DELETE_URL,kwargs={"pk":self.newspaper.id}))
+        self.assertEqual(res.status_code,200)
+        self.assertEqual(self.user.id,self.newspaper.id)
+        self.assertTemplateUsed(res, "agency_system/newspaper_confirm_delete.html")
