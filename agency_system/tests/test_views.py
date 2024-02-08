@@ -299,7 +299,14 @@ class PrivateNewspaperTest(TestCase):
         self.assertTemplateUsed(res, "agency_system/newspaper_update.html")
 
     def test_newspaper_delete_access(self):
-        res = self.client.get(reverse(NEWSPAPER_DELETE_URL,kwargs={"pk":self.newspaper.id}))
-        self.assertEqual(res.status_code,200)
-        self.assertEqual(self.user.id,self.newspaper.id)
+        res = self.client.get(reverse(NEWSPAPER_DELETE_URL, kwargs={"pk": self.newspaper.id}))
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(self.user.id, self.newspaper.id)
         self.assertTemplateUsed(res, "agency_system/newspaper_confirm_delete.html")
+
+    def test_newspaper_search_form_by_title(self):
+        searched_name = "test_news"
+        res = self.client.get(NEWSPAPER_LIST_URL, name=searched_name)
+        self.assertEqual(res.status_code, 200)
+        filtered_search = self.newspaper.__class__.objects.filter(title__icontains=searched_name)
+        self.assertEqual(list(filtered_search),list(res.context["newspaper_list"]))

@@ -195,7 +195,7 @@ class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
         return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": news_id})
 
 
-class NewspaperDeleteView(LoginRequiredMixin,generic.DeleteView):
+class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Newspaper
     template_name = "agency_system/newspaper_confirm_delete.html"
     success_url = reverse_lazy("agency_system:newspaper-list")
@@ -203,10 +203,6 @@ class NewspaperDeleteView(LoginRequiredMixin,generic.DeleteView):
 
 class RegistrationSuccessView(TemplateView):
     template_name = 'registration/registration_success.html'
-
-
-class PasswordChangedSuccessView(TemplateView):
-    template_name = "registration/password_changed_success.html"
 
 
 class PasswordsChangingView(PasswordChangeView):
@@ -219,6 +215,10 @@ class PasswordsChangingView(PasswordChangeView):
         context = super().get_context_data(**kwargs)
         context["return_url"] = reverse_lazy("agency_system:redactor-detail", kwargs={"pk": self.kwargs["pk"]})
         return context
+
+
+class PasswordChangedSuccessView(TemplateView):
+    template_name = "registration/password_changed_success.html"
 
 
 class PasswordsResettingView(PasswordResetView):
