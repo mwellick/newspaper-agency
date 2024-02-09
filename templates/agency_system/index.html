@@ -1,0 +1,335 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <link rel="stylesheet" href="{% static 'css/carousel.css' %}">
+  <main role="main">
+    <div class="popular_topics" id="popular_topics">
+      <h1 class="featurette-heading" style="padding-top: 50px; margin-top: 50px">
+        <span class="popular">POPULAR</span>
+        <span class="topics">TOPICS</span>
+      </h1>
+      <br>
+    </div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+        <li data-target="#myCarousel" data-slide-to="5"></li>
+      </ol>
+      <div class="carousel-inner">
+        {% for topic in nature_topics %}
+          <div class="carousel-item active">
+            <img src="{% static 'images/nature_carousel_img.jpg' %}" alt="Nature">
+            <div class="container">
+              <div class="carousel-caption text-left">
+                <h1>{{ topic.name }}</h1>
+                <br>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
+                      role="button">Browse it</a></p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+
+        <div class="carousel-item">
+          {% for topic in sport_topics %}
+            <img src="{% static 'images/sport_carousel_img.jpg' %}" alt="Sport">
+            <div class="container">
+              <div class="carousel-caption text-left">
+                <h1>Sport</h1>
+                <br>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
+                      role="button">Browse it</a></p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="carousel-item">
+          {% for topic in travel_topics %}
+            <img src="{% static 'images/travel_carousel_img.jpg' %}" alt="Travel">
+            <div class="container">
+              <div class="carousel-caption text-left">
+                <h1>Travel</h1>
+                <br>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
+                      role="button">Browse it</a></p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+
+        <div class="carousel-item">
+          {% for topic in video_games_topics %}
+            <img src="{% static 'images/video_games_carousel_img.png' %}" alt="Video Games">
+            <div class="container">
+              <div class="carousel-caption text-left">
+                <h1>Video Games</h1>
+                <br>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
+                      role="button">Browse it</a></p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="carousel-item">
+          {% for topic in business_topics %}
+            <img src="{% static 'images/business_carousel_img.jpg' %}" alt="Business">
+            <div class="container">
+              <div class="carousel-caption text-left">
+                <h1>Business</h1>
+                <br>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
+                      role="button">Browse it</a></p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="carousel-item">
+          {% for topic in movies_topics %}
+            <img src="{% static 'images/movies_carousel_img.jpeg' %}" alt="Movies">
+            <div class="container">
+              <div class="carousel-caption text-left">
+                <h1>Movies</h1>
+                <br>
+                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
+                      role="button">Browse it</a></p>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+    <div class="all_content" id="all_content">
+      <h1 class="featurette-heading">
+        <span class="all">ALL</span>
+        <span class="content">CONTENT</span>
+      </h1>
+    </div>
+
+    <section class="pt-3 pb-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-9 mx-auto py-3">
+            <hr class="line">
+            <div class="row">
+              <div class="col-md-4 position-relative">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient"><span>{{ num_topics }}</span></h1>
+                  <h5 class="mt-3 featurette-heading">Topics</h5>
+                  <p class="text-sm font-weight-normal"></p>
+                  <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-list' %}" role="button">See all
+                    topics</a></p>
+                </div>
+              </div>
+              <div class="col-md-4 position-relative">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient"><span>{{ num_redactors }}</span></h1>
+                  <h5 class="mt-3 featurette-heading">Redactors</h5>
+                  <p class="text-sm font-weight-normal"></p>
+                  <p><a class="btn btn-lg btn-primary " href="{% url 'agency_system:redactor-list' %}" role="button">See
+                    all redactors</a></p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 text-center">
+                  <h1 class="text-gradient"><span>{{ num_newspapers }}</span></h1>
+                  <h5 class="mt-3 featurette-heading">News</h5>
+                  <p class="text-sm font-weight-normal"></p>
+                  <p><a class="btn btn-lg btn-primary " href="{% url 'agency_system:newspaper-list' %}" role="button">See
+                    all news</a></p>
+                </div>
+              </div>
+            </div>
+            <hr class="line">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="latest_news" id="latest_news">
+      <h1 class="featurette-heading">
+        <span class="latest">LATEST</span>
+        <span class="news">NEWS</span>
+      </h1>
+    </div>
+
+    {% for news in latest_news_list %}
+      {% if forloop.counter == 1 %}
+        <div class="container">
+          <hr class="featurette-divider">
+
+          <div class="row">
+            <div class="col-md-7" style="margin-bottom: 10%">
+              <h2 class="featurette-heading">{{ news.title }}</h2>
+              <p class="lead">{{ news.content|safe|truncatewords:55 }}
+                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}" style="font-size: 1.3rem">read more</a>
+              </p>
+            </div>
+            <div class="col-md-5 order-md-2">
+              {% if news.news_images %}
+                <img class="featurette-image img-thumbnail  img-fluid mx-auto"
+                     src={{ news.news_images.url }}>
+              {% endif %}
+            </div>
+          </div>
+          {% elif forloop.counter == 2 %}
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <h2 class="featurette-heading">{{ news.title }}</h2>
+              <p class="lead ">{{ news.content|safe|truncatewords:55 }}
+                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}" style="font-size: 1.3rem">read more</a>
+              </p>
+            </div>
+            {% if news.news_images %}
+              <img class="featurette-image  img-fluid img-thumbnail mx-auto"
+                   src={{ news.news_images.url }}>
+            {% endif %}
+          </div>
+          {% elif forloop.counter == 3 %}
+
+          <hr class="featurette-divider">
+
+          <div class="row featurette">
+            <div class="col-md-7">
+              <h2 class="featurette-heading">{{ news.title }}</h2>
+              <p class="lead">{{ news.content|safe|truncatewords:55 }}
+                <a href="{% url 'agency_system:newspaper-detail' pk=news.id %}" style="font-size: 1.3rem">read more</a>
+              </p>
+            </div>
+            <div class="col-md-5">
+              {% if news.news_images %}
+                <img class="featurette-image  img-fluid img-thumbnail mx-auto"
+                     src={{ news.news_images.url }}>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+
+    <div class="about_us" id="about_us">
+      <h1 class="featurette-heading">
+        <span class="about">ABOUT</span>
+        <span class="us">US</span>
+      </h1>
+    </div>
+    <div class="container marketing">
+      <div class="featurette text-left">
+        <h2 class="featurette-heading">Good News Platform
+        </h2>
+        <p class="lead">Welcome to "Good News" - your go-to platform for sharing articles and news that inspire and
+          uplift. At Good News, we believe in the power of positive storytelling, and we've created a space where
+          individuals, regardless of their writing experience, can contribute to a global community focused on good
+          news.</p>
+      </div>
+      <div class="featurette text-left">
+        <h2 class="featurette-heading">Our Mission</h2>
+        <p class="lead">At Good News, our mission is clear - to curate and share articles that bring joy, hope, and
+          inspiration. We are committed to provide a platform exclusively dedicated to the brighter side of life.</p>
+      </div>
+      <div class="featurette text-left">
+        <h2 class="featurette-heading">Your Platform, Your News</h2>
+        <p class="lead">What makes Good News unique is its inclusivity. Whether you're an experienced journalist or a
+          first-time writer, Good News welcomes you to share your positive articles with the world. Our user-friendly
+          platform ensures that the process is straightforward and accessible to all.</p>
+      </div>
+      <div class="featurette text-left">
+        <h2 class="featurette-heading">How it Works:</h2>
+        <ol>
+          <li class="lead" style="color: goldenrod"><strong>REGISTRATION</strong>
+            <p class="lead"> Joining Good News is quick and easy. Create an account to become a valued member of our
+              diverse
+              community.</p>
+          </li>
+          <li class="lead" style="color: goldenrod"><strong>CHOOSE YOUR TOPIC</strong>
+            <p class="lead">After registration, you have the freedom to select or create topics that resonate with
+              you.
+              Whether it's uplifting human stories, environmental successes, or community initiatives, there's a
+              category for every positive narrative.
+            </p>
+          </li>
+          <li class="lead" style="color: goldenrod"><strong>SUBMIT YOUR CONTENT</strong>
+            <p class="lead"> Share your articles and news with the world through our intuitive submission process. You
+              don't need to be an expert writer; all that matters is your passion for spreading good news.
+            </p>
+          </li>
+          <li class="lead" style="color: goldenrod"><strong>COMMUNITY INTERACTION</strong>
+            <p class="lead"> Connect with like-minded individuals who share your interests. Engage in discussions,
+              offer
+              support, and celebrate the positive impact that articles can have on the community.
+            </p>
+          </li>
+        </ol>
+        <div class="featurette text-left">
+          <h2 class="featurette-heading">Why Choose Good News:</h2>
+          <ul>
+            <li class="lead" style="color: goldenrod"><strong>Positive Impact:</strong>
+              <p class="lead">Your articles can inspire and uplift others, contributing to a more optimistic
+                world.</p>
+            </li>
+            <li class="lead" style="color: goldenrod"><strong>Inclusive Platform:</strong>
+              <p class="lead"> Good News is for everyone, regardless of their writing experience. We believe everyone
+                has a positive
+                story to tell.</p>
+            </li>
+            <li class="lead" style="color: goldenrod"><strong>Diverse Topics:</strong>
+              <p class="lead">From personal achievements to global initiatives, there's a space for every positive
+                narrative on Good
+                News.</p>
+            </li>
+            <li class="lead" style="color: goldenrod"><strong>Community Support:</strong>
+              <p class="lead">Join a community of individuals who share your passion for spreading good news and
+                making
+                the world a
+                better place through articles.</p>
+            </li>
+          </ul>
+          <div class="featurette" style="text-align: center;">
+            <h2 class="featurette-heading" style="text-align: justify">At Good News, every article has the power to
+              make
+              a positive impact. Join us
+              in creating a community that celebrates the uplifting side of life through the art of positive
+              storytelling.</h2>
+            <h2 class="featurette-heading">Together, let's amplify the Good News!</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr class="featurette-divider">
+    {% if not user.is_authenticated %}
+      <div class="text-center">
+        <button type="submit" class="btn btn-success btn-lg gradient-custom-4"
+                style="width: 200px; border-radius: 15px;">
+          <a href="{% url 'agency_system:redactor-create' %}" style="color: white; text-decoration: none;">Create a
+            Good
+            News
+            account</a>
+        </button>
+      </div>
+    {% endif %}
+    <hr class="featurette-divider">
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+          integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+          crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="{% static 'assets/js/vendor/jquery-slim.min.js' %}"><\/script>')</script>
+  <script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+  <script src="{% static 'dist/js/bootstrap.min.js' %}"></script>
+
+{% endblock %}

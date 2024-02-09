@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  <title>{{ newspaper.title }}</title>
+{% endblock %}
+{% block navbar %}
+  <header>
+    <nav class="navbar navbar-expand-md  fixed-top  nav-bar">
+      <div class="navbar-brand logo"><strong>GOOD</strong><strong> NEWS</strong></div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+              aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:index' %}>Home</a>
+          </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:newspaper-list' %}>All News</a>
+          </li>
+          <li class="nav-item active justify-content-center">
+            <a class="nav-link" href={% url 'agency_system:redactor-list' %}>All Redactors</a>
+          </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0">
+          {% if user.is_authenticated %}
+            <a class="btn btn-outline-success my-2 my-sm-0 btn-logout" href="{% url 'logout' %}">
+              <i class="fa fa-sign-out me-1"></i> Logout
+            </a>
+          {% else %}
+            <a class="btn btn-outline-success my-2 my-sm-0 btn-login" href="{% url 'login' %}">
+              <i class="fa fa-sign-in me-1"></i> Login
+            </a>
+          {% endif %}
+        </form>
+
+      </div>
+    </nav>
+  </header>
+{% endblock %}
+{% block content %}
+  <div class="container mx-auto" style="padding-top: 7%">
+  <br>
+
+  <div class="container" style="color: white;">
+    <h1 class="text-center" style="color: goldenrod">{{ newspaper.title }}</h1>
+    <br>
+    <div class="container">
+      <p class="mb-2">
+        {% if newspaper.publishers.all %}
+          <strong
+              style="color: goldenrod">By:</strong> {{ newspaper.publishers.all|join:", " }}</p>
+        {% endif %}
+
+      {% if newspaper.topic.all %}
+        <p class="mb-2"><strong style="color: goldenrod">Topics:</strong>
+          {{ newspaper.topic.all|join:", " }}
+        </p>
+      {% endif %}
+      <p class="mb-2"><strong style="color: goldenrod">Published date:</strong> {{ newspaper.published_date }}</p>
+      {% if newspaper.news_images %}
+        <img class="news_image img-thumbnail text-center"
+             src="{{ newspaper.news_images.url }}">
+        <br>
+      {% endif %}
+      <br>
+      {{ newspaper.content|safe }}
+    </div>
+    <div class="text-center">
+      <br>
+      {% if user.is_superuser or user.id == publisher.id %}
+        <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-success topic-btn">Edit
+          this article</a>
+        <a href="{% url 'agency_system:newspaper-delete' pk=newspaper.id %}" class=" btn btn-danger delete-btn"
+           style="border-radius: 20px">Delete this article</a>
+      {% endif %}
+    </div>
+    <br>
+    <br>
+    <h2 style="color: goldenrod"><strong>{{ comments_number }} Comment{{ comments_number|pluralize }}:</strong></h2>
+    <br>
+    <h4><a href="{% url 'agency_system:comment-create' newspaper.pk %}" style="text-decoration: none;"><strong>Add a
+      comment</strong></a></h4>
+    <hr style="border-color: goldenrod">
+    {% if not newspaper.comments.all %}
+      <br>
+      <p>No comments yet...</p>
+      <br>
+    {% else %}
+      {% for comment in newspaper.comments.all %}
+        <div class="card mb-3">
+          <div class="row no-gutters">
+            <div class="col-md-2" style="max-width: 100px">
+              {% if comment.author.profile_images.url and comment.author and comment.author.profile_images %}
+                <img src="{{ comment.author.profile_images.url }}" class="card-img img-thumbnail" alt="...">
+              {% else %}
+                {% with redactor.profile_images|default:"/media/default_image/blank-profile-picture.jpg/" as avatar_url %}
+                  <img class="card-img img-thumbnail" src="{{ avatar_url }}">
+                {% endwith %}
+              {% endif %}
+            </div>
+            <div class="col-md-10" style="margin-right: 70px">
+              <div class="card-body" style="margin-right: 10%">
+                <h5 class="card-title"><a href="{% url 'agency_system:redactor-detail' pk=comment.author.id %}"
+                                          style="color: goldenrod">@{{ comment.author.username }}</a> {{ comment.date_added }}
+                </h5>
+                <p class="card-text">{{ comment.body }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% if comment %}
+          <a class="btn btn-primary reply-btn mr-2" style="margin-left: 20px"
+             href="{% url 'agency_system:reply-comment-create' pk=newspaper.id comment_id=comment.id %}">Reply</a>
+          <a href="{% url 'agency_system:comment-and-replies' pk=comment.id %}" style="text-decoration: none;">
+            {% if comment.comment_replies.count == 1 %}
+              <strong>{{ comment.comment_replies.count }} reply</strong>
+            {% else %}
+              <strong>{{ comment.comment_replies.count }} replies</strong></a>
+            {% endif %}
+          {% if user.id == user.is_superuser or user.id == comment.author.id %}
+            <a class="ml-3" style="font-size: 16px; text-decoration: none;"
+               href="{% url 'agency_system:comment-and-replies' pk=comment.id %}"><strong>Edit a comment</strong></a>
+          {% endif %}
+        {% endif %}
+        <hr style="border-color: goldenrod">
+      {% endfor %}
+    {% endif %}
+    <br><br>
+  </div>
+
+  <div class="d-flex justify-content-center" style="font-size: 20px">
+    <a class="btn btn-primary pl-2" style="border-radius: 20px"
+       href="{% url 'agency_system:newspaper-list' %}"> <-- Return to News list</a>
+  </div>
+  <br><br>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+

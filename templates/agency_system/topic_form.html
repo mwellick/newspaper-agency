@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+  <title>Edit {{ topic.name }} Topic</title>
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+    <section class="bg-image d-flex justify-content-center align-items-center"
+           style="background-image: url('/static/images/good_news_main_image/good_news_image.jpg'); height: 100vh;">
+    <div class=" card mx-auto my-5 container mt-8 text-center custom-container "
+         style="color: white; background-color: rgba(0, 0, 0, 0.5);">
+      <h2>{{ object|yesno:"Update,Add" }} Topic</h2>
+      <form method="post" enctype="multipart/form-data" class="mt-8 mx-auto">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success custom-btn">{{ object|yesno:"Update,Add" }}</button>
+      </form>
+      <br>
+      <div class="d-flex justify-content-center" style="font-size: 10px">
+        <a class="btn btn-primary pl-2" style="border-radius: 20px"
+           href="{% url 'agency_system:topic-list' %}"> Cancel</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+{% block footer %}
+{% endblock %}
+
+

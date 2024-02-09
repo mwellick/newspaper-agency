@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% block title %}
+  <title>Login</title>
+{% endblock %}
+{% block navbar %}
+{% endblock %}
+{% block content %}
+  <section class="bg-image"
+           style="background-image: url('/static/images/good_news_main_image/good_news_image.jpg'); height: 100vh;">
+    <div class="mask d-flex align-items-center h-100 gradient-custom-3">
+      <div class="container h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+            <div class="card mx-auto my-5" style="border-radius: 115px;">
+              <div class="card-body p-5">
+                <h2 class="text-uppercase text-center mb-5">Login</h2>
+                {% if form.errors %}
+                  <p style="color: red">Invalid Credentials</p>
+                {% endif %}
+                <form action="{% url 'login' %}" method="post">
+                  {% csrf_token %}
+                  {{ form|crispy }}
+                  <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4">Login
+                  </button>
+                  <br>
+                  <p>Don't have an account? <a href="{% url 'agency_system:redactor-create' %}"><strong>Register</strong></a></p>
+                  <input type="hidden" name="next" value="{{ next }}"/>
+                 <p>Forgot your password? <a href="{% url 'agency_system:password-reset' %}"><strong>Reset password</strong></a></p>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% block footer %}
+    {% endblock %}
+  </section>
+{% endblock %}

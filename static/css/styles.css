@@ -1,0 +1,385 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+.vh-100 {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+}
+
+.bg-image {
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    width: 40px;
+    height: 40px;
+    background-color: goldenrod;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    position: absolute;
+    margin-top: 500px;
+    transform: translateY(-50%);
+}
+
+.carousel-control-prev {
+    left: 100px;
+}
+
+.carousel-control-next {
+    right: 100px;
+}
+
+.carousel-control-prev-icon {
+    color: white;
+    margin-right: 4px;
+}
+
+.carousel-control-next-icon {
+    color: white;
+    margin-left: 4px;
+
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+p {
+    color: white;
+    font-size: 1.3rem;
+}
+
+.card {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.form-text {
+    color: white !important;
+}
+
+.nav-bar {
+    line-height: 60px;
+    background-color: black;
+    border-style: solid;
+    border-color: goldenrod;
+    border-width: 3px;
+}
+
+.navbar-brand {
+    display: inline-block;
+    padding-top: 0.3125rem;
+    padding-bottom: 0.3125rem;
+    margin-right: 1rem;
+    font-size: 1.8rem;
+    line-height: inherit;
+    white-space: nowrap;
+}
+
+.nav-link {
+    font-size: 1.8rem;
+    font-family: featurette;
+    text-align: center;
+    margin-top: 2px;
+    color: white;
+}
+
+.btn {
+    background-color: goldenrod;
+    color: white;
+    font-size: 23px;
+    border: none;
+}
+
+
+.btn-login, .btn-logout {
+    font-size: 16px;
+    background-color: goldenrod;
+}
+
+.btn-login a {
+    color: white;
+    text-decoration: none;
+}
+
+.btn-logout a {
+    color: white;
+    text-decoration: none;
+}
+
+.logo {
+    color: goldenrod;
+}
+
+
+.logo strong:last-child {
+    color: transparent;
+    -webkit-text-stroke: 1px goldenrod;
+    text-stroke: 1px goldenrod;
+}
+
+
+.text-gradient {
+    color: goldenrod !important;
+}
+
+
+.featurette-heading {
+    color: goldenrod;
+}
+
+.featurette-image {
+    max-width: 800px;
+    max-height: 450px;
+    height: auto;
+    object-fit: cover;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.featurette-content {
+    margin-left: 150px;
+}
+
+.lead {
+    color: goldenrod;
+}
+
+
+.mt-3 {
+    color: white;
+}
+
+.text-sm {
+    color: white;
+}
+
+.text-muted {
+    color: white;
+}
+
+.line {
+    background: goldenrod;
+    height: 10px;
+    margin-top: 20px;
+    border: none;
+    width: 100%;
+    padding: 0;
+}
+
+
+.lead {
+    color: white;
+}
+
+#footer {
+    padding-bottom: 20px;
+    padding-top: 20px;
+    justify-content: center;
+    bottom: 0;
+}
+
+.footer_text {
+    color: white;
+}
+
+.news-content {
+    color: white;
+}
+
+
+.popular_topics, .all_content, .latest_news, .about_us {
+    color: goldenrod;
+    text-align: center;
+    padding-top: 2%;
+}
+
+.featurette-heading {
+    font-size: 33px;
+}
+
+.popular, .all, .latest, .about {
+    color: goldenrod;
+}
+
+.topics, .content, .news, .us {
+    color: transparent;
+    -webkit-text-stroke: 1px goldenrod;
+    text-stroke: 1px goldenrod;
+}
+
+.btn-register {
+    background-color: goldenrod;
+    color: white;
+    font-size: 23px;
+    border: none;
+    text-decoration: none;
+}
+
+.card-content {
+    background-color: goldenrod;
+    border-radius: 50px;
+    overflow: hidden;
+    font-size: 2.0rem;
+    margin-top: 70px;
+    height: 200px;
+}
+
+.card-content-body {
+    text-align: center;
+    padding: 10px;
+}
+
+.card-content a {
+    text-decoration: none;
+    color: white;
+    display: block;
+    padding: 20px;
+}
+
+.topic-btn {
+    border-radius: 20px;
+    background-color: forestgreen;
+    text-align: center;
+}
+
+.reply-btn {
+    border-radius: 15px;
+    background-color: goldenrod;
+    font-size: 18px;
+    margin-bottom: 7px;
+}
+
+.primary-btn {
+    border-radius: 20px;
+    background-color: dodgerblue;
+    text-align: center;
+}
+
+.delete-btn {
+    border-radius: 20px;
+    background-color: crimson;
+    text-align: center;
+}
+
+.custom-container {
+    max-width: 400px;
+    background-color: transparent;
+    padding: 30px;
+    border-radius: 100px;
+    font-family: faturette;
+    font-size: 1.3rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 80px;
+}
+
+.custom-container h2 {
+    color: white;
+}
+
+.custom-btn {
+    border-radius: 15px;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 20px
+}
+
+.newspaper-box {
+    font-size: 1.6rem;
+    color: white;
+    max-width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+
+.newspaper-box p {
+    max-width: 70%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: justify;
+}
+
+.btn_confirm {
+    border-radius: 20px;
+    width: 200px;
+}
+
+.news_image {
+    max-width: 800px;
+    max-height: 450px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.avatar_img {
+    border-radius: 50%;
+    width: 400px;
+    height: 400px;
+}
+
+.comment_img, .reply_img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+.card-img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+
+#search-button {
+    font-size: 24px;
+    border: none;
+    display: flex;
+    align-items: center;
+    background: transparent;
+}
+
+/* styles for create/edit news form */
+.requiredField {
+    font-weight: bold;
+}
+
+.form-check {
+    font-weight: bold;
+
+}
+
+/* */
+
+
+#cke_notifications_area_id_content {
+    display: none !important;
+}

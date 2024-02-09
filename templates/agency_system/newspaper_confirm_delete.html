@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+  <title>News Delete Confirmation</title>
+{% endblock %}
+{% block content %}
+  <div class="container-fluid mt-5 d-flex flex-column justify-content-center align-items-center vh-100">
+    <h1 style="color: goldenrod">Delete Article "{{ newspaper.title }}"</h1>
+    <p><strong>Are you sure you want to delete this article ?</strong></p>
+    <form action="" method="post">
+      {% csrf_token %}
+      <input type="submit" value="Yes, delete" class="btn btn-success btn_confirm"/>
+      <a href="{% url 'agency_system:newspaper-detail' pk=newspaper.id %}" class="btn btn-primary btn_confirm">Cancel</a>
+    </form>
+  </div>
+
+{% endblock %}
+{% block footer %}
+{% endblock %}
