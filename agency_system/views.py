@@ -15,7 +15,7 @@ from .forms import (RedactorCreationForm,
                     ReplyCommentForm,
                     TopicSearchForm,
                     RedactorSearchForm,
-                    NewspaperSearchForm
+                    NewspaperSearchForm, NewsForm, EditNewsForm
                     )
 from .models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
@@ -178,14 +178,14 @@ class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
 
 class NewspaperCreateView(LoginRequiredMixin, generic.CreateView):
     model = Newspaper
-    fields = "__all__"
+    form_class = NewsForm
     success_url = reverse_lazy("agency_system:newspaper-list")
     template_name = "agency_system/newspaper_form.html"
 
 
 class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Newspaper
-    fields = "__all__"
+    form_class = EditNewsForm
     template_name = "agency_system/newspaper_update.html"
 
     def get_success_url(self):

@@ -24,15 +24,16 @@ class Redactor(AbstractUser):
         ordering = ["first_name"]
 
     def __str__(self):
-        return f"{self.username} ({self.first_name} {self.last_name})"
+        return f"{self.first_name} {self.last_name}"
 
 
 class Newspaper(models.Model):
     title = models.CharField(max_length=255)
     content = RichTextField(blank=True, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
-    topic = models.ForeignKey(
-        Topic, on_delete=models.CASCADE, related_name="newspapers"
+    topic = models.ManyToManyField(
+        Topic, related_name="newspapers",
+        verbose_name="Select topic/topics"
     )
     publishers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="published_newspapers"

@@ -3,7 +3,6 @@
 {% block navbar %}
 {% endblock %}
 {% block content %}
-  {% for publisher in newspaper.publishers.all %}
     {% if user.id == publisher.id or user.is_superuser %}
       <section class="vh-100  bg-image"
                style="background-image: url('https://s3-us-west-1.amazonaws.com/faithnetworkuserfilestore/FAITHNETWORK_USERFILESTORE/FAITHNETWORK_USERFILESTORE/imagelibraries/ministries/95ce76eb-3371-4b95-aefd-876cd8baa69c/2022%20Sermons/Black%20Modern%20Minimalist%20Ripped%20Paper%20Aesthetic%20Album%20Cover-2.png');">
@@ -42,7 +41,6 @@
         <a href="{% url 'agency_system:newspaper-list' %}" class="btn btn-primary mt-2">Go Back</a>
       </div>
     {% endif %}
-  {% endfor %}
 {% endblock %}
 {% block footer %}
 {% endblock %}

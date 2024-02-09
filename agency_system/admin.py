@@ -6,9 +6,12 @@ from .models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
 @admin.register(Newspaper)
 class NewspaperAdmin(admin.ModelAdmin):
-    list_display = ["title", "topic"]
+    list_display = ["title", "display_topics"]
     list_filter = ["title"]
     search_fields = ["title"]
+
+    def display_topics(self, obj):
+        return ", ".join([topic.name for topic in obj.topic.all()])
 
 
 @admin.register(Redactor)

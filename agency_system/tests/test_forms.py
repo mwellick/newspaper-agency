@@ -23,11 +23,11 @@ class FormTest(TestCase):
         )
         self.news = Newspaper.objects.create(
             title="Qwerty",
-            topic=self.topic,
             content="test_content",
             published_date="Jan. 9, 2024, 12:02 p.m.",
             news_images=""
         )
+        self.news.topic.add(self.topic)
         self.comment = Comment.objects.create(author=self.user, body="test comment", post_comment=self.news)
         self.reply_user = get_user_model().objects.create_user(
             username="test2",

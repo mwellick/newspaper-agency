@@ -26,8 +26,8 @@ class ModelTests(TestCase):
         )
         news = Newspaper.objects.create(
             title="test2",
-            topic=topic
         )
+        news.topic.set([topic])
         self.assertEquals(str(news), f"{news.title}")
 
     def test_comment_and_test_reply_comment_str(self):
@@ -42,7 +42,6 @@ class ModelTests(TestCase):
         )
         news_comment = Newspaper.objects.create(
             title="test2",
-            topic=topic
         )
         comment = Comment.objects.create(
             post_comment=news_comment,
@@ -54,6 +53,7 @@ class ModelTests(TestCase):
             reply_author=redactor,
             reply_body="qwerty",
         )
+        news_comment.topic.set([topic])
         self.assertEquals(str(comment),
                           f"{redactor} left a comment under '{news_comment.title}' article: '{comment.body}'")
 

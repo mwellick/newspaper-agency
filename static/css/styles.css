@@ -275,6 +275,7 @@ p {
     font-size: 18px;
     margin-bottom: 7px;
 }
+
 .primary-btn {
     border-radius: 20px;
     background-color: dodgerblue;
@@ -364,4 +365,21 @@ p {
     display: flex;
     align-items: center;
     background: transparent;
+}
+
+/* styles for create/edit news form */
+.requiredField {
+    font-weight: bold;
+}
+
+.form-check {
+    font-weight: bold;
+
+}
+
+/* */
+
+
+#cke_notifications_area_id_content {
+    display: none !important;
 }

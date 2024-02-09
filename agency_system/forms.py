@@ -1,6 +1,7 @@
 from string import ascii_letters
 
 from django import forms
+
 from django.contrib.auth.forms import (UserCreationForm,
                                        UserChangeForm,
                                        PasswordChangeForm,
@@ -8,7 +9,7 @@ from django.contrib.auth.forms import (UserCreationForm,
                                        SetPasswordForm,
                                        )
 
-from agency_system.models import Redactor, Comment, ReplyComment
+from agency_system.models import Redactor, Topic, Comment, ReplyComment, Newspaper
 
 
 class RedactorCreationForm(UserCreationForm):
@@ -58,6 +59,31 @@ class RedactorEditForm(UserChangeForm):
         if not last_name.isalpha():
             raise forms.ValidationError("Last name can contain only letters")
         return last_name
+
+
+class NewsForm(forms.ModelForm):
+    topic = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
+                                           widget=forms.CheckboxSelectMultiple,
+                                           )
+    publishers = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
+                                                widget=forms.CheckboxSelectMultiple,
+                                                )
+    class Meta:
+        model = Newspaper
+        fields = "__all__"
+
+
+class EditNewsForm(forms.ModelForm):
+    topic = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
+                                           widget=forms.CheckboxSelectMultiple,
+                                           )
+    publishers = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
+                                                widget=forms.CheckboxSelectMultiple,
+                                                )
+
+    class Meta:
+        model = Newspaper
+        fields = "__all__"
 
 
 class PasswordChangingForm(PasswordChangeForm):

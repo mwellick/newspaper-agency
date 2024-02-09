@@ -245,8 +245,8 @@ class PublicNewspaperTest(TestCase):
         )
         self.newspaper = Newspaper.objects.create(
             title="test_news",
-            topic=self.topic,
         )
+        self.newspaper.topic.add(self.topic)
 
     def test_login_required_newspaper_list(self):
         url = NEWSPAPER_LIST_URL
@@ -287,9 +287,9 @@ class PrivateNewspaperTest(TestCase):
         )
         self.newspaper = Newspaper.objects.create(
             title="test_news",
-            topic=self.topic,
             content="qwerty",
         )
+        self.newspaper.topic.add(self.topic)
         self.newspaper.publishers.add(self.user)
 
     def test_newspaper_retrieve_list(self):
@@ -307,8 +307,8 @@ class PrivateNewspaperTest(TestCase):
 
     def test_newspaper_create_access(self):
         res = self.client.get(NEWSPAPER_CREATE_URL)
-        self.assertEqual(res.status_code,200)
-        self.assertTemplateUsed(res,"agency_system/newspaper_form.html")
+        self.assertEqual(res.status_code, 200)
+        self.assertTemplateUsed(res, "agency_system/newspaper_form.html")
 
     def test_newspaper_update_access(self):
         res = self.client.get(reverse(NEWSPAPER_UPDATE_URL, kwargs={"pk": self.newspaper.id}))
@@ -342,12 +342,12 @@ class PublicCommentAndRepliesTest(TestCase):
         )
         self.news = Newspaper.objects.create(
             title="test_news",
-            topic=self.topic
         )
         self.comment = Comment.objects.create(
             post_comment=self.news,
             author=self.user
         )
+        self.news.topic.add(self.topic)
 
     def test_login_required_create_comment(self):
         url = COMMENT_CREATE_URL
@@ -384,7 +384,6 @@ class PrivateCommentAndReplyTest(TestCase):
         )
         self.news = Newspaper.objects.create(
             title="test_news",
-            topic=self.topic
         )
         self.news.publishers.add(self.user)
         self.comment = Comment.objects.create(
@@ -397,6 +396,7 @@ class PrivateCommentAndReplyTest(TestCase):
             reply_author=self.comment.author,
             reply_body="qwertyuiop",
         )
+        self.news.topic.add(self.topic)
 
     def test_comment_update_access(self):
         res = self.client.get(reverse(COMMENT_UPDATE_URL, kwargs={"pk": self.comment.id}))
