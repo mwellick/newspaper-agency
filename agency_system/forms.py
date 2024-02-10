@@ -65,7 +65,7 @@ class NewsForm(forms.ModelForm):
     topic = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
                                            widget=forms.CheckboxSelectMultiple,
                                            )
-    publishers = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
+    publishers = forms.ModelMultipleChoiceField(queryset=Redactor.objects.all(),
                                                 widget=forms.CheckboxSelectMultiple,
                                                 )
     class Meta:
@@ -77,7 +77,7 @@ class EditNewsForm(forms.ModelForm):
     topic = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
                                            widget=forms.CheckboxSelectMultiple,
                                            )
-    publishers = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
+    publishers = forms.ModelMultipleChoiceField(queryset=Redactor.objects.all(),
                                                 widget=forms.CheckboxSelectMultiple,
                                                 )
 

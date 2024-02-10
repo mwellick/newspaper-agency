@@ -17,7 +17,7 @@ class ModelTests(TestCase):
         )
         self.assertEquals(
             str(redactor),
-            f"{redactor.username} ({redactor.first_name} {redactor.last_name})"
+            f"{redactor.first_name} {redactor.last_name}"
         )
 
     def test_newspaper_str(self):
