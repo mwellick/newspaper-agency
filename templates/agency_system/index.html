@@ -20,9 +20,11 @@
         <li data-target="#myCarousel" data-slide-to="5"></li>
       </ol>
       <div class="carousel-inner">
-        {% for topic in nature_topics %}
-          <div class="carousel-item active">
-            <img src="{% static 'images/nature_carousel_img.jpg' %}" alt="Nature">
+        {% for topic in top_topics %}
+          <div class="carousel-item {% if forloop.first %}active{% endif %}">
+            {% if topic.topic_images %}
+              <img src="{{ topic.topic_images.url }}" alt="{{ topic.name }}">
+            {% endif %}
             <div class="container">
               <div class="carousel-caption text-left">
                 <h1>{{ topic.name }}</h1>
@@ -32,74 +34,7 @@
               </div>
             </div>
           </div>
-
-
-          <div class="carousel-item">
-
-            <img src="{% static 'images/sport_carousel_img.jpg' %}" alt="Sport">
-            <div class="container">
-              <div class="carousel-caption text-left">
-                <h1>Sport</h1>
-                <br>
-                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
-                      role="button">Browse it</a></p>
-              </div>
-            </div>
-
-          </div>
-          <div class="carousel-item">
-
-            <img src="{% static 'images/travel_carousel_img.jpg' %}" alt="Travel">
-            <div class="container">
-              <div class="carousel-caption text-left">
-                <h1>Travel</h1>
-                <br>
-                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
-                      role="button">Browse it</a></p>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="carousel-item">
-
-            <img src="{% static 'images/video_games_carousel_img.png' %}" alt="Video Games">
-            <div class="container">
-              <div class="carousel-caption text-left">
-                <h1>Video Games</h1>
-                <br>
-                <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
-                      role="button">Browse it</a></p>
-              </div>
-            </div>
-
-          </div>
-          <div class="carousel-item">
-            {% for topic in business_topics %}
-              <img src="{% static 'images/business_carousel_img.jpg' %}" alt="Business">
-              <div class="container">
-                <div class="carousel-caption text-left">
-                  <h1>Business</h1>
-                  <br>
-                  <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
-                        role="button">Browse it</a></p>
-                </div>
-              </div>
-            {% endfor %}
-          </div>
-          <div class="carousel-item">
-
-          <img src="{% static 'images/movies_carousel_img.jpeg' %}" alt="Movies">
-          <div class="container">
-            <div class="carousel-caption text-left">
-              <h1>Movies</h1>
-              <br>
-              <p><a class="btn btn-lg btn-primary" href="{% url 'agency_system:topic-detail' pk=topic.id %}"
-                    role="button">Browse it</a></p>
-            </div>
-          </div>
         {% endfor %}
-        </div>
       </div>
       <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
