@@ -17,7 +17,7 @@ class ModelTests(TestCase):
         )
         self.assertEquals(
             str(redactor),
-            f"{redactor.username} ({redactor.first_name} {redactor.last_name})"
+            f"{redactor.first_name} {redactor.last_name}"
         )
 
     def test_newspaper_str(self):
@@ -28,7 +28,7 @@ class ModelTests(TestCase):
             title="test2",
         )
         news.topic.set([topic])
-        self.assertEquals(str(news), f"{news.title}")
+        self.assertEquals(str(news), news.title)
 
     def test_comment_and_test_reply_comment_str(self):
         topic = Topic.objects.create(
