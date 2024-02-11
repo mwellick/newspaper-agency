@@ -6,6 +6,7 @@ from ckeditor.fields import RichTextField
 
 class Topic(models.Model):
     name = models.CharField(max_length=255)
+    topic_images = models.ImageField(null=True, blank=True, upload_to="popular_topics_images/")
 
     class Meta:
         ordering = ["name"]
