@@ -9,7 +9,8 @@
     <form action="" method="post">
       {% csrf_token %}
       <input type="submit" value="Yes, delete" class="btn btn-success btn_confirm"/>
-      <a href="{% url 'agency_system:newspaper-detail' pk=newspaper.id %}" class="btn btn-primary btn_confirm">Cancel</a>
+      <a href="{% url 'agency_system:newspaper-detail' pk=newspaper.id %}"
+         class="btn btn-primary btn_confirm">Cancel</a>
     </form>
   </div>
 
