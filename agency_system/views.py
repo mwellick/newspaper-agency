@@ -15,7 +15,9 @@ from .forms import (RedactorCreationForm,
                     ReplyCommentForm,
                     TopicSearchForm,
                     RedactorSearchForm,
-                    NewspaperSearchForm, NewsForm, EditNewsForm
+                    NewspaperSearchForm,
+                    NewsForm,
+                    EditNewsForm
                     )
 from .models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
@@ -57,6 +59,7 @@ class NavigationBarUSerInfo(TemplateView):
         context = super().get_context_data(**kwargs)
         context["user"] = Redactor.objects.all()
         return context
+
 
 class TopicListView(LoginRequiredMixin, generic.ListView):
     model = Topic
