@@ -51,4 +51,4 @@ Feel free to use this test account to explore the functionality of the Newspaper
 
 **Note:** It's recommended to change the password for this test user when deploying the application in a production environment.
 
-![Website Interface](C:\Users\Gigabyte\django_course\newspaper_agency\demo.png)
+![Website Interface](demo.png)
