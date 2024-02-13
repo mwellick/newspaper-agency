@@ -47,7 +47,7 @@ For testing and demonstration purposes, you can use the following test user acco
 - **Username:** testuser
 - **Password:** TestPassword123
 
-Feel free to use this test account to explore the functionality of the Newspaper Agency1.
+Feel free to use this test account to explore the functionality of the Newspaper Agency.
 
 **Note:** It's recommended to change the password for this test user when deploying the application in a production environment.
 

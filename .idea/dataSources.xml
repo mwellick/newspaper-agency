@@ -8,5 +8,12 @@
       <jdbc-url>jdbc:sqlite:db.sqlite3</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="Newspaper Agency Production DB" uuid="a5d0cc86-3c06-41e3-a30b-550b943a5763">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://mouse.db.elephantsql.com:5432/eryqlaqh</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
