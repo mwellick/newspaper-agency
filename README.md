@@ -51,7 +51,7 @@ accessible for use and development
 
 ### Check it out!
 
-[Newspaper Agency project deployed to Render](newspaper-agency-amk5.onrender.com)
+[Newspaper Agency project deployed to Render](https://newspaper-agency-amk5.onrender.com)
 
 ### Test User Account
 

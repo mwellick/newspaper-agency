@@ -27,7 +27,7 @@ DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-ALLOWED_HOSTS = ["127.0.0.1","newspaper-agency-amk5.onrender.com"]
+ALLOWED_HOSTS = ["127.0.0.1", "newspaper-agency-amk5.onrender.com"]
 
 # Application definition
 

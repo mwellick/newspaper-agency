@@ -22,7 +22,7 @@
                 {{ form|crispy }}
                 <div class="d-flex justify-content-center">
                   <button type="submit"
-                          class="btn btn-success btn-block btn-lg gradient-custom-4 ">Create
+                          class="btn btn-success btn-block btn-lg gradient-custom-4 ">{{ object|yesno:"Update,Create" }}
                   </button>
                 </div>
                 <br>
