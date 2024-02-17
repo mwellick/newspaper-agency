@@ -53,9 +53,7 @@
           {% if comment.author.profile_images.url and comment.author and comment.author.profile_images %}
             <img src="{{ comment.author.profile_images.url }}" class="card-img img-thumbnail" alt="...">
           {% else %}
-            {% with redactor.profile_images|default:"/media/default_image/blank-profile-picture.jpg/" as avatar_url %}
-              <img class="card-img img-thumbnail" src="{{ avatar_url }}">
-            {% endwith %}
+              <img class="card-img img-thumbnail" src="{% static 'images/default_image/blank-profile-picture.jpg' %}">
           {% endif %}
         </div>
         <div class="col-md-10" style="margin-right: 55px">
