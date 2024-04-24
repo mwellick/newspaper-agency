@@ -68,6 +68,7 @@ class NewsForm(forms.ModelForm):
     publishers = forms.ModelMultipleChoiceField(queryset=Redactor.objects.all(),
                                                 widget=forms.CheckboxSelectMultiple,
                                                 )
+
     class Meta:
         model = Newspaper
         fields = "__all__"
