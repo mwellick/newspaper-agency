@@ -65,4 +65,18 @@ Feel free to use this test account to explore the functionality of the Newspaper
 **Note:** It's recommended to change the password for this test user when deploying the application in a production
 environment.
 
-![Website Interface](demo.png)
+
+![Website Interface](demo_login.png)
+![Website Interface](demo_register.png)
+![Website Interface](demo_carousel.png)
+![Website Interface](demo_main_page1.png)
+![Website Interface](demo_main_page2.png)
+![Website Interface](demo_main_page3.png)
+![Website Interface](demo_main_page4.png)
+![Website Interface](demo_article.png)
+![Website Interface](demo_article2.png)
+![Website Interface](demo_comment_detail.png)
+![Website Interface](demo_topic_list.png)
+![Website Interface](demo_news_list.png)
+![Website Interface](demo_redactor_list.png)
+![Website Interface](demo_user_profile.png)
