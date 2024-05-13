@@ -27,7 +27,7 @@ DEBUG = "RENDER" not in os.environ
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-ALLOWED_HOSTS = ["127.0.0.1","https://newspaper-agency-e2et.onrender.com/"]
+ALLOWED_HOSTS = ["127.0.0.1", "https://newspaper-agency-e2et.onrender.com/"]
 
 # Application definition
 
