@@ -23,11 +23,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ["DJANGO_SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = "RENDER" not in os.environ
+DEBUG = os.environ.get("DJANGO_DEBUG", "") != "False"
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
-ALLOWED_HOSTS = ["127.0.0.1", "https://newspaper-agency-e2et.onrender.com/"]
+ALLOWED_HOSTS = ["127.0.0.1", "newspaper-agency-9guh.onrender.com"]
 
 # Application definition
 
@@ -148,3 +148,13 @@ INTERNAL_IPS = [
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
+
+AWS_ACCESS_KEY_ID = "AKIAXYKJW4IDAD432WP7"
+AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
+AWS_STORAGE_BUCKET_NAME = 'goodnewsagency'
+AWS_S3_SIGNATURE_NAME = "s3v4",
+AWS_S3_REGION_NAME = "eu-north-1"
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+AWS_S3_VERITY = True
+DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
