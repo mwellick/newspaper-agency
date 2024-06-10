@@ -16,7 +16,7 @@ django-storages==1.14.2
 environ==1.0
 flake8==7.0.0
 flake8-annotations==2.9.1
-flake8-quotes==3.3.1
+flake8-quotes==3.4.0
 flake8-variables-names==0.0.5
 gunicorn==21.2.0
 iniconfig==2.0.0
