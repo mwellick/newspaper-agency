@@ -34,6 +34,7 @@ accessible for use and development
 
 - **User Account Management:**
     - Users can create and manage their accounts, providing personal details and preferences.
+    - Users can reset their passwords if it's forgotten (only through the terminal), or change their existing one and customize their profile page.
 - **Topic Management:**
     - Users can add new topics for news articles but admins can edit and delete them if it's necessary.
 - **News Article Creation and Management:**
