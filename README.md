@@ -63,7 +63,7 @@ For testing and demonstration purposes, you can use the following test user acco
 
 Feel free to use this test account to explore the functionality of the Newspaper Agency.
 
-
+![Website Diagram](newspaper_agency_diagram.png)
 ![Website Interface](demo_login.png)
 ![Website Interface](demo_register.png)
 ![Website Interface](demo_carousel.png)
@@ -78,3 +78,7 @@ Feel free to use this test account to explore the functionality of the Newspaper
 ![Website Interface](demo_news_list.png)
 ![Website Interface](demo_redactor_list.png)
 ![Website Interface](demo_user_profile.png)
+
+
+## Copyright
+Copyright (c) 2024 Michael Korotia
