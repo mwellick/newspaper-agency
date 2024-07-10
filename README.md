@@ -62,8 +62,9 @@ For testing and demonstration purposes, you can use the following test user acco
 - **Password:** TestPassword123
 
 Feel free to use this test account to explore the functionality of the Newspaper Agency.
-
+## DB Structure
 ![Website Diagram](newspaper_agency_diagram.png)
+## Project pages
 ![Website Interface](demo_login.png)
 ![Website Interface](demo_register.png)
 ![Website Interface](demo_carousel.png)
