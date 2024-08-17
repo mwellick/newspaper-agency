@@ -17,7 +17,7 @@ Python3 must be already installed.
 
 ```shell
 git clone https://github.com/mwellick/newspaper_agency 
-cd newspaper_agency
+cd newspaper-agency
 python3 -m venv venv
 source venv/Scripts/activate
 pip install -r requirements.txt
