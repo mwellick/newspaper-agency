@@ -1,4 +1,8 @@
-from django.contrib.auth.views import PasswordChangeView, PasswordResetView, PasswordResetConfirmView
+from django.contrib.auth.views import (
+    PasswordChangeView,
+    PasswordResetView,
+    PasswordResetConfirmView,
+)
 from django.urls import reverse_lazy
 from django.views import generic
 from django.http import HttpRequest, HttpResponse
@@ -6,19 +10,20 @@ from django.shortcuts import render
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
-from .forms import (RedactorCreationForm,
-                    RedactorEditForm,
-                    PasswordChangingForm,
-                    PasswordResettingForm,
-                    PasswordResettingFormConfirm,
-                    CommentForm,
-                    ReplyCommentForm,
-                    TopicSearchForm,
-                    RedactorSearchForm,
-                    NewspaperSearchForm,
-                    NewsForm,
-                    EditNewsForm
-                    )
+from .forms import (
+    RedactorCreationForm,
+    RedactorEditForm,
+    PasswordChangingForm,
+    PasswordResettingForm,
+    PasswordResettingFormConfirm,
+    CommentForm,
+    ReplyCommentForm,
+    TopicSearchForm,
+    RedactorSearchForm,
+    NewspaperSearchForm,
+    NewsForm,
+    EditNewsForm,
+)
 from .models import Topic, Redactor, Newspaper, Comment, ReplyComment
 
 
@@ -46,7 +51,6 @@ def index(request: HttpRequest) -> HttpResponse:
         "video_games_topics": video_games_topics,
         "business_topics": business_topics,
         "movies_topics": movies_topics,
-
     }
     return render(request, "agency_system/index.html", context=context)
 
@@ -69,9 +73,7 @@ class TopicListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(TopicListView, self).get_context_data(**kwargs)
         topic_name = self.request.GET.get("name", "")
-        context["search_form"] = TopicSearchForm(
-            initial={"name": topic_name}
-        )
+        context["search_form"] = TopicSearchForm(initial={"name": topic_name})
         return context
 
     def get_queryset(self):
@@ -115,9 +117,7 @@ class RedactorListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(RedactorListView, self).get_context_data(**kwargs)
         username = self.request.GET.get("username", "")
-        context["search_form"] = RedactorSearchForm(
-            initial={"username": username}
-        )
+        context["search_form"] = RedactorSearchForm(initial={"username": username})
         return context
 
     def get_queryset(self):
@@ -147,11 +147,15 @@ class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["return_url"] = reverse_lazy("agency_system:redactor-detail", kwargs={"pk": self.kwargs["pk"]})
+        context["return_url"] = reverse_lazy(
+            "agency_system:redactor-detail", kwargs={"pk": self.kwargs["pk"]}
+        )
         return context
 
     def get_success_url(self):
-        return reverse_lazy("agency_system:redactor-detail", kwargs={"pk": self.object.pk})
+        return reverse_lazy(
+            "agency_system:redactor-detail", kwargs={"pk": self.object.pk}
+        )
 
 
 class RedactorDeleteView(generic.DeleteView):
@@ -167,9 +171,7 @@ class NewspaperListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(NewspaperListView, self).get_context_data(**kwargs)
         news_title = self.request.GET.get("title", "")
-        context["search_form"] = NewspaperSearchForm(
-            initial={"title": news_title}
-        )
+        context["search_form"] = NewspaperSearchForm(initial={"title": news_title})
         return context
 
     def get_queryset(self):
@@ -216,7 +218,7 @@ class NewspaperDeleteView(LoginRequiredMixin, generic.DeleteView):
 
 
 class RegistrationSuccessView(TemplateView):
-    template_name = 'registration/registration_success.html'
+    template_name = "registration/registration_success.html"
 
 
 class PasswordsChangingView(PasswordChangeView):
@@ -227,7 +229,9 @@ class PasswordsChangingView(PasswordChangeView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["return_url"] = reverse_lazy("agency_system:redactor-detail", kwargs={"pk": self.kwargs["pk"]})
+        context["return_url"] = reverse_lazy(
+            "agency_system:redactor-detail", kwargs={"pk": self.kwargs["pk"]}
+        )
         return context
 
 
@@ -259,7 +263,9 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
     template_name = "agency_system/comment_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]}
+        )
 
     def form_valid(self, form):
         form.instance.post_comment = Newspaper.objects.get(pk=self.kwargs["pk"])
@@ -268,7 +274,9 @@ class AddCommentView(LoginRequiredMixin, generic.CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["return_url"] = reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]})
+        context["return_url"] = reverse_lazy(
+            "agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]}
+        )
         return context
 
 
@@ -279,11 +287,15 @@ class CommentUpdateView(LoginRequiredMixin, generic.UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        context["return_url"] = reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": self.kwargs["pk"]})
+        context["return_url"] = reverse_lazy(
+            "agency_system:comment-and-replies", kwargs={"pk": self.kwargs["pk"]}
+        )
         return context
 
     def get_success_url(self):
-        return reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "agency_system:comment-and-replies", kwargs={"pk": self.kwargs["pk"]}
+        )
 
 
 class CommentDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -294,7 +306,9 @@ class CommentDeleteView(LoginRequiredMixin, generic.DeleteView):
     def get_success_url(self):
         deleted_comment_id = self.kwargs["pk"]
         newspaper_id = Comment.objects.get(id=deleted_comment_id).post_comment.id
-        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": newspaper_id})
+        return reverse_lazy(
+            "agency_system:newspaper-detail", kwargs={"pk": newspaper_id}
+        )
 
 
 class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
@@ -303,7 +317,9 @@ class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
     template_name = "agency_system/comment_reply_form.html"
 
     def get_success_url(self):
-        return reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]})
+        return reverse_lazy(
+            "agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]}
+        )
 
     def get_authors_username(self):
         comment_id = self.kwargs.get("comment_id")
@@ -314,7 +330,9 @@ class ReplyCommentView(LoginRequiredMixin, generic.CreateView):
         context = super().get_context_data(**kwargs)
         context["authors_username"] = self.get_authors_username()
         context["news_list"] = Newspaper.objects.all()
-        context["return_url"] = reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]})
+        context["return_url"] = reverse_lazy(
+            "agency_system:newspaper-detail", kwargs={"pk": self.kwargs["pk"]}
+        )
         return context
 
     def form_valid(self, form):
@@ -336,7 +354,9 @@ class CommentAndRepliesView(LoginRequiredMixin, generic.DetailView):
         context = {
             "comment": comment,
             "replies": replies,
-            "return_url": reverse_lazy("agency_system:newspaper-detail", kwargs={"pk": comment.post_comment.id})
+            "return_url": reverse_lazy(
+                "agency_system:newspaper-detail", kwargs={"pk": comment.post_comment.id}
+            ),
         }
 
         return render(request, self.template_name, context)
@@ -352,15 +372,21 @@ class ReplyUpdateView(LoginRequiredMixin, generic.UpdateView):
         updated_reply_id = self.kwargs["pk"]
         reply_comment = ReplyComment.objects.get(id=updated_reply_id)
         comment_id = reply_comment.comment_author.id
-        context["return_url"] = reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": comment_id})
-        context["reply_author_id"] = reply_comment.reply_author.id if reply_comment.reply_author else None
+        context["return_url"] = reverse_lazy(
+            "agency_system:comment-and-replies", kwargs={"pk": comment_id}
+        )
+        context["reply_author_id"] = (
+            reply_comment.reply_author.id if reply_comment.reply_author else None
+        )
         return context
 
     def get_success_url(self):
         updated_reply_id = self.kwargs["pk"]
         reply_comment = ReplyComment.objects.get(id=updated_reply_id)
         comment_id = reply_comment.comment_author.id
-        return reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": comment_id})
+        return reverse_lazy(
+            "agency_system:comment-and-replies", kwargs={"pk": comment_id}
+        )
 
 
 class ReplyDeleteView(LoginRequiredMixin, generic.DeleteView):
@@ -371,4 +397,6 @@ class ReplyDeleteView(LoginRequiredMixin, generic.DeleteView):
         deleted_reply_id = self.kwargs["pk"]
         reply_comment = ReplyComment.objects.get(id=deleted_reply_id)
         comment_id = reply_comment.comment_author.id
-        return reverse_lazy("agency_system:comment-and-replies", kwargs={"pk": comment_id})
+        return reverse_lazy(
+            "agency_system:comment-and-replies", kwargs={"pk": comment_id}
+        )

@@ -1,21 +1,25 @@
-from string import ascii_letters
-
 from django import forms
 
-from django.contrib.auth.forms import (UserCreationForm,
-                                       UserChangeForm,
-                                       PasswordChangeForm,
-                                       PasswordResetForm,
-                                       SetPasswordForm,
-                                       )
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    UserChangeForm,
+    PasswordChangeForm,
+    PasswordResetForm,
+    SetPasswordForm,
+)
 
-from agency_system.models import Redactor, Topic, Comment, ReplyComment, Newspaper
+from .models import Redactor, Topic, Comment, ReplyComment, Newspaper
 
 
 class RedactorCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Redactor
-        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "years_of_experience",)
+        fields = UserCreationForm.Meta.fields + (
+            "first_name",
+            "last_name",
+            "email",
+            "years_of_experience",
+        )
 
     def __init__(self, *args, **kwargs):
         super(RedactorCreationForm, self).__init__(*args, **kwargs)
@@ -39,7 +43,13 @@ class RedactorEditForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = Redactor
         fields = UserCreationForm.Meta.fields + (
-            "profile_images", "first_name", "last_name", "bio", "email", "years_of_experience",)
+            "profile_images",
+            "first_name",
+            "last_name",
+            "bio",
+            "email",
+            "years_of_experience",
+        )
 
     def __init__(self, *args, **kwargs):
         super(RedactorEditForm, self).__init__(*args, **kwargs)
@@ -62,12 +72,14 @@ class RedactorEditForm(UserChangeForm):
 
 
 class NewsForm(forms.ModelForm):
-    topic = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
-                                           widget=forms.CheckboxSelectMultiple,
-                                           )
-    publishers = forms.ModelMultipleChoiceField(queryset=Redactor.objects.all(),
-                                                widget=forms.CheckboxSelectMultiple,
-                                                )
+    topic = forms.ModelMultipleChoiceField(
+        queryset=Topic.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+    publishers = forms.ModelMultipleChoiceField(
+        queryset=Redactor.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
 
     class Meta:
         model = Newspaper
@@ -75,12 +87,14 @@ class NewsForm(forms.ModelForm):
 
 
 class EditNewsForm(forms.ModelForm):
-    topic = forms.ModelMultipleChoiceField(queryset=Topic.objects.all(),
-                                           widget=forms.CheckboxSelectMultiple,
-                                           )
-    publishers = forms.ModelMultipleChoiceField(queryset=Redactor.objects.all(),
-                                                widget=forms.CheckboxSelectMultiple,
-                                                )
+    topic = forms.ModelMultipleChoiceField(
+        queryset=Topic.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
+    publishers = forms.ModelMultipleChoiceField(
+        queryset=Redactor.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+    )
 
     class Meta:
         model = Newspaper
@@ -90,7 +104,11 @@ class EditNewsForm(forms.ModelForm):
 class PasswordChangingForm(PasswordChangeForm):
     class Meta(PasswordChangeForm):
         model = Redactor
-        fields = UserCreationForm.Meta.fields + ("old_password", "new_password1", "new_password2",)
+        fields = UserCreationForm.Meta.fields + (
+            "old_password",
+            "new_password1",
+            "new_password2",
+        )
 
 
 class PasswordResettingForm(PasswordResetForm):
@@ -101,7 +119,11 @@ class PasswordResettingForm(PasswordResetForm):
 class PasswordResettingFormConfirm(SetPasswordForm):
     class Meta(SetPasswordForm):
         model = Redactor
-        fields = UserCreationForm.Meta.fields + ("email", "new_password", "new_password2",)
+        fields = UserCreationForm.Meta.fields + (
+            "email",
+            "new_password",
+            "new_password2",
+        )
 
 
 class CommentForm(forms.ModelForm):
@@ -117,21 +139,27 @@ class ReplyCommentForm(forms.ModelForm):
 
 
 class TopicSearchForm(forms.Form):
-    name = forms.CharField(max_length=30, required=False,
-                           label="",
-                           widget=forms.TextInput(attrs={"placeholder": "Search by topic name"})
-                           )
+    name = forms.CharField(
+        max_length=30,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search by topic name"}),
+    )
 
 
 class RedactorSearchForm(forms.Form):
-    username = forms.CharField(max_length=30,
-                               required=False,
-                               label="",
-                               widget=forms.TextInput(attrs={"placeholder": "Search by username"}))
+    username = forms.CharField(
+        max_length=30,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search by username"}),
+    )
 
 
 class NewspaperSearchForm(forms.Form):
-    title = forms.CharField(max_length=64,
-                            required=False,
-                            label="",
-                            widget=forms.TextInput(attrs={"placeholder": "Search news by title"}))
+    title = forms.CharField(
+        max_length=64,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "Search news by title"}),
+    )

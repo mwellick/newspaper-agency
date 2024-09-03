@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <head>
   {% block title %}
-    <title>Home page</title>
+  <title>Home page</title>
   {% endblock %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +15,7 @@
 </head>
 <body>
 {% block navbar %}
-  {% include 'includes/navigation_bar.html' %}
+{% include 'includes/navigation_bar.html' %}
 {% endblock %}
 
 
@@ -31,11 +32,21 @@
   </div>
 </div>
 {% block pagination %}
-  {% include 'includes/pagination.html' %}
+{% include 'includes/pagination.html' %}
 {% endblock %}
 
 {% block footer %}
-  {% include 'includes/footer.html' %}
+{% include 'includes/footer.html' %}
 {% endblock %}
 </body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script>
+    window.jQuery || document.write('<script src="{% static "assets/js/vendor/jquery-slim.min.js" %}"><\/script>')
+</script>
+
+<script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
+<script src="{% static 'dist/js/bootstrap.min.js' %}"></script>
+
 </html>
