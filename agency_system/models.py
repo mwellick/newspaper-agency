@@ -6,7 +6,9 @@ from ckeditor.fields import RichTextField
 
 class Topic(models.Model):
     name = models.CharField(max_length=255)
-    topic_images = models.ImageField(null=True, blank=True, upload_to="popular_topics_images/")
+    topic_images = models.ImageField(
+        null=True, blank=True, upload_to="popular_topics_images/"
+    )
 
     class Meta:
         ordering = ["name"]
@@ -17,8 +19,12 @@ class Topic(models.Model):
 
 class Redactor(AbstractUser):
     bio = models.TextField(null=True, blank=True)
-    profile_images = models.ImageField(null=True, blank=True, upload_to="profile_images/",
-                                       verbose_name="Profile Image (600x400)")
+    profile_images = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="profile_images/",
+        verbose_name="Profile Image (600x400)",
+    )
     years_of_experience = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -33,14 +39,17 @@ class Newspaper(models.Model):
     content = RichTextField(blank=True, null=True)
     published_date = models.DateTimeField(auto_now_add=True)
     topic = models.ManyToManyField(
-        Topic, related_name="newspapers",
-        verbose_name="Select topic/topics"
+        Topic, related_name="newspapers", verbose_name="Select topic/topics"
     )
     publishers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="published_newspapers"
     )
-    news_images = models.ImageField(null=True, blank=True, upload_to="news_images/",
-                                    verbose_name="Header Image (800x450)")
+    news_images = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to="news_images/",
+        verbose_name="Header Image (800x450)",
+    )
 
     class Meta:
         ordering = ["-published_date"]
@@ -50,9 +59,15 @@ class Newspaper(models.Model):
 
 
 class Comment(models.Model):
-    post_comment = models.ForeignKey(Newspaper, on_delete=models.CASCADE, related_name="comments")
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comments_author",
-                               null=True)
+    post_comment = models.ForeignKey(
+        Newspaper, on_delete=models.CASCADE, related_name="comments"
+    )
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="comments_author",
+        null=True,
+    )
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
@@ -64,8 +79,14 @@ class Comment(models.Model):
 
 
 class ReplyComment(models.Model):
-    comment_author = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="comment_replies")
-    reply_author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="author_replies")
+    comment_author = models.ForeignKey(
+        Comment, on_delete=models.CASCADE, related_name="comment_replies"
+    )
+    reply_author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="author_replies",
+    )
     reply_body = models.TextField()
     reply_date = models.DateTimeField(auto_now_add=True)
 
@@ -73,5 +94,7 @@ class ReplyComment(models.Model):
         ordering = ["-reply_date"]
 
     def __str__(self):
-        return (f"{self.reply_author} replied on {self.comment_author.author} comment: "
-                f"'{self.reply_body}'")
+        return (
+            f"{self.reply_author} replied on {self.comment_author.author} comment: "
+            f"'{self.reply_body}'"
+        )
