@@ -83,15 +83,19 @@ WSGI_APPLICATION = "newspaper_agency.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+if os.environ.get('DJANGO_ENV') == 'production':
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES = {
+        "default": db_from_env
     }
-}
+else:
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES["default"].update(db_from_env)
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -152,12 +156,12 @@ INTERNAL_IPS = [
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
-AWS_ACCESS_KEY_ID = "AKIAXYKJW4IDAD432WP7"
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID")
 AWS_SECRET_ACCESS_KEY = os.environ.get("S3_SECRET_KEY")
-AWS_STORAGE_BUCKET_NAME = 'goodnewsagency'
-AWS_S3_SIGNATURE_NAME = "s3v4",
-AWS_S3_REGION_NAME = "eu-north-1"
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL = None
-AWS_S3_VERITY = True
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME")
+AWS_S3_SIGNATURE_NAME = os.environ.get("AWS_S3_SIGNATURE_NAME"),
+AWS_S3_REGION_NAME = os.environ.get("AWS_S3_REGION_NAME")
+AWS_S3_FILE_OVERWRITE = os.environ.get("AWS_S3_FILE_OVERWRITE")
+AWS_DEFAULT_ACL = os.environ.get("AWS_DEFAULT_ACL")
+AWS_S3_VERITY = os.environ.get("AWS_S3_VERITY")
+DEFAULT_FILE_STORAGE = os.environ.get("DEFAULT_FILE_STORAGE")
