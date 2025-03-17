@@ -84,9 +84,18 @@ WSGI_APPLICATION = "newspaper_agency.wsgi.application"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 if os.environ.get('DJANGO_ENV') == 'production':
-    db_from_env = dj_database_url.config(conn_max_age=500)
     DATABASES = {
-        "default": db_from_env
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": os.environ["POSTGRES_DB"],
+            "USER": os.environ["POSTGRES_USER"],
+            "PASSWORD": os.environ["POSTGRES_PASSWORD"],
+            "HOST": os.environ["POSTGRES_HOST"],
+            "PORT": int(os.environ["POSTGRES_PORT"]),
+            "OPTIONS": {
+                "sslmode": "require",
+            },
+        }
     }
 else:
 
