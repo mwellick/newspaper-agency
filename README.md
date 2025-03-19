@@ -19,7 +19,8 @@ Python3 must be already installed.
 git clone https://github.com/mwellick/newspaper_agency 
 cd newspaper-agency
 python3 -m venv venv
-source venv/Scripts/activate
+source venv/Scripts/activate #MacOS/Linux
+.\venv\scripts\activate #Windows
 pip install -r requirements.txt
 python manage.py runserver #starts Django Server
 ```
