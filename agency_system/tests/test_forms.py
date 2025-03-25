@@ -1,14 +1,15 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from agency_system.forms import (RedactorCreationForm,
-                                 RedactorEditForm,
-                                 PasswordChangingForm,
-                                 CommentForm,
-                                 ReplyCommentForm,
-                                 TopicSearchForm,
-                                 RedactorSearchForm,
-                                 NewspaperSearchForm)
+from agency_system.forms import (
+    RedactorCreationForm,
+    RedactorEditForm,
+    PasswordChangingForm,
+    CommentForm,
+    ReplyCommentForm,
+    TopicSearchForm,
+    RedactorSearchForm,
+    NewspaperSearchForm)
 from agency_system.models import Comment, Newspaper, Topic
 
 

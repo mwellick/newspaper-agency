@@ -6,7 +6,7 @@ from agency_system.models import Topic, Redactor, Newspaper, Comment, ReplyComme
 class ModelTests(TestCase):
     def test_topic_str(self):
         topic = Topic.objects.create(name="test")
-        self.assertEquals(str(topic), topic.name)
+        self.assertEqual(str(topic), topic.name)
 
     def test_redactor_str(self):
         redactor = get_user_model().objects.create(
@@ -15,7 +15,7 @@ class ModelTests(TestCase):
             first_name="test_first",
             last_name="test_last",
         )
-        self.assertEquals(
+        self.assertEqual(
             str(redactor),
             f"{redactor.first_name} {redactor.last_name}"
         )
@@ -28,7 +28,7 @@ class ModelTests(TestCase):
             title="test2",
         )
         news.topic.set([topic])
-        self.assertEquals(str(news), news.title)
+        self.assertEqual(str(news), news.title)
 
     def test_comment_and_test_reply_comment_str(self):
         topic = Topic.objects.create(
@@ -54,10 +54,10 @@ class ModelTests(TestCase):
             reply_body="qwerty",
         )
         news_comment.topic.set([topic])
-        self.assertEquals(str(comment),
+        self.assertEqual(str(comment),
                           f"{redactor} left a comment under '{news_comment.title}' article: '{comment.body}'")
 
-        self.assertEquals(str(reply_comment), f"{redactor} replied on {comment.author} comment: "
+        self.assertEqual(str(reply_comment), f"{redactor} replied on {comment.author} comment: "
                                               f"'{reply_comment.reply_body}'")
 
     def test_create_redactor(self):
@@ -74,7 +74,7 @@ class ModelTests(TestCase):
             profile_images="",
             years_of_experience=0
         )
-        self.assertEquals(redactor.username, username)
+        self.assertEqual(redactor.username, username)
         self.assertTrue(redactor.check_password(password))
-        self.assertEquals(redactor.first_name, first_name)
-        self.assertEquals(redactor.last_name, last_name)
+        self.assertEqual(redactor.first_name, first_name)
+        self.assertEqual(redactor.last_name, last_name)
