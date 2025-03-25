@@ -187,8 +187,10 @@ class NewspaperDetailView(LoginRequiredMixin, generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        newspaper = self.object
         comments_number = Comment.objects.filter(post_comment=self.object).count()
         context["comments_number"] = comments_number
+        context["publishers"] = newspaper.publishers.all()
         return context
 
 
@@ -203,6 +205,12 @@ class NewspaperUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Newspaper
     form_class = EditNewsForm
     template_name = "agency_system/newspaper_update.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        newspaper = self.get_object()
+        context["is_publisher"] = self.request.user in newspaper.publishers.all()
+        return context
 
     def get_success_url(self):
         updated_news_id = self.kwargs["pk"]

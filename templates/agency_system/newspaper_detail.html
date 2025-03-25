@@ -69,7 +69,7 @@
     </div>
     <div class="text-center">
       <br>
-      {% if user.is_superuser or user.id == publisher.id %}
+      {% if user.is_superuser or user in publishers %}
         <a href="{% url 'agency_system:newspaper-update' pk=newspaper.id %}" class="btn btn-success topic-btn">Edit
           this article</a>
         <a href="{% url 'agency_system:newspaper-delete' pk=newspaper.id %}" class=" btn btn-danger delete-btn"
