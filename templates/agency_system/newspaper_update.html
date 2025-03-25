@@ -7,7 +7,7 @@
 {% block navbar %}
 {% endblock %}
 {% block content %}
-  {% if user.id == publisher.id or user.is_superuser %}
+  {% if is_publisher or user.is_superuser %}
     <section class="bg-image" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden;">
       <img src="{% static 'images/good_news_main_image/good_news_image.jpg' %}" alt="My image"
            style="width: 100%; height: 100%; position: absolute">
